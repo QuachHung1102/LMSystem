@@ -1,16 +1,16 @@
 import homeNavigationSvg from './homeNavigationSvg';
-import mentalNavigationSvg from './mentalNavigationSvg';
-import statisticalNavigationSvg from './statisticalNavigationSvg';
-import mealNavigationSvg from './mealNavigationSvg';
-import workoutNavigationSvg from './workoutNavigationSvg';
-import MealSvg from './mealSvg';
-import WorkoutSvg from './workoutSvg';
+import calendarNavigationSvg from './calendarNavigationSvg';
+import chartNavigationSvg from './chartNavigationSvg';
+import sendNavigationSvg from './sendNavigationSvg';
+import notiNavigationSvg from './notiNavigationSvg';
+import LapTopSvg from './LapTopSvg';
+import UmbrellaSvg from './UmbrellaSvg';
 export {
   homeNavigationSvg,
-  mentalNavigationSvg,
-  statisticalNavigationSvg,
-  mealNavigationSvg,
-  workoutNavigationSvg,
-  MealSvg,
-  WorkoutSvg,
+  calendarNavigationSvg,
+  chartNavigationSvg,
+  sendNavigationSvg,
+  notiNavigationSvg,
+  LapTopSvg,
+  UmbrellaSvg,
 };

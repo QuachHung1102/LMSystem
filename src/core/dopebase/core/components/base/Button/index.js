@@ -24,7 +24,7 @@ const Button = props => {
     { borderRadius: radius ?? theme.button.borderRadius },
     secondary && {
       backgroundColor: theme.colors[appearance].primaryBackground,
-      borderColor: theme.colors[appearance].primaryForeground,
+      borderColor: theme.colors[appearance].sixthBackground,
       borderWidth: 1,
     },
     ...spacingStyles,
@@ -34,7 +34,7 @@ const Button = props => {
 
   const textStyles = [
     styles.DNButtonText,
-    secondary && { color: theme.colors[appearance].primaryForeground },
+    secondary && { color: theme.colors[appearance].sixthBackground },
     textStyle,
   ];
 

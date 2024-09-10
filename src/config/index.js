@@ -3,10 +3,10 @@ import { Platform } from "react-native";
 import { useTranslations } from "../core/dopebase";
 import {
   homeNavigationSvg,
-  mentalNavigationSvg,
-  statisticalNavigationSvg,
-  mealNavigationSvg,
-  workoutNavigationSvg,
+  calendarNavigationSvg,
+  chartNavigationSvg,
+  sendNavigationSvg,
+  notiNavigationSvg,
 } from '../assets/images/svg';
 
 const regexForNames = /^[a-zA-Z]{2,25}$/;
@@ -169,21 +169,21 @@ export const ConfigProvider = ({ children }) => {
           focus: homeNavigationSvg(1),
           unFocus: homeNavigationSvg(0),
         },
-        Meal: {
-          focus: mealNavigationSvg(1),
-          unFocus: mealNavigationSvg(0),
+        Lich: {
+          focus: calendarNavigationSvg(1),
+          unFocus: calendarNavigationSvg(0),
         },
-        WorkOut: {
-          focus: workoutNavigationSvg(1),
-          unFocus: workoutNavigationSvg(0),
+        QuanLy: {
+          focus: chartNavigationSvg(1),
+          unFocus: chartNavigationSvg(0),
         },
-        Mental: {
-          focus: mentalNavigationSvg(1),
-          unFocus: mentalNavigationSvg(0),
+        Send: {
+          focus: sendNavigationSvg(1),
+          unFocus: sendNavigationSvg(0),
         },
-        Statistical: {
-          focus: statisticalNavigationSvg(1),
-          unFocus: statisticalNavigationSvg(0),
+        CaNhan: {
+          focus: notiNavigationSvg(1),
+          unFocus: notiNavigationSvg(0),
         },
         // Add more tabs as needed
       },

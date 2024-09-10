@@ -18,8 +18,7 @@ import { useCurrentUser } from '../../core/onboarding';
 import { useAuth } from '../../core/onboarding/hooks/useAuth';
 import { timeFormat, getUnixTimeStamp, getCurrentDateFormatted } from '../../core/helpers/timeFormat';
 import HeadingBlock from '../../components/HeadingBlock';
-import { WorkoutSvg, MealSvg } from '../../assets/images/svg';
-import ConsumWater from './ConsumWater';
+import { UmbrellaSvg, LapTopSvg } from '../../assets/images/svg';
 
 import menuIcon from '../../assets/icons/menu1x.png';
 import QuanLy from './QuanLy';
@@ -68,13 +67,13 @@ export const HomeScreen = memo(props => {
     }
   }, [currentUser?.id]);
 
-  const onLogout = useCallback(() => {
-    authManager?.logout(currentUser);
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'LoadScreen' }],
-    });
-  }, [authManager, currentUser, navigation]);
+  // const onLogout = useCallback(() => {
+  //   authManager?.logout(currentUser);
+  //   navigation.reset({
+  //     index: 0,
+  //     routes: [{ name: 'LoadScreen' }],
+  //   });
+  // }, [authManager, currentUser, navigation]);
 
   if (isLoading) {
     return (
@@ -94,6 +93,7 @@ export const HomeScreen = memo(props => {
             marginRight={8}
             width={Dimensions.get('window').height * 0.04}
             height={Dimensions.get('window').height * 0.05}
+            onPress={() => navigation.openDrawer()}
           />
           <SearchBar
             showsCancelButton={false}
@@ -123,7 +123,7 @@ export const HomeScreen = memo(props => {
           showsVerticalScrollIndicator={false}
         >
           <HeadingBlock localized={localized} text={"Today"} text2={currentDate} />
-          <View ph4 pv3 style={{ backgroundColor: '#EBC5CC' }}>
+          <View ph4 pv4 style={{ backgroundColor: '#EBC5CC' }}>
             <View ph5 pb2>
               <Text h3 style={{
                 fontWeight: '600',
@@ -143,109 +143,89 @@ export const HomeScreen = memo(props => {
           <View mh5 mv5 style={{ flexDirection: 'row', gap: 16 }}>
             <View style={{ flexDirection: 'column', gap: 16 }}>
               <View br4 ph3 pv3 style={styles.box1}>
-                <View mb3 style={[styles.iconCover, {
-                  backgroundColor: colorSet.secondaryBackground,
-                  width: iconsSize * 1.6,
-                  height: iconsSize * 1.6,
-                }]}>
-                  <WorkoutSvg color={colorSet.svgColor} width={iconsSize} height={iconsSize} />
+                <View style={styles.flexRow}>
+                  <Text h3>{localized("Today")}</Text>
+                  <View style={[styles.iconCover, {
+                    backgroundColor: colorSet.secondaryBackground,
+                    width: iconsSize * 1.7,
+                    height: iconsSize * 1.7,
+                  }]}>
+                    <Text bold style={{ fontSize: 10, textAlign: 'center' }}>{currentDate}</Text>
+                  </View>
                 </View>
-                <Text h3>{localized("Calories Burned1")}</Text>
-                <Text>320 Kcal</Text>
+                <View mv2 style={styles.flexRow}>
+                  <Text>{localized("Hoàn thành")}</Text>
+                  <Text>3 / 5</Text>
+                </View>
+                <View style={[{ backgroundColor: "#DCE1B0" }, styles.tienTrinh]}>
+                  <View style={[{
+                    backgroundColor: "#090A0A", width: "60%",
+                    height: 10,
+                    borderRadius: 10,
+                  }]}></View>
+                </View>
               </View>
               <View br4 ph3 pv3 style={styles.box2}>
                 <View mb2 style={[styles.iconCover, {
-                  backgroundColor: colorSet.secondaryBackground,
+                  backgroundColor: colorSet.primaryBackground,
                   width: iconsSize * 1.2,
                   height: iconsSize * 1.2,
+                  borderWidth: 2,
+                  borderColor: colorSet.thirBackground,
                 }]}>
-                  <WorkoutSvg color={colorSet.svgColor} width={iconsSize} height={iconsSize} />
+                  <UmbrellaSvg color={colorSet.thirBackground} width={iconsSize} height={iconsSize} />
                 </View>
-                <Text h3>{localized("Chưa giải quyết")}</Text>
-                <Text>06 việc</Text>
+                <Text h3 style={{ color: colorSet.thirBackground }}>{localized("Chưa giải quyết")}</Text>
+                <Text style={{ color: colorSet.grey9 }}><Text style={{ color: colorSet.grey9 }} bold>06</Text> việc</Text>
               </View>
               <View br4 ph3 pv3 style={styles.box3}>
                 <Text h3>{localized("Đã hủy")}</Text>
-                <Text>30 việc</Text>
+                <Text style={{ color: colorSet.grey9 }}><Text style={{ color: colorSet.grey9 }} bold>30</Text> việc</Text>
               </View>
             </View>
             <View style={{ flexDirection: 'column', gap: 16 }}>
               <View br4 ph3 pv3 style={styles.box4}>
                 <View mb3 style={[styles.iconCover, {
-                  backgroundColor: colorSet.thirBackground,
+                  backgroundColor: colorSet.fifthBackground,
                   width: iconsSize * 1.6,
                   height: iconsSize * 1.6,
+                  borderWidth: 2,
                 }]}>
-                  <MealSvg color={colorSet.svgColor} width={iconsSize} height={iconsSize} />
+                  <LapTopSvg color={colorSet.svgColor} width={iconsSize} height={iconsSize} />
                 </View>
                 <View>
                   <Text h3>{localized("Đang làm")}</Text>
-                  <Text>10 việc</Text>
+                  <Text style={{ color: colorSet.grey0 }}><Text bold style={{ color: colorSet.grey0 }}>10</Text> việc</Text>
                 </View>
               </View>
               <View br4 ph3 pv3 style={styles.box5}>
                 <Text h3>{localized("Đã xong")}</Text>
-                <Text>12 việc</Text>
+                <Text style={{ color: colorSet.grey9 }}><Text bold style={{ color: colorSet.grey9 }}>12</Text> việc</Text>
               </View>
             </View>
           </View>
           <HeadingBlock localized={localized} text={"Sắp tới"} />
-          <View mh5 ph3 pv3 br4 style={styles.notiContainer}>
-            <View style={styles.notiContainerText}>
-              <Text h3 style={[styles.consumWaterText, { fontWeight: '600' }]}>{localized("Tiết 5: 10:50 - 11:30")}</Text>
-              <Switch />
-            </View>
-            <View mv1>
-              <Text h3 truncateTextNumber={truncateValue} bold style={{}}>T13.B9:  Đất nước buổi đầu độc lập (939- 967)</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Text ph1 bold>7A5</Text>
-              <Text ph1>C1R103</Text>
+          <View mh5 pl2 style={styles.notiContainer}>
+            <View ph3 pv3 br4 style={styles.notiContent}>
+              <View style={styles.notiContainerText}>
+                <Text h3 style={[styles.consumWaterText, { fontWeight: '600' }]}>{localized("Tiết 5: 10:50 - 11:30")}</Text>
+                <Switch />
+              </View>
+              <View mv1>
+                <Text h3 truncateTextNumber={truncateValue} bold style={{}}>T13.B9:  Đất nước buổi đầu độc lập (939- 967)</Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <Text pr1 bold>7A5</Text>
+                <Text ph1>C1R103</Text>
+              </View>
             </View>
           </View>
           <HeadingBlock localized={localized} text={"Quản lý"} />
-          <View>
+          <View ph5 mb6>
             <QuanLy />
           </View>
-          
-
-
-
-
-          {/* <View mt5 mb4>
-            <View mh5 br4 pv5 style={styles.updateAppearanceContainer}>
-              <View>
-                <ProfilePictureUpdate setProfilePictureFile={setProfilePictureFile} />
-              </View>
-              <Text h2>{localized("Update Appearance")}</Text>
-            </View>
-          </View>
-          <HeadingBlock localized={localized} text={"Today's Nutrition"} />
-          <View>
-            <TouchableIcon
-              onPress={handlePress}
-              iconSource={plusIcon}
-              title={localized('Enter Ingredients')}
-              containerStyle={{ alignItems: 'center', justifyContent: 'center' }}
-              imageStyle={{ width: 30, height: 30 }}
-              titleStyle={{ fontSize: Dimensions.get('window').width * 0.045, fontWeight: '700' }}
-              renderTitle={true}
-              tintColor={colorSet.primaryText}
-            />
-          </View>
-          <PlanView text={"Nutrition Plan"} onPress={handlePress} />
-          <HeadingBlock localized={localized} text={"Workout Plan"} text2={"25/02"} />
-          <View ph5 mb3>
-            <CrouselStep />
-          </View>
-          <PlanView text={"Workout Plan"} onPress={handlePress} />
-          <HeadingBlock localized={localized} text={"Workout Plan"} text2={"View More"} onPress={handlePress} />
-          <MusicList playBtn={true} /> */}
         </ScrollView>
       </View>
-
     );
   }
-
-
 });

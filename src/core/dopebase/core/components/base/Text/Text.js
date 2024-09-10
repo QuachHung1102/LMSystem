@@ -19,7 +19,8 @@ const Text = props => {
     styles,
     theme,
     appearance,
-    truncateTextNumber
+    truncateTextNumber,
+    numberOfLines,
   } = props;
 
   const spacingStyles = useSpacing(props);
@@ -36,7 +37,7 @@ const Text = props => {
     bold && { fontWeight: 'bold' },
   ];
 
-  return <RNText style={textStyles}>{truncateTextNumber ? truncateText(children, truncateTextNumber) : children}</RNText>;
+  return <RNText numberOfLines={numberOfLines} style={textStyles}>{truncateTextNumber ? truncateText(children, truncateTextNumber) : children}</RNText>;
 };
 
 export default memo(useDopebase(Text, dynamicStyles));
