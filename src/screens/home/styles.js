@@ -3,7 +3,7 @@ import { useTheme } from '../../core/dopebase';
 
 const dynamicStyles = (theme, appearance) => {
   const colorSet = theme.colors[appearance]
-  const {width, height} = Dimensions.get('window');
+  const { width, height } = Dimensions.get('window');
 
   return StyleSheet.create({
     flexRow: {

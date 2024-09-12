@@ -5,6 +5,7 @@ import sendNavigationSvg from './sendNavigationSvg';
 import notiNavigationSvg from './notiNavigationSvg';
 import LapTopSvg from './LapTopSvg';
 import UmbrellaSvg from './UmbrellaSvg';
+import StatusDotSvg from './StatusDotSvg';
 export {
   homeNavigationSvg,
   calendarNavigationSvg,
@@ -13,4 +14,5 @@ export {
   notiNavigationSvg,
   LapTopSvg,
   UmbrellaSvg,
+  StatusDotSvg,
 };

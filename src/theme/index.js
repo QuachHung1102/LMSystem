@@ -55,7 +55,7 @@ const MobileTheme = {
     light: lightColors,
     'no-preference': lightColors,
     dark: {
-      primaryBackground: '#121212',
+      primaryBackground: '#1A1A1A',
       secondaryBackground: '#000000',
       thirBackground: '#E5F554',
       forthBackground: '#414446',

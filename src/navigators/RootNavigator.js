@@ -11,9 +11,9 @@ const RootNavigator = () => {
     <Root.Navigator
       screenOptions={{ headerShown: false, animationEnabled: false }}
       initialRouteName="MainStack">
-      {/* <Root.Screen name="LoadScreen" component={LoadScreen} /> */}
-      {/* <Root.Screen name="WalkthroughStack" component={WalkthroughStackNavigator} /> */}
-      {/* <Root.Screen name="LoginStack" component={LoginStack} /> */}
+      <Root.Screen name="LoadScreen" component={LoadScreen} />
+      <Root.Screen name="WalkthroughStack" component={WalkthroughStackNavigator} />
+      <Root.Screen name="LoginStack" component={LoginStack} />
       <Root.Screen name="MainStack" component={HomeStackNavigator} />
     </Root.Navigator>
   );

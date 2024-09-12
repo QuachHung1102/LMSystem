@@ -5,7 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { HomeScreen } from '../screens/home/HomeScreen';
 import CustomDrawerContent from '../components/CustomDrawer';
 
-function NotificationsScreen({ navigation }) {
+function Test({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button onPress={() => navigation.goBack()} title="Go back home" />
@@ -22,7 +22,7 @@ export default function HomeDrawer() {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Home" component={HomeScreen} options={{ headerShown: false, }} />
-      <Drawer.Screen name="LichLamViec" component={NotificationsScreen} />
+      <Drawer.Screen name="LichLamViec" component={Test} />
     </Drawer.Navigator>
   );
 }

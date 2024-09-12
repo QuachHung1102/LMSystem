@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useLayoutEffect, useCallback, useState } from 'react';
+import React, { memo, useEffect, useLayoutEffect, useCallback, useState, useMemo } from 'react';
 import { Dimensions, ScrollView, Alert } from 'react-native';
 import {
   View,
@@ -18,10 +18,12 @@ import { useCurrentUser } from '../../core/onboarding';
 import { useAuth } from '../../core/onboarding/hooks/useAuth';
 import { timeFormat, getUnixTimeStamp, getCurrentDateFormatted } from '../../core/helpers/timeFormat';
 import HeadingBlock from '../../components/HeadingBlock';
-import { UmbrellaSvg, LapTopSvg } from '../../assets/images/svg';
+import { UmbrellaSvg, LapTopSvg, StatusDotSvg } from '../../assets/images/svg';
 
 import menuIcon from '../../assets/icons/menu1x.png';
 import QuanLy from './QuanLy';
+
+const { width, height } = Dimensions.get('window');
 
 export const HomeScreen = memo(props => {
   const { navigation } = props;
@@ -31,13 +33,15 @@ export const HomeScreen = memo(props => {
   const { theme, appearance } = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
-  let iconsSize = Dimensions.get('screen').width * 0.07;
+  const iconsSize = Dimensions.get('screen').width * 0.07;
+  const statusDotSize = useMemo(() => width * 0.07, []);
 
   const [isLoading, setIsLoading] = useState(true);
   const [profilePictureFile, setProfilePictureFile] = useState(null);
   const [currentDate, setCurrentDate] = useState(null);
   const [text, setText] = useState('');
   const [truncateValue, setTruncateValue] = useState(7);
+
 
   const handlePress = () => {
     Alert.alert('Ố la la', 'This feature is not implemented yet');
@@ -114,7 +118,6 @@ export const HomeScreen = memo(props => {
             iconSource={theme.icons.userDefault}
           />
           <View>
-            {/* <Text style={styles.currentDate}>{currentDate}</Text> */}
             <Text h4 style={styles.currentDate}>Tên giáo viên - CN: 11A2 (K39)</Text>
             <Text>2012 - nay | Phụ trách: môn văn</Text>
           </View>
@@ -124,8 +127,12 @@ export const HomeScreen = memo(props => {
         >
           <HeadingBlock localized={localized} text={"Today"} text2={currentDate} />
           <View ph4 pv4 style={{ backgroundColor: '#EBC5CC' }}>
-            <View ph5 pb2>
-              <Text h3 style={{
+            <View pb2 style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-start'
+            }}>
+              <StatusDotSvg width={statusDotSize} height={statusDotSize} color={"#B65A46"} />
+              <Text pl1 h3 style={{
                 fontWeight: '600',
               }}>{localized('Bạn đang trong tiết dạy lớp 11A2')}</Text>
             </View>
@@ -190,8 +197,9 @@ export const HomeScreen = memo(props => {
                   width: iconsSize * 1.6,
                   height: iconsSize * 1.6,
                   borderWidth: 2,
+                  borderColor: colorSet.primaryText,
                 }]}>
-                  <LapTopSvg color={colorSet.svgColor} width={iconsSize} height={iconsSize} />
+                  <LapTopSvg color={colorSet.primaryText} width={iconsSize} height={iconsSize} />
                 </View>
                 <View>
                   <Text h3>{localized("Đang làm")}</Text>

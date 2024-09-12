@@ -12,13 +12,6 @@ import {
 const regexForNames = /^[a-zA-Z]{2,25}$/;
 const regexForVietnameseNames = /^[a-zA-ZàáâãèéêẽìíîĩòóôõùúûũỳýỷỹđÀÁÂÃÈÉÊẼÌÍÎĨÒÓÔÕÙÚÛŨỲÝỶỸĐ\s]{2,25}$/;
 
-const bodyImage1 = require('../assets/images/questionImages/body1.png');
-const bodyImage2 = require('../assets/images/questionImages/body2.png');
-const bodyImage3 = require('../assets/images/questionImages/body3.png');
-const bodyImage4 = require('../assets/images/questionImages/body4.png');
-const bodyImage5 = require('../assets/images/questionImages/body5.png');
-
-
 export const ConfigContext = React.createContext({});
 
 export const ConfigProvider = ({ children }) => {
@@ -187,6 +180,78 @@ export const ConfigProvider = ({ children }) => {
         },
         // Add more tabs as needed
       },
+      menuData: [
+        {
+          title: localized('Lịch làm việc'),
+          icon: require('../assets/images/menu/calendar.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'LichLamViec' } }
+          }
+        },
+        {
+          title: localized('Điểm danh'),
+          icon: require('../assets/images/menu/curved.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        },
+        {
+          title: localized('Đơn từ, phản hồi'),
+          icon: require('../assets/images/menu/download.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        },
+        {
+          title: localized('Quản lý lớp'),
+          icon: require('../assets/images/menu/chart.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        },
+        {
+          title: localized('Hồ sơ học sinh'),
+          icon: require('../assets/images/menu/user-plus.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        },
+        {
+          title: localized('Sự kiện'),
+          icon: require('../assets/images/menu/star-1.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        },
+        {
+          title: localized('Bài tập về nhà'),
+          icon: require('../assets/images/menu/document-filled.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        },
+        {
+          title: localized('Liên lạc'),
+          icon: require('../assets/images/menu/send-1.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        },
+        {
+          title: localized('Cập nhật thông tin'),
+          icon: require('../assets/images/menu/pinpaper-plus.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        },
+        {
+          title: localized('Cài đặt'),
+          icon: require('../assets/images/menu/settings.png'),
+          navigateData: {
+            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+          }
+        }
+      ]
     },
     tosLink: 'https://www.facebook.com/quachhuwng',
     isUsernameFieldEnabled: false,
