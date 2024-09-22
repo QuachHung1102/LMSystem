@@ -78,7 +78,7 @@ const WelcomeScreen = props => {
           } else {
             navigation.reset({
               index: 0,
-              routes: [{ name: 'MainStack', params: { user } }],
+              routes: [{ name: 'HomeDrawer', params: { user } }],
             })
           }
           if (Platform.OS !== 'web') {

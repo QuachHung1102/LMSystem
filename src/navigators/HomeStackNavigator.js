@@ -2,12 +2,11 @@ import React from 'react';
 import { Platform, Image, Dimensions, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTranslations, View } from '../core/dopebase';
-import { HomeScreen, MealScreen } from '../screens';
+import { HomeScreen, CalendarScreen } from '../screens';
 import WorkoutStackNavigator from './WorkoutStackNavigator';
 import MentalStackNavigator from './MentalStackNavigator';
 import { useOnboardingConfig } from '../core/onboarding/hooks/useOnboardingConfig';
 import { useTheme } from '../core/dopebase';
-import HomeDrawer from './HomeDrawerNavigator';
 
 const MainStack = createBottomTabNavigator();
 const MainStackNavigator = () => {
@@ -26,7 +25,7 @@ const MainStackNavigator = () => {
           tabBarInactiveTintColor: colorSet.primaryButtonTextNonActive,
           tabBarIcon: ({ focused, color, size }) => {
             let icon;
-            if (route.name === 'HomeDrawer') {
+            if (route.name === 'Home') {
               icon = focused
                 ? <View ph2 pv2 style={style.itemActiveStyle}>{tabIcons.Home.focus}</View>
                 : tabIcons.Home.unFocus;
@@ -67,10 +66,10 @@ const MainStackNavigator = () => {
           tabBarLabel: () => null
         })
         }
-        initialRouteName="HomeDrawer"
+        initialRouteName="Lich"
       >
-        <MainStack.Screen name="HomeDrawer" component={HomeDrawer} options={{ headerShown: false, }} />
-        <MainStack.Screen name="Lich" component={MealScreen} options={{ headerShown: false }} />
+        <MainStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false, }} />
+        <MainStack.Screen name="Lich" component={CalendarScreen} options={{ headerShown: true }} />
         <MainStack.Screen name="QuanLy" component={WorkoutStackNavigator} options={{ headerShown: false }} />
         <MainStack.Screen name="Send" component={MentalStackNavigator} options={{ headerShown: false }} />
         <MainStack.Screen name="CaNhan" component={MentalStackNavigator} options={{ headerShown: false }} />

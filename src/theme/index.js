@@ -48,6 +48,9 @@ const lightColors = {
   primaryButtonTextNonActive: 'rgba(0, 0, 0, 0.5)',
   primaryBorder: '#000000',
   svgColor: '#000',
+  alertColor: "#F7CECD",
+  warningColor: "#8F4D1A",
+  disabledText: '#A0A0A0',
 };
 
 const MobileTheme = {
@@ -79,6 +82,9 @@ const MobileTheme = {
       primaryButtonTextNonActive: 'rgba(238, 228, 255, 0.5)',
       primaryBorder: '#5244F3',
       svgColor: '#fff',
+      alertColor: "#F7CECD",
+      warningColor: "#8F4D1A",
+      disabledText: '#505050',
     },
   },
   spaces: {

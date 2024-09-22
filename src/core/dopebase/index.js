@@ -40,6 +40,8 @@ import {
   MediaViewerModal,
   CountriesModalPicker,
   NumberPicker,
+  CalendarComponent,
+  CalendarCustom,
 } from './core/components/advanced';
 
 export {
@@ -70,6 +72,8 @@ export {
   MediaViewerModal,
   CountriesModalPicker,
   NumberPicker,
+  CalendarComponent,
+  CalendarCustom,
   theme,
   DopebaseContext,
   extendTheme,

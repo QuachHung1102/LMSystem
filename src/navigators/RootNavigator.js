@@ -4,17 +4,18 @@ import { LoadScreen, WalkthroughScreen, DelayedLoginScreen } from '../core/onboa
 import HomeStackNavigator from './HomeStackNavigator';  // Thằng này là MainStackNavigator
 import LoginStack from './AuthStackNavigator';
 import WalkthroughStackNavigator from './WalkthroughStackNavigator';
+import HomeDrawer from './HomeDrawerNavigator';
 
 const Root = createStackNavigator();
 const RootNavigator = () => {
   return (
     <Root.Navigator
       screenOptions={{ headerShown: false, animationEnabled: false }}
-      initialRouteName="MainStack">
+      initialRouteName="HomeDrawer">
       <Root.Screen name="LoadScreen" component={LoadScreen} />
       <Root.Screen name="WalkthroughStack" component={WalkthroughStackNavigator} />
       <Root.Screen name="LoginStack" component={LoginStack} />
-      <Root.Screen name="MainStack" component={HomeStackNavigator} />
+      <Root.Screen name="HomeDrawer" component={HomeDrawer} />
     </Root.Navigator>
   );
 };

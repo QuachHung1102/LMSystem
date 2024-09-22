@@ -184,71 +184,104 @@ export const ConfigProvider = ({ children }) => {
         {
           title: localized('Lịch làm việc'),
           icon: require('../assets/images/menu/calendar.png'),
-          navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'LichLamViec' } }
-          }
+          collapse: [
+            {
+              title: localized('Lịch dạy và cần làm trong tuần'),
+            },
+            {
+              title: localized('Lịch kiểm tra'),
+            },
+            {
+              title: localized('Lịch họp'),
+            },
+            {
+              title: localized('Kế hoạch sắp tới'),
+            },
+          ],
         },
         {
           title: localized('Điểm danh'),
           icon: require('../assets/images/menu/curved.png'),
           navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+            name: 'HomeDrawer', params: { screen: 'MainStack', params: { screen: 'Home' } }
           }
         },
         {
           title: localized('Đơn từ, phản hồi'),
           icon: require('../assets/images/menu/download.png'),
           navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+            name: 'HomeDrawer', params: { screen: 'MainStack', params: { screen: 'QuanLy' } }
           }
         },
         {
           title: localized('Quản lý lớp'),
           icon: require('../assets/images/menu/chart.png'),
-          navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
-          }
+          collapse: [
+            {
+              title: localized('Lớp chủ nhiệm'),
+            },
+            {
+              title: localized('Khối'),
+            },
+            {
+              title: localized('Khóa cũ'),
+            }
+          ],
         },
         {
           title: localized('Hồ sơ học sinh'),
           icon: require('../assets/images/menu/user-plus.png'),
           navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+            name: 'HomeDrawer', params: { screen: 'MainStack', params: { screen: 'QuanLy' } }
           }
         },
         {
           title: localized('Sự kiện'),
           icon: require('../assets/images/menu/star-1.png'),
-          navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
-          }
+          collapse: [
+            {
+              title: localized('Sự kiện trong ngày'),
+            },
+            {
+              title: localized('Sự kiện blala'),
+            },
+            {
+              title: localized('Sự kiện bloblo'),
+            },
+            {
+              title: localized('Đoàn thanh niên jj đấy'),
+            },
+            {
+              title: localized('Đéo biết'),
+            },
+          ],
         },
         {
           title: localized('Bài tập về nhà'),
           icon: require('../assets/images/menu/document-filled.png'),
           navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+            name: 'HomeDrawer', params: { screen: 'MainStack', params: { screen: 'QuanLy' } }
           }
         },
         {
           title: localized('Liên lạc'),
           icon: require('../assets/images/menu/send-1.png'),
           navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+            name: 'HomeDrawer', params: { screen: 'MainStack', params: { screen: 'QuanLy' } }
           }
         },
         {
           title: localized('Cập nhật thông tin'),
           icon: require('../assets/images/menu/pinpaper-plus.png'),
           navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+            name: 'HomeDrawer', params: { screen: 'MainStack', params: { screen: 'QuanLy' } }
           }
         },
         {
           title: localized('Cài đặt'),
           icon: require('../assets/images/menu/settings.png'),
           navigateData: {
-            name: 'MainStack', params: { screen: 'HomeDrawer', params: { screen: 'Home' } }
+            name: 'HomeDrawer', params: { screen: 'MainStack', params: { screen: 'Home' } }
           }
         }
       ]
