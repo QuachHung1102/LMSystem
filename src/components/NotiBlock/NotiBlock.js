@@ -73,7 +73,7 @@ const NotiBlock = (props) => {
       </View> :
       (<View>
         {redState &&
-          <Animatable.View ref={redRef}>
+          <Animatable.View ref={redRef} style={{width: width}}>
             <View pv3 ph4 style={[styles.flexRow, { backgroundColor: colorSet.alertColor, opacity: blinkAnim, justifyContent: 'space-between', }]}>
               <View style={styles.flexRow}>
                 <Image source={require('../../assets/icons/circle.png')} />
@@ -90,7 +90,7 @@ const NotiBlock = (props) => {
           </Animatable.View>
         }
         {yellowState &&
-          <Animatable.View ref={yellowRef}>
+          <Animatable.View ref={yellowRef} style={{width: width}}>
             <View pv3 ph4 style={[styles.flexRow, { backgroundColor: colorSet.warningColor, justifyContent: 'space-between', }]}>
               <View style={styles.flexRow}>
                 <Image source={require('../../assets/icons/warning-circle.png')} />

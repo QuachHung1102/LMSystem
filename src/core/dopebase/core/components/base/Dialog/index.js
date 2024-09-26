@@ -41,7 +41,7 @@ const DialogContent = props => {
         <Text style={titleStyles} mb8>
           {title}
         </Text>
-        <Text style={messageStyles} mb8>
+        <Text numberOfLines={3} style={messageStyles} mb8>
           {message}
         </Text>
         <View style={styles.tnActionsContainer}>

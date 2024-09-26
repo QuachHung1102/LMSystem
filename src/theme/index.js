@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 
 const HORIZONTAL_SPACING_BASE = Platform.OS === 'web' ? 4 : 2;
 const VERTICAL_SPACING_BASE = 4;
@@ -31,7 +31,7 @@ const lightColors = {
   fifthBackground: '#B65A46',
   sixthBackground: '#EBC5CC',
   componentBackground: '#FFEAC5',
-  componentBackground2: "#FFDBB5",
+  componentBackground2: '#FFDBB5',
   primaryForeground: '#5244F3',
   secondaryForeground: '#8442bd',
   foregroundContrast: 'white',
@@ -42,14 +42,15 @@ const lightColors = {
   grey3: '#f5f5f5',
   grey6: '#d6d6d6',
   grey9: '#939393',
+  grey12: '#808080',
   red: '#ea0606',
   primaryButtonTabNonActive: '#000000',
   primaryButtonTabActive: '#5244F3',
   primaryButtonTextNonActive: 'rgba(0, 0, 0, 0.5)',
   primaryBorder: '#000000',
   svgColor: '#000',
-  alertColor: "#F7CECD",
-  warningColor: "#8F4D1A",
+  alertColor: '#F7CECD',
+  warningColor: '#8F4D1A',
   disabledText: '#A0A0A0',
 };
 
@@ -65,7 +66,7 @@ const MobileTheme = {
       fifthBackground: '#B65A46',
       sixthBackground: '#EBC5CC',
       componentBackground: '#141433',
-      componentBackground2: "#3E493E",
+      componentBackground2: '#3E493E',
       primaryForeground: '#5244F3',
       secondaryForeground: '#8442bd',
       foregroundContrast: 'white',
@@ -76,14 +77,15 @@ const MobileTheme = {
       grey3: '#2a2a2a',
       grey6: '#f5f5f5',
       grey9: '#eaeaea',
+      grey12: '#808080',
       red: '#ea0606',
       primaryButtonTabActive: '#5244F3',
       primaryButtonTabNonActive: '#EEE4FF',
       primaryButtonTextNonActive: 'rgba(238, 228, 255, 0.5)',
       primaryBorder: '#5244F3',
       svgColor: '#fff',
-      alertColor: "#F7CECD",
-      warningColor: "#8F4D1A",
+      alertColor: '#F7CECD',
+      warningColor: '#8F4D1A',
       disabledText: '#505050',
     },
   },

@@ -39,6 +39,7 @@ const styles = (theme, appearance) => {
       borderColor: theme.colors[appearance].grey0,
       borderWidth: 0.5,
       borderRadius: 16,
+      width: '80%'
     },
     tnDialogShadow: {
       shadowColor: theme.colors[appearance].grey0,

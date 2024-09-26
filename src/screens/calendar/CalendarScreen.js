@@ -4,22 +4,22 @@ import React, {
   useLayoutEffect,
   useCallback,
   useState,
+  useRef,
 } from 'react';
-import { Dimensions, ScrollView } from 'react-native';
+import {Dimensions} from 'react-native';
+import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
 import {
   useTheme,
   useTranslations,
-  Alert,
   View,
-  Text,
   ActivityIndicator,
   TouchableIcon,
-  CalendarComponent,
   CalendarCustom,
+  Dialog,
 } from '../../core/dopebase';
 import dynamicStyles from './styles';
-import { useCurrentUser } from '../../core/onboarding';
-import { useAuth } from '../../core/onboarding/hooks/useAuth';
+import {useCurrentUser} from '../../core/onboarding';
+import {useAuth} from '../../core/onboarding/hooks/useAuth';
 import HeadingBlock from '../../components/HeadingBlock';
 import ItemList from '../../components/ItemList';
 import updateDeviceStorage from '../../core/helpers/updateDeviceStorage';
@@ -28,20 +28,16 @@ import menuIcon from '../../assets/icons/menu1x.png';
 import NotiBlock from '../../components/NotiBlock/NotiBlock';
 
 export const CalendarScreen = memo(props => {
-  const { navigation } = props;
+  const {navigation} = props;
   const currentUser = useCurrentUser();
   const authManager = useAuth();
-  const { localized } = useTranslations();
-  const { theme, appearance } = useTheme();
+  const {localized} = useTranslations();
+  const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
-  const iconPng = require('../../assets/icons/right-arrow.png');
+  const {hideDialog, dialogData, dialogRef} = useOnboardingConfig();
 
   const [isLoading, setIsLoading] = useState(true);
-
-  const handlePress = useCallback(() => {
-    Alert.alert('Ố la la', 'This feature is not implemented yet');
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +56,7 @@ export const CalendarScreen = memo(props => {
       headerLeft: () => (
         <View>
           <TouchableIcon
-            imageStyle={{ tintColor: colorSet.secondaryText }}
+            imageStyle={{tintColor: colorSet.secondaryText}}
             iconSource={theme.icons.backArrow}
             onPress={() => navigation.goBack()}
           />
@@ -69,7 +65,7 @@ export const CalendarScreen = memo(props => {
       headerRight: () => (
         <View>
           <TouchableIcon
-            imageStyle={{ tintColor: colorSet.thirBackground }}
+            imageStyle={{tintColor: colorSet.thirBackground}}
             iconSource={menuIcon}
             onPress={() => navigation.openDrawer()}
           />
@@ -84,19 +80,19 @@ export const CalendarScreen = memo(props => {
     });
   }, []);
 
-  useEffect(() => {
-    if (!currentUser?.id) {
-      return;
-    }
-  }, [currentUser?.id]);
+  // useEffect(() => {
+  //   if (!currentUser?.id) {
+  //     return;
+  //   }
+  // }, [currentUser?.id]);
 
-  const onLogout = useCallback(() => {
-    authManager?.logout(currentUser);
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'LoadScreen' }],
-    });
-  }, [authManager, currentUser]);
+  // const onLogout = useCallback(() => {
+  //   authManager?.logout(currentUser);
+  //   navigation.reset({
+  //     index: 0,
+  //     routes: [{name: 'LoadScreen'}],
+  //   });
+  // }, [authManager, currentUser]);
 
   if (isLoading) {
     return (
@@ -106,16 +102,38 @@ export const CalendarScreen = memo(props => {
     );
   } else {
     return (
-      <View style={{ flex: 1, backgroundColor: colorSet.primaryBackground }}>
+      <View style={styles.container}>
         <NotiBlock colorSet={colorSet} />
         {/* <CalendarComponent /> */}
         <CalendarCustom />
         {/* <ScrollView
           showsVerticalScrollIndicator={false}>
         </ScrollView> */}
+        <Dialog
+          ref={dialogRef}
+          title={dialogData?.title || 'Dialog Title'}
+          message={dialogData?.message || 'This is a message in the dialog.'}
+          actions={[
+            {
+              title: 'Cancel',
+              onPress: hideDialog,
+              secondary: true,
+            },
+            {
+              title: 'OK',
+              onPress: hideDialog,
+            },
+          ]}
+          titleStyle={{
+            fontSize: width * 0.05,
+          }}
+          messageStyle={{
+            // alignSelf: 'flex-start',
+          }}
+        />
       </View>
     );
   }
 });
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');

@@ -11,6 +11,7 @@ const dynamicStyles = (theme, appearance) => {
       alignContent: 'center',
       alignItems: 'center',
       justifyContent: 'center',
+      position: 'relative',
     },
     text: {
       color: colorSet.primaryText,

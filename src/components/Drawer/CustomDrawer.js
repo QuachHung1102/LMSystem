@@ -1,8 +1,7 @@
 import React, { memo, useEffect, useMemo, useState, useCallback } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import { View, Text, useTheme, TouchableIcon, useTranslations } from '../../core/dopebase';
+import { View, Text, useTheme, TouchableIcon, useTranslations, IconButton } from '../../core/dopebase';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { IconButton } from '../../core/dopebase';
 import { FlatList, Pressable } from 'react-native-gesture-handler';
 import { StatusDotSvg } from '../../assets/images/svg';
 import { useOnboardingConfig } from '../../core/onboarding/hooks/useOnboardingConfig';
@@ -76,7 +75,7 @@ const CustomDrawerContent = (props) => {
 
   const renderItem = useCallback(({ item }) => {
     const { title, icon, navigateData, collapse } = item;
-    const collapseStatus = title === isCollapsed ? false : true;
+    const collapseStatus = title !== isCollapsed;
 
     return (
       <View>

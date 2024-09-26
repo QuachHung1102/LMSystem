@@ -1,2 +1,2 @@
-export { CalendarComponent } from "./Calendar";
-export { CalendarCustom } from "./CalendarCustom";
+export {CalendarComponent} from './Calendar';
+export {CalendarCustom} from './CalendarCustom';
