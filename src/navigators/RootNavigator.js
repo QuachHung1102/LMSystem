@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { LoadScreen, WalkthroughScreen, DelayedLoginScreen } from '../core/onboarding';
-import HomeStackNavigator from './HomeStackNavigator';  // Thằng này là MainStackNavigator
+import { LoadScreen} from '../core/onboarding';
 import LoginStack from './AuthStackNavigator';
 import WalkthroughStackNavigator from './WalkthroughStackNavigator';
 import HomeDrawer from './HomeDrawerNavigator';

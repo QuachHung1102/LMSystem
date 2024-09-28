@@ -11,7 +11,7 @@ import {View, Text, Switch, Dialog} from '../../../../../../dopebase';
 import {useTheme} from '../../../../theming';
 import {useOnboardingConfig} from '../../../../../../onboarding/hooks/useOnboardingConfig';
 
-const AgendaItem = ({item}) => {
+const AgendaItem = ({item, switchActive}) => {
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(colorSet);
@@ -49,7 +49,7 @@ const AgendaItem = ({item}) => {
         <Text>{item.class}</Text>
       </View>
       <View style={styles.itemButtonContainer}>
-        {item.switchActive ? (
+        {switchActive ? (
           <Switch />
         ) : (
           <View>

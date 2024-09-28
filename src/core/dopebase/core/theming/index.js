@@ -1,5 +1,5 @@
-import React from 'react';
-import { useColorScheme } from 'react-native';
+import React, {useMemo} from 'react';
+import {useColorScheme} from 'react-native';
 import DNDefaultTheme from './default';
 
 export default DNDefaultTheme;
@@ -12,19 +12,22 @@ const defaultProps = {
 };
 
 export function DopebaseProvider(props = defaultProps) {
-  const { theme, children } = props;
+  const {theme, children} = props;
   const colorScheme = useColorScheme();
-  const overridenTheme = { ...DNDefaultTheme, ...theme };
-  const context = {
-    theme: overridenTheme,
-    appearance: colorScheme,
-  };
+  const overridenTheme = {...DNDefaultTheme, ...theme};
+  const context = useMemo(
+    () => ({
+      theme: overridenTheme,
+      appearance: colorScheme,
+    }),
+    [],
+  );
   return (
     <DopebaseContext.Provider value={context}>
       {children}
     </DopebaseContext.Provider>
   );
-};
+}
 
 export function useDopebase(Component, styles) {
   return props => {
@@ -34,26 +37,23 @@ export function useDopebase(Component, styles) {
         {context => (
           <Component
             {...props}
-            theme={{ ...DNDefaultTheme, ...context.theme }}
+            theme={{...DNDefaultTheme, ...context.theme}}
             appearance={colorScheme || context.appearance}
             styles={
               styles &&
-              styles(
-                { ...DNDefaultTheme, ...context.theme },
-                context.appearance,
-              )
+              styles({...DNDefaultTheme, ...context.theme}, context.appearance)
             }
           />
         )}
       </DopebaseContext.Consumer>
     );
   };
-};
+}
 
 export function extendTheme(theme) {
-  return { ...DNDefaultTheme, ...theme };
-};
+  return {...DNDefaultTheme, ...theme};
+}
 
 export function useTheme() {
   return React.useContext(DopebaseContext);
-};
+}

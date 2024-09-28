@@ -1,7 +1,7 @@
-import React from 'react'
-import { TouchableOpacity, Image, Text } from 'react-native'
-import { useTheme } from '../../..'
-import dynamicStyles from './styles'
+import React from 'react';
+import {TouchableOpacity, Image, Text} from 'react-native';
+import {useTheme} from '../../..';
+import dynamicStyles from './styles';
 
 export const TouchableIcon = props => {
   const {
@@ -19,9 +19,9 @@ export const TouchableIcon = props => {
     onLayout,
     disabled = false,
     tintColor,
-  } = props
-  const { theme, appearance } = useTheme()
-  const styles = dynamicStyles(theme, appearance)
+  } = props;
+  const {theme, appearance} = useTheme();
+  const styles = dynamicStyles(theme, appearance);
 
   return (
     <TouchableOpacity
@@ -33,8 +33,12 @@ export const TouchableIcon = props => {
       onPressOut={onPressOut}
       onPressIn={onPressIn}
       onPress={onPress}>
-      <Image tintColor={tintColor} style={[styles.Image, imageStyle]} source={iconSource} />
+      <Image
+        tintColor={tintColor}
+        style={[styles.Image, imageStyle]}
+        source={iconSource}
+      />
       {renderTitle && <Text style={[styles.title, titleStyle]}>{title}</Text>}
     </TouchableOpacity>
-  )
-}
+  );
+};

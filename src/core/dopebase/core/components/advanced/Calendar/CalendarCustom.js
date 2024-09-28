@@ -1,5 +1,5 @@
 import React, {useRef, useCallback, memo, useMemo, useEffect} from 'react';
-import {Image, StyleSheet, TouchableHighlight} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import {
   ExpandableCalendar,
   AgendaList,
@@ -11,13 +11,14 @@ import AgendaItem from './mocks/AgendaItem';
 import {getTheme} from './mocks/theme';
 import {useTheme} from '../../../theming';
 import dynamicStyles from './styles';
-import {ScrollView} from 'react-native-gesture-handler';
 import {getCurrentDateFormatted} from '../../../../../helpers/timeFormat';
 import {View} from '../../base/View';
 import {Text} from '../../base/Text';
+import {TouchableIcon} from '../TouchableIcon/TouchableIcon';
 
 const ITEMS = agendaItems;
-const icon = require('../../../../../../assets/icons/calendarSm.png');
+const calendarSmIcon = require('../../../../../../assets/icons/calendarSm.png');
+const calendarplusIcon = require('../../../../../../assets/images/menu/calendar-plus.png');
 
 export const CalendarCustom = memo(({weekView}) => {
   const marked = useRef(getMarkedDates());
@@ -25,13 +26,13 @@ export const CalendarCustom = memo(({weekView}) => {
   const styles = dynamicStyles(theme, appearance);
   const colorSet = theme.colors[appearance];
   const calendarTheme = useRef(getTheme(colorSet));
+  const today = new Date().toISOString().split('T')[0];
 
   const renderItem = useCallback(({item}) => {
-    return <AgendaItem item={item} switchActive={false} />;
+    return <AgendaItem item={item} switchActive={true} />;
   }, []);
 
   const renderSectionHeader = useCallback(item => {
-    const today = new Date().toISOString().split('T')[0];
     const isToday = item === today;
 
     return (
@@ -45,9 +46,25 @@ export const CalendarCustom = memo(({weekView}) => {
     );
   }, []);
 
+  const renderListHeader = useCallback(() => {
+    return (
+      <TouchableIcon
+        iconSource={calendarplusIcon}
+        containerStyle={styles.btnAddTaskContainer}
+        imageStyle
+        renderTitle={true}
+        title={`Thêm kế hoạch`}
+        titleStyle={styles.btnAddTaskText}
+        tintColor={colorSet.secondaryText}
+      />
+    );
+  }, []);
+
+  useEffect(() => {}, []);
+
   return (
     <CalendarProvider
-      date={new Date()}
+      date={today} // date is string
       // onDateChanged={onDateChanged}
       // onMonthChange={onMonthChange}
       showTodayButton
@@ -56,7 +73,7 @@ export const CalendarCustom = memo(({weekView}) => {
         todayButtonTextColor: colorSet.red,
       }}
       // todayBottomMargin={16}
-    >
+      alowShadow={true}>
       {weekView ? (
         <WeekCalendar firstDay={1} markedDates={marked.current} />
       ) : (
@@ -73,21 +90,21 @@ export const CalendarCustom = memo(({weekView}) => {
           // disableAllTouchEventsForDisabledDays
           firstDay={1}
           markedDates={marked.current}
-          leftArrowImageSource={icon}
-          rightArrowImageSource={icon}
+          leftArrowImageSource={calendarSmIcon}
+          rightArrowImageSource={calendarSmIcon}
           renderArrow={direction => {
             if (direction === 'right') {
               return (
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => {
                     console.log('Move to...');
                   }}>
                   <Image
-                    source={icon}
+                    source={calendarSmIcon}
                     tintColor={colorSet.red}
                     style={styles.arrow}
                   />
-                </TouchableHighlight>
+                </TouchableOpacity>
               );
             } else {
               return <View style={styles.arrow}></View>;
@@ -109,6 +126,7 @@ export const CalendarCustom = memo(({weekView}) => {
           sectionStyle={styles.section}
           // dayFormat={'yyyy-MM-d'}
           scrollEnabled={true}
+          ListHeaderComponent={renderListHeader}
         />
       </View>
     </CalendarProvider>

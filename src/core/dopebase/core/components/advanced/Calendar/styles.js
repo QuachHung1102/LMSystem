@@ -34,6 +34,16 @@ const styles = (theme, appearance) => {
     todayHeaderText: {
       backgroundColor: colorSet.thirBackground,
     },
+    btnAddTaskContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    btnAddTaskText: {
+      color: colorSet.secondaryText,
+      fontSize: width * 0.04,
+      fontWeight: '650',
+    },
   });
 };
 export default styles;
