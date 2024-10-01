@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { LogBox } from 'react-native';
-import { Provider } from 'react-redux';
+import React, {useEffect} from 'react';
+import {LogBox} from 'react-native';
+import {Provider} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
-import { MenuProvider } from 'react-native-popup-menu';
+import {MenuProvider} from 'react-native-popup-menu';
 import {
   DopebaseProvider,
   extendTheme,
@@ -12,12 +12,13 @@ import {
 import configureStore from './src/redux/store';
 import AppContent from './src/AppContent';
 import translations from './src/translations';
-import { ConfigProvider } from './src/config';
-import { AuthProvider } from './src/core/onboarding/hooks/useAuth';
-import { authManager } from './src/core/onboarding/api';
+import {ConfigProvider} from './src/config';
+import {AuthProvider} from './src/core/onboarding/hooks/useAuth';
+import {authManager} from './src/core/onboarding/api';
 
 import MobileTheme from './src/theme'; // Import your theme here
-import { bootstrap } from './src/core/helpers/notifee';
+import {bootstrap} from './src/core/helpers/notifee';
+import {fetchAgendaItems} from './src/core/users/api/backend/agenda';
 
 const store = configureStore();
 
@@ -25,12 +26,19 @@ const App = () => {
   const theme = extendTheme(MobileTheme);
 
   useEffect(() => {
-    // bootstrap()
-    //   .then()
-    //   .catch(console.error)
-    SplashScreen.hide()
-    LogBox.ignoreAllLogs(true)
-  }, [])
+    const loadData = async () => {
+      try {
+        await fetchAgendaItems();
+      } catch (error) {
+        console.error('Error fetching agenda items:', error);
+      }
+    };
+    bootstrap().then().catch(console.error);
+    loadData();
+    fetchAgendaItems();
+    SplashScreen.hide();
+    LogBox.ignoreAllLogs(true);
+  }, []);
   return (
     <Provider store={store}>
       <TranslationProvider translations={translations}>
@@ -47,8 +55,7 @@ const App = () => {
         </DopebaseProvider>
       </TranslationProvider>
     </Provider>
-
-  )
-}
+  );
+};
 
 export default App;

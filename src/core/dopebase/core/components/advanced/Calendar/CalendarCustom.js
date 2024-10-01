@@ -1,4 +1,4 @@
-import React, {useRef, useCallback, memo, useMemo, useEffect} from 'react';
+import React, {useRef, useCallback, memo, useEffect, useState} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import {
   ExpandableCalendar,
@@ -6,30 +6,64 @@ import {
   CalendarProvider,
   WeekCalendar,
 } from 'react-native-calendars';
-import {agendaItems, getMarkedDates} from './mocks/agendaItems';
+import {getMarkedDates} from './mocks/agendaItems';
 import AgendaItem from './mocks/AgendaItem';
 import {getTheme} from './mocks/theme';
 import {useTheme} from '../../../theming';
 import dynamicStyles from './styles';
-import {getCurrentDateFormatted} from '../../../../../helpers/timeFormat';
 import {View} from '../../base/View';
 import {Text} from '../../base/Text';
 import {TouchableIcon} from '../TouchableIcon/TouchableIcon';
+import updateDeviceStorage from '../../../../../helpers/updateDeviceStorage';
 
-const ITEMS = agendaItems;
 const calendarSmIcon = require('../../../../../../assets/icons/calendarSm.png');
 const calendarplusIcon = require('../../../../../../assets/images/menu/calendar-plus.png');
 
 export const CalendarCustom = memo(({weekView}) => {
-  const marked = useRef(getMarkedDates());
+  const [items, setItems] = useState([]);
+  const [notiInfo, setNotiInfo] = useState([]);
+  const marked = useRef(getMarkedDates(items));
   const {theme, appearance} = useTheme();
   const styles = dynamicStyles(theme, appearance);
   const colorSet = theme.colors[appearance];
   const calendarTheme = useRef(getTheme(colorSet));
   const today = new Date().toISOString().split('T')[0];
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await updateDeviceStorage.getStoreData('agendaItems');
+        if (Array.isArray(data)) {
+          setItems(data);
+        } else {
+          setItems([]);
+        }
+      } catch (error) {
+        console.error('Error fetching agenda items:', error);
+        setItems([]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    marked.current = getMarkedDates(items);
+  }, [items]);
+
+  useEffect(() => {
+    console.log(notiInfo);
+  }, [notiInfo]);
+
   const renderItem = useCallback(({item}) => {
-    return <AgendaItem item={item} switchActive={true} />;
+    return (
+      <AgendaItem
+        item={item}
+        switchActive={true}
+        setNotiInfo={setNotiInfo}
+        notiInfo={notiInfo}
+      />
+    );
   }, []);
 
   const renderSectionHeader = useCallback(item => {
@@ -59,8 +93,6 @@ export const CalendarCustom = memo(({weekView}) => {
       />
     );
   }, []);
-
-  useEffect(() => {}, []);
 
   return (
     <CalendarProvider
@@ -119,7 +151,7 @@ export const CalendarCustom = memo(({weekView}) => {
       )}
       <View style={{flex: 1}}>
         <AgendaList
-          sections={ITEMS}
+          sections={items}
           renderItem={renderItem}
           renderSectionHeader={renderSectionHeader}
           // scrollToNextEvent

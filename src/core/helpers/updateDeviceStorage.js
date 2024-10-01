@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const setStoreData = async (key, value) => {
   try {
@@ -10,7 +10,7 @@ const setStoreData = async (key, value) => {
   }
 };
 
-const getStoreData = async (key) => {
+const getStoreData = async key => {
   try {
     const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
@@ -20,9 +20,15 @@ const getStoreData = async (key) => {
   }
 };
 
+const saveAgendaItems = async (data, etag) => {
+  setStoreData('agendaItems', data);
+  setStoreData('agendaItemsETag', etag);
+};
+
 const updateDeviceStorage = {
   setStoreData,
   getStoreData,
+  saveAgendaItems,
 };
 
 export default updateDeviceStorage;

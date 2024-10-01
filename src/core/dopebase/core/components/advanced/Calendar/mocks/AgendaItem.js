@@ -1,21 +1,32 @@
 import isEmpty from 'lodash/isEmpty';
-import React, {useCallback, memo, useRef} from 'react';
-import {
-  StyleSheet,
-  Alert,
-  TouchableOpacity,
-  Button,
-  Dimensions,
-} from 'react-native';
-import {View, Text, Switch, Dialog} from '../../../../../../dopebase';
+import React, {useCallback, memo, useEffect, useState} from 'react';
+import {StyleSheet, Alert, TouchableOpacity, Button} from 'react-native';
+import {View, Text, Switch} from '../../../../../../dopebase';
 import {useTheme} from '../../../../theming';
 import {useOnboardingConfig} from '../../../../../../onboarding/hooks/useOnboardingConfig';
 
-const AgendaItem = ({item, switchActive}) => {
+const AgendaItem = ({item, switchActive, setNotiInfo, notiInfo}) => {
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(colorSet);
   const {showDialog} = useOnboardingConfig();
+  const [noti, setNoti] = useState(false);
+
+  useEffect(() => {
+    if (noti) {
+      setNotiInfo(notiInfo => {
+        const flag = notiInfo.includes(item.hour);
+        if (!flag) {
+          return [...notiInfo, item.hour];
+        }
+        return notiInfo;
+      });
+    } else if (!noti) {
+      setNotiInfo(notiInfo =>
+        notiInfo.filter(notiItem => notiItem !== item.hour),
+      );
+    }
+  }, [noti]);
 
   const itemPressed = useCallback(() => {
     Alert.alert(item.title, item.class, [{}]);
@@ -50,7 +61,7 @@ const AgendaItem = ({item, switchActive}) => {
       </View>
       <View style={styles.itemButtonContainer}>
         {switchActive ? (
-          <Switch />
+          <Switch value={item.notiState} onToggleSwitch={setNoti} />
         ) : (
           <View>
             <Button color={'grey'} title={'Info'} onPress={itemPressed} />

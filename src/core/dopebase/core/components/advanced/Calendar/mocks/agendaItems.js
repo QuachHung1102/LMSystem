@@ -2,10 +2,12 @@ import isEmpty from 'lodash/isEmpty';
 import {getWeekDates} from '../../../../../../helpers/getWeekDates';
 
 const today = new Date().toISOString().split('T')[0];
-const pastDate = getPastDate(0);
+const pastDate = getPastDate(8);
 const futureDates = getFutureDates(8);
 // Lấy chuỗi ngày tuyến tính
-const dates = [pastDate, today, ...futureDates];
+// const dates = [pastDate, today, ...futureDates];
+const dates = [today, ...futureDates];
+
 // Lấy chuỗi ngày tuần
 const weekDates = getWeekDates();
 
@@ -149,8 +151,8 @@ export const agendaItems = [
   },
 ];
 
-export function getMarkedDates() {
-  return agendaItems.reduce((marked, item) => {
+export function getMarkedDates(items) {
+  return items.reduce((marked, item) => {
     // NOTE: only mark dates with data
     if (item.data && item.data.length > 0 && !isEmpty(item.data[0])) {
       marked[item.title] = {marked: true};

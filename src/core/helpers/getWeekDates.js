@@ -37,8 +37,10 @@ const getWeekDates = () => {
   }
 
   const dates = [];
-  for (let i = startOfWeek.getDate(); i <= endOfWeek.getDate(); i++) {
-    dates.push(new Date(startOfWeek.setDate(i)).toISOString().split('T')[0]);
+  const temp = new Date(startOfWeek);
+  while (temp <= endOfWeek) {
+    dates.push(new Date(temp).toISOString().split('T')[0]);
+    temp.setDate(temp.getDate() + 1);
   }
 
   return dates;
