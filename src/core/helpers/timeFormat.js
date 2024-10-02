@@ -1,5 +1,5 @@
-import moment from 'moment'
-import 'moment/min/locales'
+import moment from 'moment';
+import 'moment/min/locales';
 import Storage from '@react-native-async-storage/async-storage';
 
 const date = new Date();
@@ -26,7 +26,7 @@ export const timeFormat = timeStamp => {
     } else {
       return moment.unix(timeStamp).format('D MMM'); // 20 Jan
     }
-  };
+  }
   return ' ';
 };
 
@@ -41,11 +41,33 @@ export const getCurrentDateFormatted = new Promise((resolve, reject) => {
   } else {
     reject('vi');
   }
-}).then((locale) => {
-  moment.locale(locale); // Đặt locale là tiếng Việt
-  const currentDate = moment();
-  return currentDate.format('dddd - DD/MM'); // Định dạng ngày theo yêu cầu
-}).catch((error) => {
-  console.error(error);
-  return 'vi';
-});
+})
+  .then(locale => {
+    moment.locale(locale); // Đặt locale là tiếng Việt
+    const currentDate = moment();
+    return currentDate.format('dddd - DD/MM'); // Định dạng ngày theo yêu cầu
+  })
+  .catch(error => {
+    console.error(error);
+    return 'vi';
+  });
+
+export const getTimeDifference = (dateD, hour, timeMinute) => {
+  const currentTime = new Date();
+  const itemTime = new Date(dateD);
+  itemTime.setHours(parseInt(hour.split(':')[0]));
+  itemTime.setMinutes(parseInt(hour.split(':')[1]));
+
+  const timeDifference = (itemTime - currentTime) / (1000 * timeMinute); // Chênh lệch thời gian tính bằng phút
+  return timeDifference > 0 && timeDifference <= timeMinute; // Kiểm tra nếu thời gian chênh lệch nhỏ hơn hoặc bằng 60 phút
+};
+
+export const getTimeFuture = (dateD, hour) => {
+  const currentTime = new Date();
+  const itemTime = new Date(dateD);
+  itemTime.setHours(parseInt(hour.split(':')[0]));
+  itemTime.setMinutes(parseInt(hour.split(':')[1]));
+
+  const timeDifference = itemTime - currentTime;
+  return timeDifference > 0; // Kiểm tra nếu thời gian nếu nhỏ hơn 0 thì là thời gian trong quá khứ và ngược lại
+};

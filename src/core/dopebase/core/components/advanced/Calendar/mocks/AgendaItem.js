@@ -1,18 +1,44 @@
 import isEmpty from 'lodash/isEmpty';
-import React, {useCallback, memo, useEffect, useState} from 'react';
-import {StyleSheet, Alert, TouchableOpacity, Button} from 'react-native';
+import React, {
+  useCallback,
+  memo,
+  useEffect,
+  useState,
+  useMemo,
+  useRef,
+} from 'react';
+import {
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  Button,
+  Animated,
+} from 'react-native';
 import {View, Text, Switch} from '../../../../../../dopebase';
 import {useTheme} from '../../../../theming';
 import {useOnboardingConfig} from '../../../../../../onboarding/hooks/useOnboardingConfig';
+import {
+  getTimeDifference,
+  getTimeFuture,
+} from '../../../../../../helpers/timeFormat';
 
-const AgendaItem = ({item, switchActive, setNotiInfo, notiInfo}) => {
+const AgendaItem = ({
+  item,
+  date,
+  switchActive,
+  setNotiInfo,
+  updateNotiState,
+}) => {
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(colorSet);
   const {showDialog} = useOnboardingConfig();
-  const [noti, setNoti] = useState(false);
+  const [noti, setNoti] = useState(item.notiState);
+  const [switchShow, setSwitchShow] = useState(true);
+  const blinkAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
+    if (isEmpty(item)) return;
     if (noti) {
       setNotiInfo(notiInfo => {
         const flag = notiInfo.includes(item.hour);
@@ -26,11 +52,45 @@ const AgendaItem = ({item, switchActive, setNotiInfo, notiInfo}) => {
         notiInfo.filter(notiItem => notiItem !== item.hour),
       );
     }
+    updateNotiState(date, item.hour, noti);
   }, [noti]);
+
+  useEffect(() => {
+    if (date < new Date().toISOString().split('T')[0]) {
+      setSwitchShow(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(blinkAnim, {
+          toValue: 0.4,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(blinkAnim, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ]),
+    ).start();
+  }, [blinkAnim]);
 
   const itemPressed = useCallback(() => {
     Alert.alert(item.title, item.class, [{}]);
   }, [item.title]);
+
+  const blinkActive = useMemo(() => {
+    if (isEmpty(item)) return false;
+    return getTimeDifference(date, item.hour, 60);
+  }, [date, item.hour]);
+
+  const switchDisabled = useMemo(() => {
+    if (isEmpty(item)) return false;
+    return !getTimeFuture(date, item.hour);
+  }, [date, item.hour]);
 
   const handleShowDialog = () => {
     showDialog({
@@ -48,7 +108,19 @@ const AgendaItem = ({item, switchActive, setNotiInfo, notiInfo}) => {
   }
 
   return (
-    <TouchableOpacity onPress={handleShowDialog} style={styles.item}>
+    <TouchableOpacity
+      onPress={handleShowDialog}
+      style={[
+        styles.item,
+        blinkActive
+          ? {
+              backgroundColor: blinkAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: ['rgba(255,0,0,0.2)', 'rgba(255,0,0,0.8)'],
+              }),
+            }
+          : {},
+      ]}>
       <View>
         <Text style={styles.itemHourText}>{item.hour}</Text>
         <Text style={styles.itemDurationText}>{item.duration}</Text>
@@ -60,8 +132,12 @@ const AgendaItem = ({item, switchActive, setNotiInfo, notiInfo}) => {
         <Text>{item.class}</Text>
       </View>
       <View style={styles.itemButtonContainer}>
-        {switchActive ? (
-          <Switch value={item.notiState} onToggleSwitch={setNoti} />
+        {switchActive && switchShow ? (
+          <Switch
+            value={item.notiState}
+            onToggleSwitch={setNoti}
+            disabled={switchDisabled}
+          />
         ) : (
           <View>
             <Button color={'grey'} title={'Info'} onPress={itemPressed} />

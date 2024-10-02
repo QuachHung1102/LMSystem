@@ -49,19 +49,21 @@ export const CalendarCustom = memo(({weekView}) => {
 
   useEffect(() => {
     marked.current = getMarkedDates(items);
+    updateDeviceStorage.setStoreData('agendaItems', items);
   }, [items]);
 
   useEffect(() => {
     console.log(notiInfo);
   }, [notiInfo]);
 
-  const renderItem = useCallback(({item}) => {
+  const renderItem = useCallback(({item, section}) => {
     return (
       <AgendaItem
         item={item}
+        date={section.title}
         switchActive={true}
         setNotiInfo={setNotiInfo}
-        notiInfo={notiInfo}
+        updateNotiState={updateNotiState}
       />
     );
   }, []);
@@ -92,6 +94,29 @@ export const CalendarCustom = memo(({weekView}) => {
         tintColor={colorSet.secondaryText}
       />
     );
+  }, []);
+
+  const updateNotiState = useCallback((date, hour, newState) => {
+    const updateItemState = item =>
+      item.hour === hour ? {...item, notiState: newState} : item;
+    const disableNotiState = item => ({...item, notiState: false});
+
+    const updateSectionState = section => {
+      if (section.title === date) {
+        return {
+          ...section,
+          data: section.data.map(updateItemState),
+        };
+      } else if (section.title < date) {
+        return {
+          ...section,
+          data: section.data.map(disableNotiState),
+        };
+      }
+      return section;
+    };
+
+    setItems(prevItems => prevItems.map(updateSectionState));
   }, []);
 
   return (

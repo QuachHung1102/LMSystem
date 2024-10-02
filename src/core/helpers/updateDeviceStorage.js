@@ -4,6 +4,7 @@ const setStoreData = async (key, value) => {
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(key, jsonValue);
+    console.log(`Data saved for key: ${key}`);
   } catch (e) {
     // saving error
     console.log(`saving error: ${e}`);
@@ -13,6 +14,7 @@ const setStoreData = async (key, value) => {
 const getStoreData = async key => {
   try {
     const jsonValue = await AsyncStorage.getItem(key);
+    console.log(`Data read for key: ${key}`);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     // error reading value
