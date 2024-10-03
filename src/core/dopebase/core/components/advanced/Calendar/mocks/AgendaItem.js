@@ -21,38 +21,30 @@ import {
   getTimeDifference,
   getTimeFuture,
 } from '../../../../../../helpers/timeFormat';
+import {
+  cancelNotification,
+  onCreateTriggerNotification,
+} from '../../../../../../helpers/notifee';
 
-const AgendaItem = ({
-  item,
-  date,
-  switchActive,
-  setNotiInfo,
-  updateNotiState,
-}) => {
+const AgendaItem = ({item, date, switchActive, updateNotiState}) => {
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(colorSet);
   const {showDialog} = useOnboardingConfig();
-  const [noti, setNoti] = useState(item.notiState);
+  const [noti, setNoti] = useState(item.notiState || null);
+  const prevNotiRef = useRef(noti);
   const [switchShow, setSwitchShow] = useState(true);
   const blinkAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     if (isEmpty(item)) return;
-    if (noti) {
-      setNotiInfo(notiInfo => {
-        const flag = notiInfo.includes(item.hour);
-        if (!flag) {
-          return [...notiInfo, item.hour];
-        }
-        return notiInfo;
-      });
-    } else if (!noti) {
-      setNotiInfo(notiInfo =>
-        notiInfo.filter(notiItem => notiItem !== item.hour),
-      );
+    if (noti && !prevNotiRef.current) {
+      onCreateTriggerNotification(item.title, date, item.hour);
+    } else if (!noti && prevNotiRef.current) {
+      cancelNotification(`LMSystem_${date}_${item.hour}`);
     }
     updateNotiState(date, item.hour, noti);
+    prevNotiRef.current = noti;
   }, [noti]);
 
   useEffect(() => {

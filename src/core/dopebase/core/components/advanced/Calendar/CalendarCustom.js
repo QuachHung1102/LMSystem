@@ -21,7 +21,6 @@ const calendarplusIcon = require('../../../../../../assets/images/menu/calendar-
 
 export const CalendarCustom = memo(({weekView}) => {
   const [items, setItems] = useState([]);
-  const [notiInfo, setNotiInfo] = useState([]);
   const marked = useRef(getMarkedDates(items));
   const {theme, appearance} = useTheme();
   const styles = dynamicStyles(theme, appearance);
@@ -52,17 +51,12 @@ export const CalendarCustom = memo(({weekView}) => {
     updateDeviceStorage.setStoreData('agendaItems', items);
   }, [items]);
 
-  useEffect(() => {
-    console.log(notiInfo);
-  }, [notiInfo]);
-
   const renderItem = useCallback(({item, section}) => {
     return (
       <AgendaItem
         item={item}
         date={section.title}
         switchActive={true}
-        setNotiInfo={setNotiInfo}
         updateNotiState={updateNotiState}
       />
     );

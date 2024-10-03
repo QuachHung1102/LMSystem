@@ -57,7 +57,10 @@ const ItemComponent = ({
 
   // Memo hóa hàm tạo thông báo
   const handleCreateNotification = useCallback(async () => {
-    const isValid = await onCreateTriggerNotification(foodName, timeE);
+    const isValid = await onCreateTriggerNotification(
+      (title = foodName),
+      timeH = timeE,
+    );
     if (!isValid) {
       Alert.alert(
         'Thời gian không hợp lệ!',
