@@ -1,13 +1,13 @@
-import React, { useState, useEffect, memo } from 'react';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
-import { useTheme } from '../../../theming';
+import React, {useState, useEffect, memo} from 'react';
+import {View} from 'react-native';
+import {useTheme} from '../../../theming';
 import dynamicStyles from './styles';
-import { CalendarList, CalendarProvider, ExpandableCalendar, WeekCalendar } from 'react-native-calendars';
+import {CalendarList} from 'react-native-calendars';
 import calendarIcon from '../../../../../../assets/icons/calendarSm.png';
-import { Image } from 'react-native-animatable';
+import {Image} from 'react-native-animatable';
 
 export const CalendarComponent = memo(props => {
-  const { theme, appearance } = useTheme();
+  const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
   const [selectedDate, setSelectedDate] = useState('');
@@ -33,20 +33,28 @@ export const CalendarComponent = memo(props => {
         onDayPress={onDayPress}
         initialDate={selectedDate}
         markedDates={{
-          [selectedDate]: { selected: true, selectedColor: colorSet.primary },
+          [selectedDate]: {selected: true, selectedColor: colorSet.primary},
         }}
         hideExtraDays={false}
         hideArrows={false}
         renderArrow={direction => {
           if (direction === 'right') {
-            return <Image source={calendarIcon} tintColor={colorSet.red} style={styles.arrow} />;
+            return (
+              <Image
+                source={calendarIcon}
+                tintColor={colorSet.red}
+                style={styles.arrow}
+              />
+            );
           } else {
             return <View style={styles.arrow}></View>;
           }
         }}
         disableArrowLeft={true}
         disableMonthChange={true}
-        onPressArrowRight={() => { console.log(`move to ...`); }}
+        onPressArrowRight={() => {
+          console.log(`move to ...`);
+        }}
         theme={{
           calendarBackground: colorSet.primaryBackground,
           dayTextColor: colorSet.primaryText,
@@ -55,12 +63,12 @@ export const CalendarComponent = memo(props => {
           textDisabledColor: colorSet.disabledText,
           'stylesheet.calendar.header': {
             dayTextAtIndex0: {
-              color: 'red'
+              color: 'red',
             },
             dayTextAtIndex6: {
-              color: 'blue'
-            }
-          }
+              color: 'blue',
+            },
+          },
         }}
       />
     </View>

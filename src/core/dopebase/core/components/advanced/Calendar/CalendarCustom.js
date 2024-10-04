@@ -1,4 +1,11 @@
-import React, {useRef, useCallback, memo, useEffect, useState} from 'react';
+import React, {
+  useRef,
+  useCallback,
+  memo,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import {
   ExpandableCalendar,
@@ -15,69 +22,82 @@ import {View} from '../../base/View';
 import {Text} from '../../base/Text';
 import {TouchableIcon} from '../TouchableIcon/TouchableIcon';
 import updateDeviceStorage from '../../../../../helpers/updateDeviceStorage';
+import {useNavigation} from '@react-navigation/core';
 
 const calendarSmIcon = require('../../../../../../assets/icons/calendarSm.png');
 const calendarplusIcon = require('../../../../../../assets/images/menu/calendar-plus.png');
 
+const fetchData = async setItems => {
+  try {
+    const data = await updateDeviceStorage.getStoreData('agendaItems');
+    if (Array.isArray(data)) {
+      setItems(data);
+    } else {
+      setItems([]);
+    }
+  } catch (error) {
+    console.error('Error fetching agenda items:', error);
+    setItems([]);
+  }
+};
+
 export const CalendarCustom = memo(({weekView}) => {
   const [items, setItems] = useState([]);
-  const marked = useRef(getMarkedDates(items));
+  const isInitialized = useRef(false);
   const {theme, appearance} = useTheme();
-  const styles = dynamicStyles(theme, appearance);
+  const styles = useMemo(
+    () => dynamicStyles(theme, appearance),
+    [theme, appearance],
+  );
   const colorSet = theme.colors[appearance];
   const calendarTheme = useRef(getTheme(colorSet));
-  const today = new Date().toISOString().split('T')[0];
+  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
+  const marked = useMemo(() => getMarkedDates(items), [items]);
+  const navigation = useNavigation();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await updateDeviceStorage.getStoreData('agendaItems');
-        if (Array.isArray(data)) {
-          setItems(data);
-        } else {
-          setItems([]);
-        }
-      } catch (error) {
-        console.error('Error fetching agenda items:', error);
-        setItems([]);
-      }
-    };
-
-    fetchData();
+    fetchData(setItems);
   }, []);
 
   useEffect(() => {
-    marked.current = getMarkedDates(items);
-    updateDeviceStorage.setStoreData('agendaItems', items);
+    if (isInitialized.current) {
+      updateDeviceStorage.setStoreData('agendaItems', items);
+    } else {
+      isInitialized.current = true; // Đánh dấu rằng items đã được khởi tạo
+    }
   }, [items]);
 
-  const renderItem = useCallback(({item, section}) => {
-    return (
+  const renderItem = useCallback(
+    ({item, section}) => (
       <AgendaItem
         item={item}
         date={section.title}
         switchActive={true}
         updateNotiState={updateNotiState}
       />
-    );
-  }, []);
+    ),
+    [items],
+  );
 
-  const renderSectionHeader = useCallback(item => {
-    const isToday = item === today;
+  const renderSectionHeader = useCallback(
+    item => {
+      const isToday = item === today;
 
-    return (
-      <View
-        style={[
-          styles.sectionHeaderContainer,
-          isToday && styles.todayHeaderText,
-        ]}>
-        <Text style={styles.sectionHeaderText}>{item}</Text>
-      </View>
-    );
-  }, []);
+      return (
+        <View
+          style={[
+            styles.sectionHeaderContainer,
+            isToday && styles.todayHeaderText,
+          ]}>
+          <Text style={styles.sectionHeaderText}>{item}</Text>
+        </View>
+      );
+    },
+    [today, styles],
+  );
 
-  const renderListHeader = useCallback(() => {
-    return (
+  const renderListHeader = useCallback(
+    () => (
       <TouchableIcon
         iconSource={calendarplusIcon}
         containerStyle={styles.btnAddTaskContainer}
@@ -87,8 +107,9 @@ export const CalendarCustom = memo(({weekView}) => {
         titleStyle={styles.btnAddTaskText}
         tintColor={colorSet.secondaryText}
       />
-    );
-  }, []);
+    ),
+    [styles, colorSet],
+  );
 
   const updateNotiState = useCallback((date, hour, newState) => {
     const updateItemState = item =>
@@ -126,7 +147,7 @@ export const CalendarCustom = memo(({weekView}) => {
       // todayBottomMargin={16}
       alowShadow={true}>
       {weekView ? (
-        <WeekCalendar firstDay={1} markedDates={marked.current} />
+        <WeekCalendar firstDay={1} markedDates={marked} />
       ) : (
         <ExpandableCalendar
           // horizontal={false}
@@ -140,7 +161,7 @@ export const CalendarCustom = memo(({weekView}) => {
           theme={calendarTheme.current}
           // disableAllTouchEventsForDisabledDays
           firstDay={1}
-          markedDates={marked.current}
+          markedDates={marked}
           leftArrowImageSource={calendarSmIcon}
           rightArrowImageSource={calendarSmIcon}
           renderArrow={direction => {
@@ -148,7 +169,7 @@ export const CalendarCustom = memo(({weekView}) => {
               return (
                 <TouchableOpacity
                   onPress={() => {
-                    console.log('Move to...');
+                    navigation.navigate('CalendarFullScreen');
                   }}>
                   <Image
                     source={calendarSmIcon}

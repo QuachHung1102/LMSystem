@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useLayoutEffect, useCallback, useState, useMemo } from 'react';
+import React, { memo, useEffect, useState, useMemo } from 'react';
 import { Dimensions, ScrollView, Alert } from 'react-native';
 import {
   View,

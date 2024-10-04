@@ -40,10 +40,13 @@ const AgendaItem = ({item, date, switchActive, updateNotiState}) => {
     if (isEmpty(item)) return;
     if (noti && !prevNotiRef.current) {
       onCreateTriggerNotification(item.title, date, item.hour);
+      updateNotiState(date, item.hour, noti);
     } else if (!noti && prevNotiRef.current) {
       cancelNotification(`LMSystem_${date}_${item.hour}`);
+      updateNotiState(date, item.hour, noti);
+    } else if (prevNotiRef.current && noti) {
+      onCreateTriggerNotification(item.title, date, item.hour);
     }
-    updateNotiState(date, item.hour, noti);
     prevNotiRef.current = noti;
   }, [noti]);
 

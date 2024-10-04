@@ -5,6 +5,7 @@ import notifee, {
   TimestampTrigger,
   RepeatFrequency,
   AlarmType,
+  AndroidImportance,
 } from '@notifee/react-native';
 import moment from 'moment';
 import 'moment-timezone';
@@ -184,6 +185,8 @@ export async function onCreateTriggerNotification(title, dateT, timeH) {
     const channelId = await notifee.createChannel({
       id: 'LMSystemApp',
       name: 'LMSystemApp Channel',
+      sound: 'default', // Sử dụng âm thanh mặc định
+      importance: AndroidImportance.HIGH, // Đảm bảo thông báo có chuông
     });
 
     // Tạo thông báo với trigger đã tạo

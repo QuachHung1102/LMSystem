@@ -119,21 +119,21 @@ export const agendaItems = [
     title: weekDates[4],
     data: [
       {
-        hour: '07:00',
+        hour: '17:23',
         duration: '45p',
         title: 'Tiết 1: Phương Trình Bậc 3',
         class: 'Lớp 12A',
         notiState: true,
       },
       {
-        hour: '08:00',
+        hour: '17:24',
         duration: '45p',
         title: 'Tiết 2: Hàm Số Bậc Cao',
         class: 'Lớp 12A',
         notiState: true,
       },
       {
-        hour: '09:00',
+        hour: '17:25',
         duration: '45p',
         title: 'Tiết 3: Ứng Dụng Hàm Số',
         class: 'Lớp 12A',

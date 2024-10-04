@@ -33,7 +33,7 @@ const App = () => {
         console.error('Error fetching agenda items:', error);
       }
     };
-    // loadData();
+    loadData();
     getNotiSets();
     bootstrap().then().catch(console.error);
     getTriggerNotis();
