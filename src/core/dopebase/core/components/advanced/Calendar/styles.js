@@ -5,7 +5,8 @@ const {width, height} = Dimensions.get('window');
 const styles = (theme, appearance) => {
   const colorSet = theme.colors[appearance];
   return StyleSheet.create({
-    container: {},
+    container: {
+    },
     arrow: {
       width: width * 0.05,
       height: width * 0.05,

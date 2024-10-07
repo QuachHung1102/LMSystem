@@ -42,6 +42,7 @@ import {
   NumberPicker,
   CalendarComponent,
   CalendarCustom,
+  CalendarListCustom,
 } from './core/components/advanced';
 
 export {
@@ -74,6 +75,7 @@ export {
   NumberPicker,
   CalendarComponent,
   CalendarCustom,
+  CalendarListCustom,
   theme,
   DopebaseContext,
   extendTheme,

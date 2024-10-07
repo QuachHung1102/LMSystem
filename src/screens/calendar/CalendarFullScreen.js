@@ -1,12 +1,24 @@
-import React, {memo, useEffect, useMemo} from 'react';
+import React, {
+  memo,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {
   TouchableIcon,
   View,
   useTranslations,
   useTheme,
   ActivityIndicator,
+  Text,
+  CalendarComponent,
 } from '../../core/dopebase';
+import * as Animatable from 'react-native-animatable';
 import dynamicStyles from './styles';
+import {Dimensions, FlatList, Pressable} from 'react-native';
+
+import menuIcon from '../../assets/icons/menu1x.png';
 
 export const CalendarFullScreen = memo(props => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,11 +27,20 @@ export const CalendarFullScreen = memo(props => {
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
+  const boLoc = useMemo(() => [
+    'Lên\nlớp',
+    'Kiểm\ntra',
+    'Dự\nán',
+    'BTVN',
+    'Họp',
+    'Khác',
+    'Sự\nkiện',
+  ]);
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
   }, []);
 
   useLayoutEffect(() => {
@@ -53,6 +74,31 @@ export const CalendarFullScreen = memo(props => {
     });
   }, []);
 
+  const _renderItem = ({item}) => {
+    let viewRef = null;
+    return (
+      <Pressable
+        onPress={() => {
+          if (viewRef) {
+            viewRef.bounce(1600);
+          }
+        }}
+        style={{borderRadius: 16}}>
+        <Animatable.View
+          key={item}
+          ref={ref => {
+            viewRef = ref;
+          }}>
+          <View ph3 pv3 br5 ref style={styles.calendarBtn}>
+            <Text h4 bold style={styles.calendarText}>
+              {item}
+            </Text>
+          </View>
+        </Animatable.View>
+      </Pressable>
+    );
+  };
+
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -60,6 +106,25 @@ export const CalendarFullScreen = memo(props => {
       </View>
     );
   } else {
-    return <View></View>;
+    return (
+      <View style={{backgroundColor: colorSet.primaryBackground}} animation={'fadeInDown'}>
+        <View ph4>
+          <FlatList
+            data={boLoc}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            renderItem={_renderItem}
+            keyExtractor={(_, index) => index.toString()}
+            ItemSeparatorComponent={() => (
+              <View style={{width: width * 0.035}} />
+            )}
+            style={styles.listButton}
+          />
+        </View>
+        <CalendarComponent />
+      </View>
+    );
   }
 });
+
+const {width, height} = Dimensions.get('window');

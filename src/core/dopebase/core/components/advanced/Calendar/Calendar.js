@@ -19,7 +19,6 @@ export const CalendarComponent = memo(props => {
 
   const onDayPress = day => {
     setSelectedDate(day.dateString);
-    setModalVisible(true);
   };
 
   return (

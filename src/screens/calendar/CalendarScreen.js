@@ -2,9 +2,7 @@ import React, {
   memo,
   useEffect,
   useLayoutEffect,
-  useCallback,
   useState,
-  useRef,
 } from 'react';
 import {Dimensions} from 'react-native';
 import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
