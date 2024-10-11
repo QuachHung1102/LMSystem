@@ -5,7 +5,26 @@ const {width, height} = Dimensions.get('window');
 const styles = (theme, appearance) => {
   const colorSet = theme.colors[appearance];
   return StyleSheet.create({
-    container: {
+    container: {},
+    containerActivity: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      left: 0,
+      bottom: 0,
+    },
+    indicatorContainer: {
+      width: width * 0.275,
+      height: width * 0.275,
+      borderRadius: 10,
+      backgroundColor: 'rgba(52, 52, 52, 0.7)',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
     },
     arrow: {
       width: width * 0.05,

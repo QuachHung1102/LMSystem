@@ -1,9 +1,4 @@
-import React, {
-  memo,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import React, {memo, useEffect, useLayoutEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
 import {
@@ -16,19 +11,12 @@ import {
   Dialog,
 } from '../../core/dopebase';
 import dynamicStyles from './styles';
-import {useCurrentUser} from '../../core/onboarding';
-import {useAuth} from '../../core/onboarding/hooks/useAuth';
-import HeadingBlock from '../../components/HeadingBlock';
-import ItemList from '../../components/ItemList';
-import updateDeviceStorage from '../../core/helpers/updateDeviceStorage';
 
 import menuIcon from '../../assets/icons/menu1x.png';
 import NotiBlock from '../../components/NotiBlock/NotiBlock';
 
 export const CalendarScreen = memo(props => {
   const {navigation} = props;
-  const currentUser = useCurrentUser();
-  const authManager = useAuth();
   const {localized} = useTranslations();
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
@@ -78,20 +66,6 @@ export const CalendarScreen = memo(props => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (!currentUser?.id) {
-  //     return;
-  //   }
-  // }, [currentUser?.id]);
-
-  // const onLogout = useCallback(() => {
-  //   authManager?.logout(currentUser);
-  //   navigation.reset({
-  //     index: 0,
-  //     routes: [{name: 'LoadScreen'}],
-  //   });
-  // }, [authManager, currentUser]);
-
   if (isLoading) {
     return (
       <View style={styles.container}>
@@ -125,9 +99,11 @@ export const CalendarScreen = memo(props => {
           titleStyle={{
             fontSize: width * 0.05,
           }}
-          messageStyle={{
-            // alignSelf: 'flex-start',
-          }}
+          messageStyle={
+            {
+              // alignSelf: 'flex-start',
+            }
+          }
         />
       </View>
     );

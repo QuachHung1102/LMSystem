@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import {
@@ -27,15 +28,18 @@ export const CalendarFullScreen = memo(props => {
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
-  const boLoc = useMemo(() => [
-    'Lên\nlớp',
-    'Kiểm\ntra',
-    'Dự\nán',
-    'BTVN',
-    'Họp',
-    'Khác',
-    'Sự\nkiện',
-  ]);
+  const boLoc = useMemo(
+    () => [
+      'Lên\nlớp',
+      'Kiểm\ntra',
+      'Dự\nán',
+      'BTVN',
+      'Họp',
+      'Khác',
+      'Sự\nkiện',
+    ],
+    [],
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -72,24 +76,20 @@ export const CalendarFullScreen = memo(props => {
       },
       headerTintColor: colorSet.secondaryText,
     });
-  }, []);
+  }, [navigation, localized, colorSet, theme, appearance]);
 
-  const _renderItem = ({item}) => {
-    let viewRef = null;
+  const Item = ({item}) => {
+    const viewRef = useRef(null);
     return (
       <Pressable
         onPress={() => {
-          if (viewRef) {
-            viewRef.bounce(1600);
+          if (viewRef.current) {
+            viewRef.current.bounce(1600);
           }
         }}
         style={{borderRadius: 16}}>
-        <Animatable.View
-          key={item}
-          ref={ref => {
-            viewRef = ref;
-          }}>
-          <View ph3 pv3 br5 ref style={styles.calendarBtn}>
+        <Animatable.View key={item} ref={viewRef}>
+          <View ph3 pv3 br5 style={styles.calendarBtn}>
             <Text h4 bold style={styles.calendarText}>
               {item}
             </Text>
@@ -97,6 +97,10 @@ export const CalendarFullScreen = memo(props => {
         </Animatable.View>
       </Pressable>
     );
+  };
+
+  const _renderItem = ({item}) => {
+    return <Item item={item} />;
   };
 
   if (isLoading) {
@@ -107,7 +111,10 @@ export const CalendarFullScreen = memo(props => {
     );
   } else {
     return (
-      <View style={{backgroundColor: colorSet.primaryBackground}} animation={'fadeInDown'}>
+      <View
+        fx1
+        style={{backgroundColor: colorSet.primaryBackground, paddingBottom: height * 0.13}}
+        animation={'fadeInDown'}>
         <View ph4>
           <FlatList
             data={boLoc}
