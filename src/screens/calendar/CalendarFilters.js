@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {memo, useLayoutEffect, useState} from 'react';
+import {Dimensions} from 'react-native';
 import {
   View,
   Text,
@@ -7,7 +8,69 @@ import {
   useActionSheet,
   ActivityIndicator,
   Button,
+  TouchableIcon,
 } from '../../core/dopebase';
+import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
 import dynamicStyles from './styles';
+
+import menuIcon from '../../assets/icons/menu1x.png';
+import NotiBlock from '../../components/NotiBlock/NotiBlock';
+
+export const CalendarFilters = memo(props => {
+  const {navigation} = props;
+  const {config} = useOnboardingConfig();
+  const {localized} = useTranslations();
+  const {theme, appearance} = useTheme();
+  const colorSet = theme.colors[appearance];
+
+  const styles = dynamicStyles(theme, appearance);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: localized('Calendar'),
+      headerTitleAlign: 'center',
+      headerLeft: () => (
+        <View>
+          <TouchableIcon
+            imageStyle={{tintColor: colorSet.secondaryText}}
+            iconSource={theme.icons.backArrow}
+            onPress={() => navigation.goBack()}
+          />
+        </View>
+      ),
+      headerRight: () => (
+        <View>
+          <TouchableIcon
+            imageStyle={{tintColor: colorSet.thirBackground}}
+            iconSource={menuIcon}
+            onPress={() => navigation.openDrawer()}
+          />
+        </View>
+      ),
+      headerStyle: {
+        backgroundColor: colorSet.primaryBackground,
+        borderBottomColor: colorSet.hairline,
+        height: height * 0.08,
+      },
+      headerTintColor: colorSet.secondaryText,
+    });
+  });
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator />
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        
+      </View>
+    );
+  }
+});
 
 const {width, height} = Dimensions.get('window');

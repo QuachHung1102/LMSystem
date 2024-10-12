@@ -17,7 +17,7 @@ export const ConfigContext = React.createContext({});
 
 export const ConfigProvider = ({children}) => {
   const {localized} = useTranslations();
-  const config = {
+  const config = React.useMemo(() => ({
     isSMSAuthEnabled: true,
     isGoogleAuthEnabled: true,
     isAppleAuthEnabled: true,
@@ -347,7 +347,7 @@ export const ConfigProvider = ({children}) => {
         autoCapitalize: 'none',
       },
     ],
-  };
+  }));
 
   return (
     <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>
