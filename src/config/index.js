@@ -17,7 +17,7 @@ export const ConfigContext = React.createContext({});
 
 export const ConfigProvider = ({children}) => {
   const {localized} = useTranslations();
-  const config = React.useMemo(() => ({
+  const config = {
     isSMSAuthEnabled: true,
     isGoogleAuthEnabled: true,
     isAppleAuthEnabled: true,
@@ -234,7 +234,7 @@ export const ConfigProvider = ({children}) => {
               title: localized('Đoàn thanh niên jj đấy'),
             },
             {
-              title: localized('Đéo biết'),
+              title: localized('Không biết'),
             },
           ],
         },
@@ -270,6 +270,23 @@ export const ConfigProvider = ({children}) => {
             params: {screen: 'MainStack', params: {screen: 'Home'}},
           },
         },
+      ],
+      CalendarFiltersBtn: [
+        {title: localized('Class')},
+        {title: localized('Exam')},
+        {title: localized('Group project')},
+        {title: localized('Meeting')},
+        {title: localized('Home work')},
+        {title: localized('Event')},
+        {title: localized('Other')},
+      ],
+      CalendarFiltersCheckboxStatus: [
+        {title: localized('In Progress')},
+        {title: localized('Unresolved')},
+        {title: localized('Completed')},
+        {title: localized('Cancelled')},
+        {title: localized('Overdue')},
+        {title: localized('Urgent')},
       ],
     },
     tosLink: 'https://www.facebook.com/quachhuwng',
@@ -347,7 +364,7 @@ export const ConfigProvider = ({children}) => {
         autoCapitalize: 'none',
       },
     ],
-  }));
+  };
 
   return (
     <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>

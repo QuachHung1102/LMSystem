@@ -163,5 +163,20 @@
   "Daily": "Daily",
   "Hourly": "Hourly",
   "Weekly": "Weekly",
-  "Calendar": "Calendar"
+  "Calendar": "Calendar",
+  "Calendar filters": "Calendar filters",
+  "Status": "Status",
+  "Class": "Class",
+  "Exam": "Exam",
+  "Group project": "Group project",
+  "Meeting": "Meeting",
+  "Home work": "Home work",
+  "Event": "Event",
+  "Other": "Other",
+  "In Progress": "In Progress",
+  "Unresolved": "Unresolved",
+  "Completed": "Completed",
+  "Cancelled": "Cancelled",
+  "Overdue": "Overdue",
+  "Urgent": "Urgent"
 }

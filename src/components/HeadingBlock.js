@@ -1,10 +1,10 @@
 import React, { memo } from "react";
-import { StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { View, Text } from "../core/dopebase";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, useTranslations } from "../core/dopebase";
 
 const HeadingBlock = props => {
-  const { localized, text, text2, onPress } = props;
+  const {text, text2, onPress } = props;
+  const { localized } = useTranslations();
   return (
     <View mv4 mh2 pl3 style={styles.container}>
       <Text h3>{localized(text)}</Text>

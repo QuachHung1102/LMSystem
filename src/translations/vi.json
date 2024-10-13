@@ -167,5 +167,20 @@
   "Daily": "Hàng ngày",
   "Hourly": "Hàng giờ",
   "Weekly": "Hàng tuần",
-  "Calendar": "Lịch"
+  "Calendar": "Lịch",
+  "Calendar filters": "Bộ lọc thời gian biểu",
+  "Status": "Trạng thái",
+  "Class": "Lên lớp",
+  "Exam": "Bài kiểm tra",
+  "Group project": "Dự án nhóm",
+  "Meeting": "Họp",
+  "Homework": "Bài tập về nhà",
+  "Event": "Sự kiện",
+  "Other": "Khác",
+  "In Progress": "Đang thực hiện",
+  "Unresolved": "Chưa giải quyết",
+  "Completed": "Đã xong",
+  "Cancelled": "Đã hủy",
+  "Overdue": "Trễ",
+  "Urgent": "Gấp"
 }
