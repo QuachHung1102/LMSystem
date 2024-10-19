@@ -166,6 +166,7 @@
   "Calendar": "Calendar",
   "Calendar filters": "Calendar filters",
   "Status": "Status",
+  "Grade": "Grade",
   "Class": "Class",
   "Exam": "Exam",
   "Group project": "Group project",
@@ -178,5 +179,6 @@
   "Completed": "Completed",
   "Cancelled": "Cancelled",
   "Overdue": "Overdue",
-  "Urgent": "Urgent"
+  "Urgent": "Urgent",
+  "Homeroom": "Homeroom"
 }

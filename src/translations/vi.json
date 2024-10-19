@@ -170,6 +170,7 @@
   "Calendar": "Lịch",
   "Calendar filters": "Bộ lọc thời gian biểu",
   "Status": "Trạng thái",
+  "Grade": "Khối",
   "Class": "Lên lớp",
   "Exam": "Bài kiểm tra",
   "Group project": "Dự án nhóm",
@@ -182,5 +183,6 @@
   "Completed": "Đã xong",
   "Cancelled": "Đã hủy",
   "Overdue": "Trễ",
-  "Urgent": "Gấp"
+  "Urgent": "Gấp",
+  "Homeroom": "Lớp chủ nhiệm"
 }

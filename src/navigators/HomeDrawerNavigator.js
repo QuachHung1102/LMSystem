@@ -8,10 +8,10 @@ const Drawer = createDrawerNavigator();
 export default function HomeDrawer() {
   return (
     <Drawer.Navigator
-      initialRouteName="MainStack"
+      initialRouteName="MainStackRoot"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="MainStack" component={MainStackNavigator} options={{ headerShown: false, }} />
+      <Drawer.Screen name="MainStackRoot" component={MainStackNavigator} options={{ headerShown: false, }} />
     </Drawer.Navigator>
   );
 }

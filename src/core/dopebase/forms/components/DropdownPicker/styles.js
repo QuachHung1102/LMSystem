@@ -1,8 +1,8 @@
-import { StyleSheet, Platform, Dimensions } from 'react-native'
+import {StyleSheet, Platform, Dimensions} from 'react-native';
 
 const dynamicStyles = (theme, colorScheme) => {
-  const colorSet = theme.colors[colorScheme]
-  const windowWidth = Dimensions.get('window').width
+  const colorSet = theme.colors[colorScheme];
+  const windowWidth = Dimensions.get('window').width;
   return StyleSheet.create({
     container: {
       zIndex: 99,
@@ -109,7 +109,7 @@ const dynamicStyles = (theme, colorScheme) => {
     checkbox: {
       margin: 8,
     },
-  })
-}
+  });
+};
 
-export default dynamicStyles
+export default dynamicStyles;

@@ -10,11 +10,11 @@ const RootNavigator = () => {
   return (
     <Root.Navigator
       screenOptions={{ headerShown: false, animationEnabled: false }}
-      initialRouteName="HomeDrawer">
+      initialRouteName="LoadScreen">
       <Root.Screen name="LoadScreen" component={LoadScreen} />
       <Root.Screen name="WalkthroughStack" component={WalkthroughStackNavigator} />
       <Root.Screen name="LoginStack" component={LoginStack} />
-      <Root.Screen name="HomeDrawer" component={HomeDrawer} />
+      <Root.Screen name="MainStack" component={HomeDrawer} />
     </Root.Navigator>
   );
 };

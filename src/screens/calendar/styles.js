@@ -19,13 +19,14 @@ const dynamicStyles = (theme, appearance) => {
       marginTop: 16,
       fontSize: 18,
     },
-    image: {
-      height: 128,
-      width: 128,
-      borderRadius: 64,
-      marginTop: -320,
-    },
     // Phần này không thuộc template
+    listButtonContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-start',
+      rowGap: height * 0.0125,
+      columnGap: width * 0.025,
+    },
     calendarBtn: {
       alignSelf: 'center',
       borderWidth: 1,
@@ -39,7 +40,19 @@ const dynamicStyles = (theme, appearance) => {
       fontSize: width * 0.04,
     },
     listButton: {
-      paddingVertical: height * 0.025
+      paddingVertical: height * 0.025,
+    },
+    checkboxParagraph: {
+      fontSize: width * 0.035,
+      letterSpacing: 0.5,
+      fontWeight: 'bold',
+      width: '70%',
+    },
+    checkboxParagraph2: {
+      fontSize: width * 0.035,
+      letterSpacing: 0.5,
+      fontWeight: 'bold',
+      width: '70%',
     },
   });
 };

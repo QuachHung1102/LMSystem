@@ -1,20 +1,20 @@
-import React, { useLayoutEffect } from 'react';
-import { View, Image, Text } from 'react-native';
+import React, {useLayoutEffect} from 'react';
+import {View, Image, Text} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import { useNavigation } from '@react-navigation/core';
-import { useTheme, useTranslations } from '../../../dopebase';
+import {useNavigation} from '@react-navigation/core';
+import {useTheme, useTranslations} from '../../../dopebase';
 import deviceStorage from '../../utils/AuthDeviceStorage';
 import dynamicStyles from './styles';
-import { useOnboardingConfig } from '../../hooks/useOnboardingConfig';
+import {useOnboardingConfig} from '../../hooks/useOnboardingConfig';
 
 const WalkthroughScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  const { config } = useOnboardingConfig()
+  const {config} = useOnboardingConfig();
 
-  const { localized } = useTranslations()
-  const { theme, appearance } = useTheme()
-  const styles = dynamicStyles(theme, appearance)
+  const {localized} = useTranslations();
+  const {theme, appearance} = useTheme();
+  const styles = dynamicStyles(theme, appearance);
 
   const slides = config.onboardingConfig.walkthroughScreens.map(
     (screenSpec, index) => {
@@ -23,26 +23,26 @@ const WalkthroughScreen = () => {
         text: screenSpec.description,
         title: screenSpec.title,
         image: screenSpec.icon,
-      }
+      };
     },
   );
 
   const _onDone = () => {
-    deviceStorage.setShouldShowOnboardingFlow('false')
+    deviceStorage.setShouldShowOnboardingFlow('false');
     if (config?.isDelayedLoginEnabled) {
-      navigation.navigate('DelayedHome')
-      return
+      navigation.navigate('DelayedHome');
+      return;
     }
-    navigation.navigate('LoginStack', { screen: 'Welcome' });
-  }
+    navigation.navigate('LoginStack', {screen: 'Welcome'});
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
-    })
-  }, [navigation])
+    });
+  }, [navigation]);
 
-  const _renderItem = ({ item, dimensions }) => (
+  const _renderItem = ({item, dimensions}) => (
     <View style={[styles.container, dimensions]}>
       <Image
         style={styles.image}
@@ -55,23 +55,23 @@ const WalkthroughScreen = () => {
         <Text style={styles.text}>{item.text}</Text>
       </View>
     </View>
-  )
+  );
 
   const _renderNextButton = () => {
-    return <Text style={styles.button}>{localized('Next')}</Text>
-  }
+    return <Text style={styles.button}>{localized('Next')}</Text>;
+  };
 
   const _renderSkipButton = () => {
-    return <Text style={styles.button}>{localized('Skip')}</Text>
-  }
+    return <Text style={styles.button}>{localized('Skip')}</Text>;
+  };
 
   const _renderDoneButton = () => {
-    return <Text style={styles.button}>{localized('Done')}</Text>
-  }
+    return <Text style={styles.button}>{localized('Done')}</Text>;
+  };
 
   const _renderPrevButton = () => {
-    return <Text style={styles.button}>{localized('Prev')}</Text>
-  }
+    return <Text style={styles.button}>{localized('Prev')}</Text>;
+  };
 
   return (
     <AppIntroSlider
@@ -89,7 +89,7 @@ const WalkthroughScreen = () => {
       renderDoneButton={_renderDoneButton}
       renderPrevButton={_renderPrevButton}
     />
-  )
+  );
 };
 
 export default WalkthroughScreen;

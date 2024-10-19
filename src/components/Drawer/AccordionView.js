@@ -1,7 +1,7 @@
 import React from 'react';
 import Accordion from 'react-native-collapsible/Accordion';
-import { Text, View } from '../../core/dopebase';
-import { Image, StyleSheet } from 'react-native';
+import {Text, View} from '../../core/dopebase';
+import {Image, StyleSheet} from 'react-native';
 
 export default class AccordionView extends React.PureComponent {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class AccordionView extends React.PureComponent {
     this.state = {
       activeSections: [],
       activeSections2: [],
-    }
+    };
   }
 
   // _renderSectionTitle = (section) => {
@@ -21,65 +21,81 @@ export default class AccordionView extends React.PureComponent {
   // };
 
   _renderHeader = (section, index, isActive, sections) => {
-    const { iconCollapseSize, colorSet } = this.props;
+    const {iconCollapseSize, colorSet} = this.props;
     return (
       <View pv1 style={styles.collapseHeader}>
-        <Text h3 style={{ fontWeight: '600' }} numberOfLines={1}>{section.title}</Text>
-        {section.lopDangDay ?
-          <View style={{
-            transform: [isActive ? { rotate: '90deg' } : { rotate: '0deg' }],
-          }}>
+        <Text h3 style={{fontWeight: '600'}} numberOfLines={1}>
+          {section.title}
+        </Text>
+        {section.lopDangDay ? (
+          <View
+            style={{
+              transform: [isActive ? {rotate: '90deg'} : {rotate: '0deg'}],
+            }}>
             <Image
               tintColor={colorSet.primaryText}
               source={require('../../assets/icons/right-arrow.png')}
-              style={{ width: iconCollapseSize, height: iconCollapseSize }}
+              style={{width: iconCollapseSize, height: iconCollapseSize}}
             />
-          </View> : <View></View>}
+          </View>
+        ) : (
+          <View></View>
+        )}
       </View>
     );
   };
 
   _renderHeader2 = (section, index, isActive, sections) => {
-    const { iconCollapseSize, colorSet } = this.props;
+    const {iconCollapseSize, colorSet} = this.props;
     return (
       <View pv1 style={styles.collapseHeader}>
-        <Text h3 style={{ fontWeight: '600' }} numberOfLines={1}>{section.khoi}</Text>
-        <View style={{
-          transform: [isActive ? { rotate: '90deg' } : { rotate: '0deg' }],
-        }}>
+        <Text h3 style={{fontWeight: '600'}} numberOfLines={1}>
+          {section.khoi}
+        </Text>
+        <View
+          style={{
+            transform: [isActive ? {rotate: '90deg'} : {rotate: '0deg'}],
+          }}>
           <Image
             tintColor={colorSet.primaryText}
             source={require('../../assets/icons/right-arrow.png')}
-            style={{ width: iconCollapseSize, height: iconCollapseSize, opacity: 0.5 }}
+            style={{
+              width: iconCollapseSize,
+              height: iconCollapseSize,
+              opacity: 0.5,
+            }}
           />
         </View>
       </View>
     );
   };
 
-  _renderContent = (section) => {
-    return (
-      section.lopDangDay ?
-        <View pv1 ml4 pr2>
-          <Accordion
-            sections={section.lopDangDay}
-            activeSections={this.state.activeSections2}
-            renderHeader={this._renderHeader2}
-            renderContent={this._renderContent2}
-            onChange={this._updateSections2}
-          />
-        </View> : <View></View>
+  _renderContent = section => {
+    return section.lopDangDay ? (
+      <View pv1 ml4 pr2>
+        <Accordion
+          sections={section.lopDangDay}
+          activeSections={this.state.activeSections2}
+          renderHeader={this._renderHeader2}
+          renderContent={this._renderContent2}
+          onChange={this._updateSections2}
+        />
+      </View>
+    ) : (
+      <View></View>
     );
   };
 
-  _renderContent2 = (section) => {
-    const { localized } = this.props;
+  _renderContent2 = section => {
+    const {localized} = this.props;
     return (
       <View ml4>
         {section.danhSachLop.map((item, index) => {
           return (
             <View key={index} pv1>
-              <Text h3 style={{ fontWeight: '600' }}>{localized("Lớp")} {item.tenLop}</Text>
+              <Text h3 style={{fontWeight: '600'}}>
+                {localized('Lớp')} {item.tenLop}
+              </Text>
             </View>
           );
         })}
@@ -87,16 +103,16 @@ export default class AccordionView extends React.PureComponent {
     );
   };
 
-  _updateSections = (activeSections) => {
-    this.setState({ activeSections });
+  _updateSections = activeSections => {
+    this.setState({activeSections});
   };
 
-  _updateSections2 = (activeSections2) => {
-    this.setState({ activeSections2 });
+  _updateSections2 = activeSections2 => {
+    this.setState({activeSections2});
   };
 
   render() {
-    const { collapse } = this.props;
+    const {collapse} = this.props;
 
     return (
       <Accordion
@@ -116,5 +132,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  }
+  },
 });

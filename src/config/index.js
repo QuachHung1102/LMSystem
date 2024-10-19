@@ -288,6 +288,28 @@ export const ConfigProvider = ({children}) => {
         {title: localized('Overdue')},
         {title: localized('Urgent')},
       ],
+      CalendarFiltersCheckboxGrade: [
+        {title: localized('Grade 10')},
+        {title: localized('Grade 11')},
+        {title: localized('Grade 12')},
+        {title: localized('Homeroom')},
+      ],
+      CalendarFiltersCheckboxSubject: [
+        {title: localized('Math')},
+        {title: localized('Literature')}, // Văn
+        {title: localized('English')}, // Anh
+        {title: localized('Physics')}, // Lý
+        {title: localized('Chemistry')}, // Hóa
+        {title: localized('Civic Education')}, // Giáo dục công dân
+        {title: localized('Biology')}, // Sinh
+        {title: localized('History')}, // Sử
+        {title: localized('Geography')}, // Địa
+        {title: localized('National Defense')}, // Giáo dục quốc phòng
+        {title: localized('Physical Education')}, // Thể dục
+        {title: localized('Informatics')}, // Tin học
+        {title: localized('Technology')}, // Công nghệ
+        {title: localized('General')}, // Tổng hợp
+      ],
     },
     tosLink: 'https://www.facebook.com/quachhuwng',
     isUsernameFieldEnabled: false,
