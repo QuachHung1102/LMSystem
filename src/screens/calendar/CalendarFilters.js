@@ -23,7 +23,10 @@ import menuIcon from '../../assets/icons/menu1x.png';
 import HeadingBlock from '../../components/HeadingBlock';
 import Checkbox from 'expo-checkbox';
 import {over} from 'lodash';
-import {DropdownPicker} from '../../core/dopebase/forms/components';
+import {
+  DateRangePicker,
+  DropdownPicker,
+} from '../../core/dopebase/forms/components';
 
 export const CalendarFilters = memo(props => {
   const {navigation} = props;
@@ -35,11 +38,15 @@ export const CalendarFilters = memo(props => {
   const styles = dynamicStyles(theme, appearance);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [filter, setFilter] = useState(null);
   const [status, setStatus] = useState(null);
   const [grade, setGrade] = useState(null);
   const [subject, setSubject] = useState(null);
   const [time, setTime] = useState(null);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedStartDate, setSelectedStartDate] = useState([]);
+  const [selectedEndDate, setSelectedEndDate] = useState([]);
+
+  // const [dateRange, setDateRange] = useState({startDay: null, endDay: null});
 
   const slideFilterBtn = config.onboardingConfig.CalendarFiltersBtn;
   const slideFiltersCheckboxStatus =
@@ -49,19 +56,40 @@ export const CalendarFilters = memo(props => {
   const slideFiltersCheckboxSubject =
     config.onboardingConfig.CalendarFiltersCheckboxSubject;
 
-  const handleSelectItem = items => {
-    setSelectedItems(items);
-    console.log('Selected items:', items);
+  const handleSelectStartDate = item => {
+    setSelectedStartDate(item);
+  };
+
+  const handleSelectEndDate = item => {
+    setSelectedEndDate(item);
   };
 
   useEffect(() => {
-    console.log(selectedItems);
-  }, [selectedItems]);
+    console.log(`filter is ${filter}`);
+  }, [filter]);
 
   useEffect(() => {
-    if (slideFilterBtn) {
+    console.log(`selectedStartDate: ${selectedStartDate}`);
+  }, [selectedStartDate]);
+
+  useEffect(() => {
+    console.log(`selectedEndDate: ${selectedEndDate}`);
+  }, [selectedEndDate]);
+
+  // const handleDone = range => {
+  //   setDateRange(range);
+  // };
+
+  useEffect(() => {
+    if (
+      slideFilterBtn &&
+      slideFiltersCheckboxStatus &&
+      slideFiltersCheckboxGrade &&
+      slideFiltersCheckboxSubject
+    ) {
       setIsLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useLayoutEffect(() => {
@@ -95,9 +123,10 @@ export const CalendarFilters = memo(props => {
     });
   });
 
-  const _renderItemBtn = useCallback(({item}) => {
+  const _renderItemBtn = useCallback(({item, index}) => {
     return (
       <Button
+        key={(item + index).toString()}
         containerStyle={{
           paddingLeft: width * 0.03,
           paddingRight: width * 0.03,
@@ -107,15 +136,16 @@ export const CalendarFilters = memo(props => {
           borderWidth: 1,
         }}
         textStyle={{color: colorSet.secondText}}
-        text={item.title}
+        text={localized(item.title)}
         radius={width * 0.1}
         onPress={() => {
-          console.log(`pressed ${item.title}`);
+          setFilter(item.title);
         }}
         styles={{}}
         loading={false}
       />
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const _renderCheckbox1 = useCallback(({item}) => {
@@ -134,9 +164,12 @@ export const CalendarFilters = memo(props => {
             console.log(`pressed ${item.title}`);
           }}
         />
-        <Text style={styles.checkboxParagraph}>{item.title}</Text>
+        <Text numberOfLines={1} style={styles.checkboxParagraph}>
+          {localized(item.title)}
+        </Text>
       </View>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const _renderCheckbox2 = useCallback(({item}) => {
@@ -156,10 +189,11 @@ export const CalendarFilters = memo(props => {
           }}
         />
         <Text numberOfLines={1} style={styles.checkboxParagraph2}>
-          {item.title}
+          {localized(item.title)}
         </Text>
       </View>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const ListFilterBtn = useCallback(() => {
@@ -177,71 +211,68 @@ export const CalendarFilters = memo(props => {
         </View>
       </View>
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slideFilterBtn]);
 
-  const ListFilterCheckbox1 = useCallback(
-    ({headerTitle, data}) => {
-      return (
-        <View ph5>
-          <FlatList
-            scrollEnabled={false}
-            data={data}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={_renderCheckbox1}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{}}
-            numColumns={2}
-            columnWrapperStyle={{
-              justifyContent: 'space-between',
-            }}
-            ItemSeparatorComponent={() => (
-              <View style={{height: height * 0.025}}></View>
-            )}
-            ListHeaderComponent={({item}) => (
-              <View pt5 pb3>
-                <Text h3>{localized(headerTitle)}</Text>
-              </View>
-            )}
-            ListHeaderComponentStyle={{width: width}}
-          />
-        </View>
-      );
-    },
-    [slideFiltersCheckboxStatus],
-  );
+  const ListFilterCheckbox1 = useCallback(({headerTitle, data}) => {
+    return (
+      <View ph5>
+        <FlatList
+          scrollEnabled={false}
+          data={data}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={_renderCheckbox1}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{}}
+          numColumns={2}
+          columnWrapperStyle={{
+            justifyContent: 'space-between',
+          }}
+          ItemSeparatorComponent={() => (
+            <View style={{height: height * 0.025}}></View>
+          )}
+          ListHeaderComponent={({item}) => (
+            <View pt5 pb3>
+              <Text h3>{localized(headerTitle)}</Text>
+            </View>
+          )}
+          ListHeaderComponentStyle={{width: width}}
+        />
+      </View>
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const ListFilterCheckbox2 = useCallback(
-    ({headerTitle, data}) => {
-      return (
-        <View ph5>
-          <FlatList
-            scrollEnabled={false}
-            data={data}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={_renderCheckbox2}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{}}
-            numColumns={3}
-            columnWrapperStyle={{
-              justifyContent: 'space-between',
-            }}
-            ItemSeparatorComponent={() => (
-              <View style={{height: height * 0.025}}></View>
-            )}
-            ListHeaderComponent={({item}) => (
-              <View pt5 pb3>
-                <Text h3>{localized(headerTitle)}</Text>
-              </View>
-            )}
-            ListHeaderComponentStyle={{width: width}}
-          />
-        </View>
-      );
-    },
-    [slideFiltersCheckboxStatus],
-  );
+  const ListFilterCheckbox2 = useCallback(({headerTitle, data}) => {
+    return (
+      <View ph5>
+        <FlatList
+          scrollEnabled={false}
+          data={data}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={_renderCheckbox2}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{}}
+          numColumns={3}
+          columnWrapperStyle={{
+            justifyContent: 'space-between',
+          }}
+          ItemSeparatorComponent={() => (
+            <View style={{height: height * 0.025}}></View>
+          )}
+          ListHeaderComponent={({item}) => (
+            <View pt5 pb3>
+              <Text h3>{localized(headerTitle)}</Text>
+            </View>
+          )}
+          ListHeaderComponentStyle={{width: width}}
+        />
+      </View>
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return (
@@ -253,21 +284,12 @@ export const CalendarFilters = memo(props => {
     return (
       <ScrollView>
         <View
-          pb8
-          style={{flex: 1, backgroundColor: colorSet.primaryBackground}}>
+          pb5
+          style={{
+            flex: 1,
+            backgroundColor: colorSet.primaryBackground,
+          }}>
           <ListFilterBtn />
-          <View>
-            <View>
-              <DropdownPicker
-                title="Từ"
-                items={['07/2024', '08/2024', '09/2024']}
-                onSelectItem={handleSelectItem}
-                allowMultipleSelection={true}
-                selectedItemsList={selectedItems}
-              />
-            </View>
-            <View></View>
-          </View>
           <ListFilterCheckbox1
             headerTitle={'Status'}
             data={slideFiltersCheckboxStatus}
@@ -280,6 +302,57 @@ export const CalendarFilters = memo(props => {
             headerTitle={'Class'}
             data={slideFiltersCheckboxSubject}
           />
+          <View pt8 style={{paddingBottom: height * 0.175}}>
+            <View ph5>
+              <Text h3>{localized('Time')}</Text>
+            </View>
+            <View ph5 style={[styles.flexRow, styles.dropdownPickerContainer]}>
+              <DropdownPicker
+                title="Từ"
+                items={[
+                  '07/2024',
+                  '08/2024',
+                  '09/2024',
+                  '10/2024',
+                  '11/2024',
+                  '12/2024',
+                ]}
+                onSelectItem={handleSelectStartDate}
+                allowMultipleSelection={false}
+                selectedItemsList={selectedStartDate}
+                containerStyle={{flexBasis: '45%'}}
+              />
+              <DropdownPicker
+                title="Đến"
+                items={[
+                  '07/2024',
+                  '08/2024',
+                  '09/2024',
+                  '10/2024',
+                  '11/2024',
+                  '12/2024',
+                ]}
+                onSelectItem={handleSelectEndDate}
+                allowMultipleSelection={false}
+                selectedItemsList={selectedEndDate}
+                containerStyle={{flexBasis: '45%'}}
+              />
+            </View>
+          </View>
+          <View ph5 pv5>
+            <Button text={localized('Apply filter')} />
+          </View>
+          {/* <View>
+            <DateRangePicker
+              title="Date Range"
+              startDay={dateRange.startDay}
+              endDay={dateRange.endDay}
+              onDone={handleDone}
+            />
+            <Text style={{marginTop: 20}}>
+              Selected Range: {dateRange.startDay} - {dateRange.endDay}
+            </Text>
+          </View> */}
         </View>
       </ScrollView>
     );

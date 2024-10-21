@@ -272,43 +272,43 @@ export const ConfigProvider = ({children}) => {
         },
       ],
       CalendarFiltersBtn: [
-        {title: localized('Class')},
-        {title: localized('Exam')},
-        {title: localized('Group project')},
-        {title: localized('Meeting')},
-        {title: localized('Home work')},
-        {title: localized('Event')},
-        {title: localized('Other')},
+        {title: 'Class'},
+        {title: 'Exam'},
+        {title: 'Group project'},
+        {title: 'Meeting'},
+        {title: 'Home work'},
+        {title: 'Event'},
+        {title: 'Other'},
       ],
       CalendarFiltersCheckboxStatus: [
-        {title: localized('In Progress')},
-        {title: localized('Unresolved')},
-        {title: localized('Completed')},
-        {title: localized('Cancelled')},
-        {title: localized('Overdue')},
-        {title: localized('Urgent')},
+        {title: 'In Progress'},
+        {title: 'Unresolved'},
+        {title: 'Completed'},
+        {title: 'Cancelled'},
+        {title: 'Overdue'},
+        {title: 'Urgent'},
       ],
       CalendarFiltersCheckboxGrade: [
-        {title: localized('Grade 10')},
-        {title: localized('Grade 11')},
-        {title: localized('Grade 12')},
-        {title: localized('Homeroom')},
+        {title: 'Grade 10'},
+        {title: 'Grade 11'},
+        {title: 'Grade 12'},
+        {title: 'Homeroom'},
       ],
       CalendarFiltersCheckboxSubject: [
-        {title: localized('Math')},
-        {title: localized('Literature')}, // Văn
-        {title: localized('English')}, // Anh
-        {title: localized('Physics')}, // Lý
-        {title: localized('Chemistry')}, // Hóa
-        {title: localized('Civic Education')}, // Giáo dục công dân
-        {title: localized('Biology')}, // Sinh
-        {title: localized('History')}, // Sử
-        {title: localized('Geography')}, // Địa
-        {title: localized('National Defense')}, // Giáo dục quốc phòng
-        {title: localized('Physical Education')}, // Thể dục
-        {title: localized('Informatics')}, // Tin học
-        {title: localized('Technology')}, // Công nghệ
-        {title: localized('General')}, // Tổng hợp
+        {title: 'Math'},
+        {title: 'Literature'}, // Văn
+        {title: 'English'}, // Anh
+        {title: 'Physics'}, // Lý
+        {title: 'Chemistry'}, // Hóa
+        {title: 'Civic Education'}, // Giáo dục công dân
+        {title: 'Biology'}, // Sinh
+        {title: 'History'}, // Sử
+        {title: 'Geography'}, // Địa
+        {title: 'National Defense'}, // Giáo dục quốc phòng
+        {title: 'Physical Education'}, // Thể dục
+        {title: 'Informatics'}, // Tin học
+        {title: 'Technology'}, // Công nghệ
+        {title: 'General'}, // Tổng hợp
       ],
     },
     tosLink: 'https://www.facebook.com/quachhuwng',

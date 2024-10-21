@@ -10,6 +10,7 @@ export const DropdownPicker = ({
   onSelectItem,
   allowMultipleSelection = false,
   selectedItemsList = [],
+  containerStyle,
 }) => {
   const {localized} = useTranslations();
   const {theme, appearance} = useTheme();
@@ -24,6 +25,7 @@ export const DropdownPicker = ({
     allowMultipleSelection
       ? setSelectedItems(selectedItemsList)
       : setSelectedItems([selectedItemsList[0]]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onDropdownItemPress = item => {
@@ -56,17 +58,18 @@ export const DropdownPicker = ({
 
   const renderDropdown = () => {
     return (
-      <Modal visible={showDropDown} transparent>
+      <Modal visible={showDropDown} onDismiss={onDropDownDismiss()} transparent>
         <TouchableOpacity
           activeOpacity={1}
           style={styles.overlay}
           onPress={() => {
             setShowDropDown(false);
-            onDropDownDismiss();
           }}>
           <View style={styles.shadowContainer}>
-            <View style={[styles.dropdown, dropdownLocation]}>
-              <ScrollView activeOpacity={1}>
+            <View style={[styles.dropdown, dropdownLocation, {width: '40%'}]}>
+              <ScrollView
+                activeOpacity={1}
+                showsVerticalScrollIndicator={false}>
                 {items.map(itm => {
                   return (
                     <TouchableOpacity
@@ -97,8 +100,19 @@ export const DropdownPicker = ({
     );
   };
 
+  const getSelectedText = () => {
+    if (!selectedItems || selectedItems.length === 0 || !selectedItems[0]) {
+      return localized('Select Option');
+    }
+    if (allowMultipleSelection) {
+      return selectedItems.join(', ');
+    } else {
+      return selectedItems[0];
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, containerStyle]}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{localized(title)}</Text>
       </View>
@@ -108,10 +122,8 @@ export const DropdownPicker = ({
           activeOpacity={1}
           onPress={toggleDropdown}
           style={styles.selectedItemContainer}>
-          <Text style={styles.itemText}>
-            {selectedItems.length && !allowMultipleSelection
-              ? selectedItems[0]
-              : localized('Select Option')}
+          <Text style={styles.itemText} numberOfLines={1}>
+            {getSelectedText()}
           </Text>
         </TouchableOpacity>
         {renderDropdown()}

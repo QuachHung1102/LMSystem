@@ -14,6 +14,9 @@ const dynamicStyles = (theme, appearance) => {
       justifyContent: 'center',
       position: 'relative',
     },
+    flexRow: {
+      flexDirection: 'row',
+    },
     text: {
       color: colorSet.primaryText,
       marginTop: 16,
@@ -52,7 +55,10 @@ const dynamicStyles = (theme, appearance) => {
       fontSize: width * 0.035,
       letterSpacing: 0.5,
       fontWeight: 'bold',
-      width: '70%',
+      width: '75%',
+    },
+    dropdownPickerContainer: {
+      justifyContent: 'space-between',
     },
   });
 };

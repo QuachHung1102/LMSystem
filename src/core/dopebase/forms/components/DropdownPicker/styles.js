@@ -3,11 +3,10 @@ import {StyleSheet, Platform, Dimensions} from 'react-native';
 const dynamicStyles = (theme, colorScheme) => {
   const colorSet = theme.colors[colorScheme];
   const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
   return StyleSheet.create({
     container: {
       zIndex: 99,
-      marginLeft: 30,
-      marginTop: 25,
       ...Platform.select({
         web: {
           flexDirection: 'row',
@@ -28,14 +27,14 @@ const dynamicStyles = (theme, colorScheme) => {
           textAlign: 'right',
         },
         default: {
-          marginBottom: 20,
+          marginBottom: windowHeight * 0.01,
           textAlign: 'left',
         },
       }),
-      marginTop: 24,
-      fontSize: 16,
+      marginTop: windowHeight * 0.01,
+      fontSize: windowWidth * 0.04,
       color: colorSet.secondaryText,
-      fontWeight: '500',
+      fontWeight: '600',
     },
     selectedItemContainer: {
       ...Platform.select({
@@ -45,7 +44,7 @@ const dynamicStyles = (theme, colorScheme) => {
           color: colorSet.secondaryText,
         },
         default: {
-          width: '90%',
+          width: '100%',
           borderRadius: 25,
           color: colorSet.primaryText,
         },
@@ -53,9 +52,9 @@ const dynamicStyles = (theme, colorScheme) => {
       borderWidth: 1,
       backgroundColor: colorSet.primaryBackground,
       justifyContent: 'center',
-      height: 42,
+      height: windowHeight * 0.06,
       borderColor: colorSet.grey9,
-      paddingLeft: 20,
+      paddingLeft: windowWidth * 0.04,
     },
     listContainer: {
       width: '100%',
@@ -71,12 +70,11 @@ const dynamicStyles = (theme, colorScheme) => {
           borderRadius: 10,
         },
         default: {
-          width: '85%',
           borderRadius: 25,
         },
       }),
       backgroundColor: colorSet.primaryBackground,
-      height: 180,
+      height: 120,
       overflow: 'hidden',
     },
     overlay: {
@@ -85,6 +83,7 @@ const dynamicStyles = (theme, colorScheme) => {
     },
 
     shadowContainer: {
+      flex: 1,
       shadowColor: '#000',
       shadowOffset: {
         width: 0,
@@ -92,7 +91,6 @@ const dynamicStyles = (theme, colorScheme) => {
       },
       shadowOpacity: 0.22,
       shadowRadius: 2.22,
-
       elevation: 3,
     },
     item: {
@@ -104,7 +102,7 @@ const dynamicStyles = (theme, colorScheme) => {
     },
     itemText: {
       color: Platform.OS === 'web' ? colorSet.secondaryText : colorSet.grey9,
-      fontSize: 18,
+      fontSize: windowWidth * 0.04,
     },
     checkbox: {
       margin: 8,
