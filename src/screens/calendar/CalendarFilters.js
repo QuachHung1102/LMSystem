@@ -5,7 +5,7 @@ import React, {
   useLayoutEffect,
   useState,
 } from 'react';
-import {Dimensions, FlatList, ScrollView} from 'react-native';
+import {Dimensions, FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import {
   View,
   Text,
@@ -22,11 +22,7 @@ import dynamicStyles from './styles';
 import menuIcon from '../../assets/icons/menu1x.png';
 import HeadingBlock from '../../components/HeadingBlock';
 import Checkbox from 'expo-checkbox';
-import {over} from 'lodash';
-import {
-  DateRangePicker,
-  DropdownPicker,
-} from '../../core/dopebase/forms/components';
+import {DropdownPicker} from '../../core/dopebase/forms/components';
 
 export const CalendarFilters = memo(props => {
   const {navigation} = props;
@@ -38,15 +34,12 @@ export const CalendarFilters = memo(props => {
   const styles = dynamicStyles(theme, appearance);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [filter, setFilter] = useState(null);
-  const [status, setStatus] = useState(null);
-  const [grade, setGrade] = useState(null);
-  const [subject, setSubject] = useState(null);
-  const [time, setTime] = useState(null);
+  const [filter, setFilter] = useState([]);
+  const [status, setStatus] = useState([]);
+  const [grade, setGrade] = useState([]);
+  const [subject, setSubject] = useState([]);
   const [selectedStartDate, setSelectedStartDate] = useState([]);
   const [selectedEndDate, setSelectedEndDate] = useState([]);
-
-  // const [dateRange, setDateRange] = useState({startDay: null, endDay: null});
 
   const slideFilterBtn = config.onboardingConfig.CalendarFiltersBtn;
   const slideFiltersCheckboxStatus =
@@ -56,17 +49,72 @@ export const CalendarFilters = memo(props => {
   const slideFiltersCheckboxSubject =
     config.onboardingConfig.CalendarFiltersCheckboxSubject;
 
-  const handleSelectStartDate = item => {
-    setSelectedStartDate(item);
-  };
+  const onFilterBtnPress = useCallback(
+    item => {
+      let tempArr = JSON.parse(JSON.stringify(filter));
+      if (filter.includes(item)) {
+        setFilter(tempArr.filter(x => x !== item));
+      } else {
+        tempArr.push(item);
+        setFilter(tempArr);
+      }
+    },
+    [filter],
+  );
 
-  const handleSelectEndDate = item => {
-    setSelectedEndDate(item);
-  };
+  /** */
+  useEffect(() => {
+    console.log('status:', status);
+  }, [status]);
 
   useEffect(() => {
-    console.log(`filter is ${filter}`);
-  }, [filter]);
+    console.log('grade:', grade);
+  }, [grade]);
+  /** */
+
+  const onCheckBoxPress = useCallback(
+    (item, headerTitle) => {
+      if (headerTitle === 'Status') {
+        let tempArr = JSON.parse(JSON.stringify(status));
+        if (status.includes(item)) {
+          setStatus(tempArr.filter(x => x !== item));
+        } else {
+          tempArr.push(item);
+          setStatus(tempArr);
+        }
+      } else if (headerTitle === 'Grade') {
+        let tempArr = JSON.parse(JSON.stringify(grade));
+        if (grade.includes(item)) {
+          setGrade(tempArr.filter(x => x !== item));
+        } else {
+          tempArr.push(item);
+          setGrade(tempArr);
+        }
+      }
+    },
+    [status, grade],
+  );
+
+  const onSubjectCheckBoxPress = useCallback(
+    item => {
+      let tempArr = JSON.parse(JSON.stringify(subject));
+      if (subject.includes(item)) {
+        setSubject(tempArr.filter(x => x !== item));
+      } else {
+        tempArr.push(item);
+        setSubject(tempArr);
+      }
+    },
+    [subject],
+  );
+
+  const handleSelectStartDate = useCallback(item => {
+    setSelectedStartDate(item);
+  }, []);
+
+  const handleSelectEndDate = useCallback(item => {
+    setSelectedEndDate(item);
+  }, []);
 
   useEffect(() => {
     console.log(`selectedStartDate: ${selectedStartDate}`);
@@ -75,10 +123,6 @@ export const CalendarFilters = memo(props => {
   useEffect(() => {
     console.log(`selectedEndDate: ${selectedEndDate}`);
   }, [selectedEndDate]);
-
-  // const handleDone = range => {
-  //   setDateRange(range);
-  // };
 
   useEffect(() => {
     if (
@@ -123,78 +167,78 @@ export const CalendarFilters = memo(props => {
     });
   });
 
-  const _renderItemBtn = useCallback(({item, index}) => {
-    return (
-      <Button
-        key={(item + index).toString()}
-        containerStyle={{
-          paddingLeft: width * 0.03,
-          paddingRight: width * 0.03,
-          paddingTop: height * 0.015,
-          paddingBottom: height * 0.015,
-          backgroundColor: 'transparent',
-          borderWidth: 1,
-        }}
-        textStyle={{color: colorSet.secondText}}
-        text={localized(item.title)}
-        radius={width * 0.1}
-        onPress={() => {
-          setFilter(item.title);
-        }}
-        styles={{}}
-        loading={false}
-      />
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const _renderCheckbox1 = useCallback(({item}) => {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          width: '45%',
-          height: height * 0.03,
-          columnGap: '5%',
-          alignItems: 'center',
-        }}>
-        <Checkbox
-          value={item.isChecked}
-          onValueChange={() => {
-            console.log(`pressed ${item.title}`);
-          }}
+  const _renderItemBtn = useCallback(
+    ({item, index}) => {
+      return (
+        <Button
+          key={(item + index).toString()}
+          containerStyle={[
+            styles.filterButton,
+            filter.includes(item.title) && {
+              backgroundColor: colorSet.sixthBackground,
+            },
+          ]}
+          textStyle={{color: colorSet.secondText}}
+          text={localized(item.title)}
+          radius={width * 0.1}
+          onPress={() => onFilterBtnPress(item.title)}
+          styles={{}}
+          loading={false}
         />
-        <Text numberOfLines={1} style={styles.checkboxParagraph}>
-          {localized(item.title)}
-        </Text>
-      </View>
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      );
+    },
+    [filter],
+  );
 
-  const _renderCheckbox2 = useCallback(({item}) => {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          width: '33%',
-          height: height * 0.03,
-          columnGap: '5%',
-          alignItems: 'center',
-        }}>
-        <Checkbox
-          value={item.isChecked}
-          onValueChange={() => {
-            console.log(`pressed ${item.title}`);
-          }}
-        />
-        <Text numberOfLines={1} style={styles.checkboxParagraph2}>
-          {localized(item.title)}
-        </Text>
-      </View>
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const _renderCheckbox1 = useCallback(
+    (item, headerTitle) => {
+      const isChecked =
+        headerTitle === 'Status'
+          ? status.includes(item.title)
+          : grade.includes(item.title);
+
+      const handlePress = () => {
+        onCheckBoxPress(item.title, headerTitle);
+      };
+
+      return (
+        <TouchableOpacity onPress={handlePress} style={styles.checkBox1}>
+          <Checkbox
+            value={
+              headerTitle === 'Status'
+                ? status.includes(item.title)
+                : grade.includes(item.title)
+            }
+            onValueChange={handlePress}
+          />
+          <Text numberOfLines={1} style={styles.checkboxParagraph}>
+            {localized(item.title)}
+          </Text>
+        </TouchableOpacity>
+      );
+    },
+    [status, grade, localized, onCheckBoxPress],
+  );
+
+  const _renderCheckbox2 = useCallback(
+    ({item}) => {
+      const handlePress = () => {
+        onSubjectCheckBoxPress(item.title);
+      };
+      return (
+        <TouchableOpacity onPress={handlePress} style={styles.checkBox2}>
+          <Checkbox
+            value={subject.includes(item.title)}
+            onValueChange={handlePress}
+          />
+          <Text numberOfLines={1} style={styles.checkboxParagraph2}>
+            {localized(item.title)}
+          </Text>
+        </TouchableOpacity>
+      );
+    },
+    [subject],
+  );
 
   const ListFilterBtn = useCallback(() => {
     return (
@@ -212,67 +256,71 @@ export const CalendarFilters = memo(props => {
       </View>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slideFilterBtn]);
+  }, [slideFilterBtn, filter]);
 
-  const ListFilterCheckbox1 = useCallback(({headerTitle, data}) => {
-    return (
-      <View ph5>
-        <FlatList
-          scrollEnabled={false}
-          data={data}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={_renderCheckbox1}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{}}
-          numColumns={2}
-          columnWrapperStyle={{
-            justifyContent: 'space-between',
-          }}
-          ItemSeparatorComponent={() => (
-            <View style={{height: height * 0.025}}></View>
-          )}
-          ListHeaderComponent={({item}) => (
-            <View pt5 pb3>
-              <Text h3>{localized(headerTitle)}</Text>
-            </View>
-          )}
-          ListHeaderComponentStyle={{width: width}}
-        />
-      </View>
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const ListFilterCheckbox1 = useCallback(
+    ({headerTitle, data}) => {
+      return (
+        <View ph5>
+          <FlatList
+            scrollEnabled={false}
+            data={data}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item}) => _renderCheckbox1(item, headerTitle)}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{}}
+            numColumns={2}
+            columnWrapperStyle={{
+              justifyContent: 'space-between',
+            }}
+            ItemSeparatorComponent={() => (
+              <View style={{height: height * 0.025}}></View>
+            )}
+            ListHeaderComponent={({item}) => (
+              <View pt5 pb3>
+                <Text h3>{localized(headerTitle)}</Text>
+              </View>
+            )}
+            ListHeaderComponentStyle={{width: width}}
+          />
+        </View>
+      );
+    },
+    [status, grade, localized],
+  );
 
-  const ListFilterCheckbox2 = useCallback(({headerTitle, data}) => {
-    return (
-      <View ph5>
-        <FlatList
-          scrollEnabled={false}
-          data={data}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={_renderCheckbox2}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{}}
-          numColumns={3}
-          columnWrapperStyle={{
-            justifyContent: 'space-between',
-          }}
-          ItemSeparatorComponent={() => (
-            <View style={{height: height * 0.025}}></View>
-          )}
-          ListHeaderComponent={({item}) => (
-            <View pt5 pb3>
-              <Text h3>{localized(headerTitle)}</Text>
-            </View>
-          )}
-          ListHeaderComponentStyle={{width: width}}
-        />
-      </View>
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const ListFilterCheckbox2 = useCallback(
+    ({headerTitle, data}) => {
+      return (
+        <View ph5>
+          <FlatList
+            scrollEnabled={false}
+            data={data}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={_renderCheckbox2}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{}}
+            numColumns={3}
+            columnWrapperStyle={{
+              justifyContent: 'space-between',
+            }}
+            ItemSeparatorComponent={() => (
+              <View style={{height: height * 0.025}}></View>
+            )}
+            ListHeaderComponent={({item}) => (
+              <View pt5 pb3>
+                <Text h3>{localized(headerTitle)}</Text>
+              </View>
+            )}
+            ListHeaderComponentStyle={{width: width}}
+          />
+        </View>
+      );
+    },
+    [subject, localized],
+  );
 
   if (isLoading) {
     return (
@@ -282,13 +330,10 @@ export const CalendarFilters = memo(props => {
     );
   } else {
     return (
-      <ScrollView>
-        <View
-          pb5
-          style={{
-            flex: 1,
-            backgroundColor: colorSet.primaryBackground,
-          }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{backgroundColor: colorSet.primaryBackground}}>
+        <View pb5>
           <ListFilterBtn />
           <ListFilterCheckbox1
             headerTitle={'Status'}
@@ -320,6 +365,7 @@ export const CalendarFilters = memo(props => {
                 onSelectItem={handleSelectStartDate}
                 allowMultipleSelection={false}
                 selectedItemsList={selectedStartDate}
+                // eslint-disable-next-line react-native/no-inline-styles
                 containerStyle={{flexBasis: '45%'}}
               />
               <DropdownPicker
@@ -335,24 +381,27 @@ export const CalendarFilters = memo(props => {
                 onSelectItem={handleSelectEndDate}
                 allowMultipleSelection={false}
                 selectedItemsList={selectedEndDate}
+                // eslint-disable-next-line react-native/no-inline-styles
                 containerStyle={{flexBasis: '45%'}}
               />
             </View>
           </View>
           <View ph5 pv5>
-            <Button text={localized('Apply filter')} />
-          </View>
-          {/* <View>
-            <DateRangePicker
-              title="Date Range"
-              startDay={dateRange.startDay}
-              endDay={dateRange.endDay}
-              onDone={handleDone}
+            <Button
+              onPress={() =>
+                // navigation.navigate('', {
+                //   filter: filter,
+                //   status: status,
+                //   grade: grade,
+                //   subject: subject,
+                //   selectedStartDate: selectedStartDate,
+                //   selectedEndDate: selectedEndDate,
+                // })
+                console.log(`Press Apply filter`)
+              }
+              text={localized('Apply filter')}
             />
-            <Text style={{marginTop: 20}}>
-              Selected Range: {dateRange.startDay} - {dateRange.endDay}
-            </Text>
-          </View> */}
+          </View>
         </View>
       </ScrollView>
     );

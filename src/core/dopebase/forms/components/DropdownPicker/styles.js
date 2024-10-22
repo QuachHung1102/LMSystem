@@ -75,6 +75,8 @@ const dynamicStyles = (theme, colorScheme) => {
       }),
       backgroundColor: colorSet.primaryBackground,
       height: 120,
+      borderColor: colorSet.primaryText,
+      borderWidth: 1,
       overflow: 'hidden',
     },
     overlay: {
@@ -96,7 +98,8 @@ const dynamicStyles = (theme, colorScheme) => {
     item: {
       flexDirection: 'row',
       alignItems: 'center',
-      padding: 10,
+      paddingHorizontal: windowWidth * 0.04,
+      paddingVertical: windowHeight * 0.0125,
       borderBottomWidth: 0.5,
       borderBottomColor: colorSet.grey3,
     },

@@ -60,6 +60,29 @@ const dynamicStyles = (theme, appearance) => {
     dropdownPickerContainer: {
       justifyContent: 'space-between',
     },
+    filterButton: {
+      paddingLeft: width * 0.03,
+      paddingRight: width * 0.03,
+      paddingTop: height * 0.015,
+      paddingBottom: height * 0.015,
+      backgroundColor: 'transparent',
+      borderWidth: 1,
+      borderColor: colorSet.secondaryText,
+    },
+    checkBox1: {
+      flexDirection: 'row',
+      width: '45%',
+      height: height * 0.03,
+      columnGap: '5%',
+      alignItems: 'center',
+    },
+    checkBox2: {
+      flexDirection: 'row',
+      width: '33%',
+      height: height * 0.03,
+      columnGap: '5%',
+      alignItems: 'center',
+    },
   });
 };
 

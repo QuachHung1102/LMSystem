@@ -58,7 +58,7 @@ export const DropdownPicker = ({
 
   const renderDropdown = () => {
     return (
-      <Modal visible={showDropDown} onDismiss={onDropDownDismiss()} transparent>
+      <Modal visible={showDropDown} onDismiss={onDropDownDismiss} transparent>
         <TouchableOpacity
           activeOpacity={1}
           style={styles.overlay}
