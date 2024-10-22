@@ -1,7 +1,7 @@
-import {Dimensions, StyleSheet} from 'react-native';
-import {useTheme} from '../../core/dopebase';
+import { Dimensions, StyleSheet } from 'react-native';
+import { useTheme } from '../../core/dopebase';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const dynamicStyles = (theme, appearance) => {
   const colorSet = theme.colors[appearance];
 
@@ -23,6 +23,11 @@ const dynamicStyles = (theme, appearance) => {
       fontSize: 18,
     },
     // Phần này không thuộc template
+    headerStyle: {
+      backgroundColor: colorSet.primaryBackground,
+      borderBottomColor: colorSet.hairline,
+      height: height * 0.08,
+    },
     listButtonContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',

@@ -1,6 +1,6 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {CalendarScreen, CalendarFullScreen, CalendarFilters} from '../screens';
+import { createStackNavigator } from '@react-navigation/stack';
+import { CalendarScreen, CalendarFullScreen, CalendarFilters, CalendarResult } from '../screens';
 
 const CalendarStack = createStackNavigator();
 
@@ -22,6 +22,10 @@ const CalendarStackNavigator = () => {
         <CalendarStack.Screen
           name="CalendarFilters"
           component={CalendarFilters}
+        />
+        <CalendarStack.Screen
+          name="CalendarResult"
+          component={CalendarResult}
         />
       </CalendarStack.Group>
     </CalendarStack.Navigator>

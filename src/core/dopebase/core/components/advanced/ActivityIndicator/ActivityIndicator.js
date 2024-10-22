@@ -22,8 +22,8 @@ export const ActivityIndicator = memo(props => {
       <View style={styles.indicatorContainer}>
         <BarIndicator
           color="#f5f5f5"
-          // size={48}
-          // animationDuration={800}
+        // size={48}
+        // animationDuration={800}
         />
         {props.text && props.text.length > 1 ? (
           <Text>{props.text}</Text>

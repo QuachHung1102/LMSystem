@@ -5,7 +5,7 @@ import React, {
   useLayoutEffect,
   useState,
 } from 'react';
-import {Dimensions, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import { Dimensions, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import {
   View,
   Text,
@@ -16,19 +16,19 @@ import {
   TouchableIcon,
   Button,
 } from '../../core/dopebase';
-import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
+import { useOnboardingConfig } from '../../core/onboarding/hooks/useOnboardingConfig';
 import dynamicStyles from './styles';
 
 import menuIcon from '../../assets/icons/menu1x.png';
 import HeadingBlock from '../../components/HeadingBlock';
 import Checkbox from 'expo-checkbox';
-import {DropdownPicker} from '../../core/dopebase/forms/components';
+import { DropdownPicker } from '../../core/dopebase/forms/components';
 
 export const CalendarFilters = memo(props => {
-  const {navigation} = props;
-  const {config} = useOnboardingConfig();
-  const {localized} = useTranslations();
-  const {theme, appearance} = useTheme();
+  const { navigation } = props;
+  const { config } = useOnboardingConfig();
+  const { localized } = useTranslations();
+  const { theme, appearance } = useTheme();
   const colorSet = theme.colors[appearance];
 
   const styles = dynamicStyles(theme, appearance);
@@ -61,16 +61,6 @@ export const CalendarFilters = memo(props => {
     },
     [filter],
   );
-
-  /** */
-  useEffect(() => {
-    console.log('status:', status);
-  }, [status]);
-
-  useEffect(() => {
-    console.log('grade:', grade);
-  }, [grade]);
-  /** */
 
   const onCheckBoxPress = useCallback(
     (item, headerTitle) => {
@@ -117,14 +107,6 @@ export const CalendarFilters = memo(props => {
   }, []);
 
   useEffect(() => {
-    console.log(`selectedStartDate: ${selectedStartDate}`);
-  }, [selectedStartDate]);
-
-  useEffect(() => {
-    console.log(`selectedEndDate: ${selectedEndDate}`);
-  }, [selectedEndDate]);
-
-  useEffect(() => {
     if (
       slideFilterBtn &&
       slideFiltersCheckboxStatus &&
@@ -143,7 +125,7 @@ export const CalendarFilters = memo(props => {
       headerLeft: () => (
         <View>
           <TouchableIcon
-            imageStyle={{tintColor: colorSet.secondaryText}}
+            imageStyle={{ tintColor: colorSet.secondaryText }}
             iconSource={theme.icons.backArrow}
             onPress={() => navigation.goBack()}
           />
@@ -152,7 +134,7 @@ export const CalendarFilters = memo(props => {
       headerRight: () => (
         <View>
           <TouchableIcon
-            imageStyle={{tintColor: colorSet.thirBackground}}
+            imageStyle={{ tintColor: colorSet.thirBackground }}
             iconSource={menuIcon}
             onPress={() => navigation.openDrawer()}
           />
@@ -168,7 +150,7 @@ export const CalendarFilters = memo(props => {
   });
 
   const _renderItemBtn = useCallback(
-    ({item, index}) => {
+    ({ item, index }) => {
       return (
         <Button
           key={(item + index).toString()}
@@ -178,7 +160,7 @@ export const CalendarFilters = memo(props => {
               backgroundColor: colorSet.sixthBackground,
             },
           ]}
-          textStyle={{color: colorSet.secondText}}
+          textStyle={{ color: colorSet.secondText }}
           text={localized(item.title)}
           radius={width * 0.1}
           onPress={() => onFilterBtnPress(item.title)}
@@ -221,7 +203,7 @@ export const CalendarFilters = memo(props => {
   );
 
   const _renderCheckbox2 = useCallback(
-    ({item}) => {
+    ({ item }) => {
       const handlePress = () => {
         onSubjectCheckBoxPress(item.title);
       };
@@ -250,7 +232,7 @@ export const CalendarFilters = memo(props => {
         </View>
         <View style={styles.listButtonContainer}>
           {slideFilterBtn.map((item, index) => {
-            return _renderItemBtn({item, index});
+            return _renderItemBtn({ item, index });
           })}
         </View>
       </View>
@@ -259,14 +241,14 @@ export const CalendarFilters = memo(props => {
   }, [slideFilterBtn, filter]);
 
   const ListFilterCheckbox1 = useCallback(
-    ({headerTitle, data}) => {
+    ({ headerTitle, data }) => {
       return (
         <View ph5>
           <FlatList
             scrollEnabled={false}
             data={data}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item}) => _renderCheckbox1(item, headerTitle)}
+            renderItem={({ item }) => _renderCheckbox1(item, headerTitle)}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{}}
@@ -275,14 +257,14 @@ export const CalendarFilters = memo(props => {
               justifyContent: 'space-between',
             }}
             ItemSeparatorComponent={() => (
-              <View style={{height: height * 0.025}}></View>
+              <View style={{ height: height * 0.025 }}></View>
             )}
-            ListHeaderComponent={({item}) => (
+            ListHeaderComponent={({ item }) => (
               <View pt5 pb3>
                 <Text h3>{localized(headerTitle)}</Text>
               </View>
             )}
-            ListHeaderComponentStyle={{width: width}}
+            ListHeaderComponentStyle={{ width: width }}
           />
         </View>
       );
@@ -291,7 +273,7 @@ export const CalendarFilters = memo(props => {
   );
 
   const ListFilterCheckbox2 = useCallback(
-    ({headerTitle, data}) => {
+    ({ headerTitle, data }) => {
       return (
         <View ph5>
           <FlatList
@@ -307,14 +289,14 @@ export const CalendarFilters = memo(props => {
               justifyContent: 'space-between',
             }}
             ItemSeparatorComponent={() => (
-              <View style={{height: height * 0.025}}></View>
+              <View style={{ height: height * 0.025 }}></View>
             )}
-            ListHeaderComponent={({item}) => (
+            ListHeaderComponent={({ item }) => (
               <View pt5 pb3>
                 <Text h3>{localized(headerTitle)}</Text>
               </View>
             )}
-            ListHeaderComponentStyle={{width: width}}
+            ListHeaderComponentStyle={{ width: width }}
           />
         </View>
       );
@@ -332,7 +314,7 @@ export const CalendarFilters = memo(props => {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{backgroundColor: colorSet.primaryBackground}}>
+        style={{ backgroundColor: colorSet.primaryBackground }}>
         <View pb5>
           <ListFilterBtn />
           <ListFilterCheckbox1
@@ -347,7 +329,7 @@ export const CalendarFilters = memo(props => {
             headerTitle={'Class'}
             data={slideFiltersCheckboxSubject}
           />
-          <View pt8 style={{paddingBottom: height * 0.175}}>
+          <View pt8 style={{ paddingBottom: height * 0.175 }}>
             <View ph5>
               <Text h3>{localized('Time')}</Text>
             </View>
@@ -366,7 +348,7 @@ export const CalendarFilters = memo(props => {
                 allowMultipleSelection={false}
                 selectedItemsList={selectedStartDate}
                 // eslint-disable-next-line react-native/no-inline-styles
-                containerStyle={{flexBasis: '45%'}}
+                containerStyle={{ flexBasis: '45%' }}
               />
               <DropdownPicker
                 title="Đến"
@@ -382,22 +364,21 @@ export const CalendarFilters = memo(props => {
                 allowMultipleSelection={false}
                 selectedItemsList={selectedEndDate}
                 // eslint-disable-next-line react-native/no-inline-styles
-                containerStyle={{flexBasis: '45%'}}
+                containerStyle={{ flexBasis: '45%' }}
               />
             </View>
           </View>
           <View ph5 pv5>
             <Button
               onPress={() =>
-                // navigation.navigate('', {
-                //   filter: filter,
-                //   status: status,
-                //   grade: grade,
-                //   subject: subject,
-                //   selectedStartDate: selectedStartDate,
-                //   selectedEndDate: selectedEndDate,
-                // })
-                console.log(`Press Apply filter`)
+                navigation.navigate('CalendarResult', {
+                  filter: filter,
+                  status: status,
+                  grade: grade,
+                  subject: subject,
+                  selectedStartDate: selectedStartDate,
+                  selectedEndDate: selectedEndDate,
+                })
               }
               text={localized('Apply filter')}
             />
@@ -408,4 +389,4 @@ export const CalendarFilters = memo(props => {
   }
 });
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
