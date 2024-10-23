@@ -14,11 +14,11 @@ import {
   Button,
   Animated,
 } from 'react-native';
-import { View } from '../../../base/View';
-import { Text } from '../../../base/Text';
-import { Switch } from '../../../base/Switch';
-import { useTheme } from '../../../../theming';
-import { useOnboardingConfig } from '../../../../../../onboarding/hooks/useOnboardingConfig';
+import {View} from '../../../base/View';
+import {Text} from '../../../base/Text';
+import {Switch} from '../../../base/Switch';
+import {useTheme} from '../../../../theming';
+import {useOnboardingConfig} from '../../../../../../onboarding/hooks/useOnboardingConfig';
 import {
   getTimeDifference,
   getTimeFuture,
@@ -28,18 +28,20 @@ import {
   onCreateTriggerNotification,
 } from '../../../../../../helpers/notifee';
 
-const AgendaItem = ({ item, date, switchActive, updateNotiState }) => {
-  const { theme, appearance } = useTheme();
+const AgendaItem = ({item, date, switchActive, updateNotiState}) => {
+  const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(colorSet);
-  const { showDialog } = useOnboardingConfig();
+  const {showDialog} = useOnboardingConfig();
   const [noti, setNoti] = useState(item.notiState || null);
   const prevNotiRef = useRef(noti);
   const [switchShow, setSwitchShow] = useState(true);
   const blinkAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    if (isEmpty(item)) return;
+    if (isEmpty(item)) {
+      return;
+    }
     if (noti && !prevNotiRef.current) {
       onCreateTriggerNotification(item.title, date, item.hour);
       updateNotiState(date, item.hour, noti);
@@ -111,11 +113,11 @@ const AgendaItem = ({ item, date, switchActive, updateNotiState }) => {
         styles.item,
         blinkActive
           ? {
-            backgroundColor: blinkAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: ['rgba(255,0,0,0.2)', 'rgba(255,0,0,0.8)'],
-            }),
-          }
+              backgroundColor: blinkAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: ['rgba(255,0,0,0.2)', 'rgba(255,0,0,0.8)'],
+              }),
+            }
           : {},
       ]}>
       <View>

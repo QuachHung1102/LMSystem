@@ -11,6 +11,7 @@ export const DropdownPicker = ({
   allowMultipleSelection = false,
   selectedItemsList = [],
   containerStyle,
+  modalWidth,
 }) => {
   const {localized} = useTranslations();
   const {theme, appearance} = useTheme();
@@ -66,7 +67,8 @@ export const DropdownPicker = ({
             setShowDropDown(false);
           }}>
           <View style={styles.shadowContainer}>
-            <View style={[styles.dropdown, dropdownLocation, {width: '40%'}]}>
+            <View
+              style={[styles.dropdown, dropdownLocation, {width: modalWidth}]}>
               <ScrollView
                 activeOpacity={1}
                 showsVerticalScrollIndicator={false}>
@@ -88,7 +90,7 @@ export const DropdownPicker = ({
                           value={selectedItems.includes(itm)}
                         />
                       )}
-                      <Text style={styles.itemText}>{itm}</Text>
+                      <Text style={styles.itemText}>{localized(itm)}</Text>
                     </TouchableOpacity>
                   );
                 })}
@@ -113,9 +115,11 @@ export const DropdownPicker = ({
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>{localized(title)}</Text>
-      </View>
+      {title && (
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{localized(title)}</Text>
+        </View>
+      )}
       <View style={styles.listContainer}>
         <TouchableOpacity
           ref={dropdownButton}

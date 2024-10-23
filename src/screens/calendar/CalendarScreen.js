@@ -1,6 +1,6 @@
-import React, { memo, useEffect, useLayoutEffect, useState } from 'react';
-import { Dimensions } from 'react-native';
-import { useOnboardingConfig } from '../../core/onboarding/hooks/useOnboardingConfig';
+import React, {memo, useCallback, useEffect, useLayoutEffect, useState} from 'react';
+import {Dimensions} from 'react-native';
+import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
 import {
   useTheme,
   useTranslations,
@@ -16,12 +16,12 @@ import menuIcon from '../../assets/icons/menu1x.png';
 import NotiBlock from '../../components/NotiBlock/NotiBlock';
 
 export const CalendarScreen = memo(props => {
-  const { navigation } = props;
-  const { localized } = useTranslations();
-  const { theme, appearance } = useTheme();
+  const {navigation} = props;
+  const {localized} = useTranslations();
+  const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
-  const { hideDialog, dialogData, dialogRef } = useOnboardingConfig();
+  const {hideDialog, dialogData, dialogRef} = useOnboardingConfig();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,25 +35,31 @@ export const CalendarScreen = memo(props => {
     fetchData();
   }, []);
 
-  const _renderHeaderLeft = useCallback(() => (
-    <View>
-      <TouchableIcon
-        imageStyle={{ tintColor: colorSet.secondaryText }}
-        iconSource={theme.icons.backArrow}
-        onPress={() => navigation.goBack()}
-      />
-    </View>
-  ), []);
+  const _renderHeaderLeft = useCallback(
+    () => (
+      <View>
+        <TouchableIcon
+          imageStyle={{tintColor: colorSet.secondaryText}}
+          iconSource={theme.icons.backArrow}
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+    ),
+    [],
+  );
 
-  const _renderHeaderRight = useCallback(() => (
-    <View>
-      <TouchableIcon
-        imageStyle={{ tintColor: colorSet.thirBackground }}
-        iconSource={menuIcon}
-        onPress={() => navigation.openDrawer()}
-      />
-    </View>
-  ), []);
+  const _renderHeaderRight = useCallback(
+    () => (
+      <View>
+        <TouchableIcon
+          imageStyle={{tintColor: colorSet.thirBackground}}
+          iconSource={menuIcon}
+          onPress={() => navigation.openDrawer()}
+        />
+      </View>
+    ),
+    [],
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -111,4 +117,4 @@ export const CalendarScreen = memo(props => {
   }
 });
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');

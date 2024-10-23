@@ -3,10 +3,12 @@ import {ActivityIndicator, View} from 'react-native';
 import {useTheme} from '../../../theming';
 import dynamicStyles from './styles';
 import {CalendarList} from 'react-native-calendars';
-import calendarIcon from '../../../../../../assets/icons/filters-3.png';
+import filtersIcon from '../../../../../../assets/icons/filters-3.png';
 import {Image} from 'react-native-animatable';
+import {useNavigation} from '@react-navigation/core';
 
 export const CalendarComponent = memo(props => {
+  const navigation = useNavigation();
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
@@ -70,7 +72,7 @@ export const CalendarComponent = memo(props => {
         if (direction === 'right') {
           return (
             <Image
-              source={calendarIcon}
+              source={filtersIcon}
               tintColor={colorSet.primaryText}
               style={styles.arrow}
             />
@@ -82,7 +84,7 @@ export const CalendarComponent = memo(props => {
       disableArrowLeft={true}
       disableMonthChange={true}
       onPressArrowRight={() => {
-        console.log(`move to ...`);
+        navigation.navigate('CalendarResult');
       }}
       theme={calendarTheme}
     />

@@ -1,7 +1,7 @@
-import { Dimensions, StyleSheet } from 'react-native';
-import { useTheme } from '../../core/dopebase';
+import {Dimensions, StyleSheet} from 'react-native';
+import {useTheme} from '../../core/dopebase';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 const dynamicStyles = (theme, appearance) => {
   const colorSet = theme.colors[appearance];
 

@@ -5,6 +5,11 @@ const {width, height} = Dimensions.get('window');
 const styles = (theme, appearance) => {
   const colorSet = theme.colors[appearance];
   return StyleSheet.create({
+    listHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
     container: {},
     containerActivity: {
       flex: 1,

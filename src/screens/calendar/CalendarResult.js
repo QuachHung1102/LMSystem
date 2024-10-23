@@ -1,5 +1,11 @@
-import React, { memo, useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { useOnboardingConfig } from '../../core/onboarding/hooks/useOnboardingConfig';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
+import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
 import {
   useTheme,
   useTranslations,
@@ -10,39 +16,50 @@ import {
   Dialog,
   Text,
 } from '../../core/dopebase';
+import {Button} from 'react-native-paper';
 import dynamicStyles from './styles';
 
 import menuIcon from '../../assets/icons/menu1x.png';
+import {Dimensions, ScrollView} from 'react-native';
+import {
+  AgendaCustom,
+  AgendaScreen,
+} from '../../core/dopebase/core/components/advanced/Calendar';
 
 export const CalendarResult = memo(props => {
-  const { navigation } = props;
-  const { localized } = useTranslations();
-  const { theme, appearance } = useTheme();
+  const {navigation} = props;
+  const {localized} = useTranslations();
+  const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
-  const { hideDialog, dialogData, dialogRef } = useOnboardingConfig();
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const _renderHeaderLeft = useCallback(() => (
-    <View>
-      <TouchableIcon
-        imageStyle={{ tintColor: colorSet.secondaryText }}
-        iconSource={theme.icons.backArrow}
-        onPress={() => navigation.goBack()}
-      />
-    </View>
-  ), []);
+  const _renderHeaderLeft = useCallback(
+    () => (
+      <View>
+        <TouchableIcon
+          imageStyle={{tintColor: colorSet.secondaryText}}
+          iconSource={theme.icons.backArrow}
+          onPress={() => navigation.goBack()}
+        />
+      </View>
+    ),
+    [],
+  );
 
-  const _renderHeaderRight = useCallback(() => (
-    <View>
-      <TouchableIcon
-        imageStyle={{ tintColor: colorSet.thirBackground }}
-        iconSource={menuIcon}
-        onPress={() => navigation.openDrawer()}
-      />
-    </View>
-  ), []);
+  const _renderHeaderRight = useCallback(
+    () => (
+      <View>
+        <TouchableIcon
+          imageStyle={{tintColor: colorSet.thirBackground}}
+          iconSource={menuIcon}
+          onPress={() => navigation.openDrawer()}
+        />
+      </View>
+    ),
+    [],
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -67,9 +84,45 @@ export const CalendarResult = memo(props => {
     );
   } else {
     return (
-      <View>
-        <Text>CalendarResult</Text>
+      <View fx1 style={{backgroundColor: colorSet.primaryBackground}}>
+        <View
+          ph5
+          pv5
+          style={[
+            styles.flexRow,
+            {alignItems: 'center', justifyContent: 'space-between'},
+          ]}>
+          <Text style={{fontWeight: '700', color: colorSet.thirBackground}}>
+            11A
+          </Text>
+          <View
+            style={[
+              styles.flexRow,
+              {
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                columnGap: width * 0.02,
+              },
+            ]}>
+            <Text style={{color: colorSet.secondaryText}}>Từ</Text>
+            <Button mode="outlined" textColor={colorSet.secondaryText}>
+              Tháng 7
+            </Button>
+            <Text style={{color: colorSet.secondaryText}}>đến</Text>
+            <Button mode="outlined" textColor={colorSet.secondaryText}>
+              Tháng 9
+            </Button>
+          </View>
+          <Text style={{color: colorSet.secondaryText, fontWeight: '800'}}>
+            /2024
+          </Text>
+        </View>
+        <View fx1>
+          <AgendaCustom />
+        </View>
       </View>
     );
   }
 });
+
+const {width, height} = Dimensions.get('window');
