@@ -21,10 +21,7 @@ import dynamicStyles from './styles';
 
 import menuIcon from '../../assets/icons/menu1x.png';
 import {Dimensions, ScrollView} from 'react-native';
-import {
-  AgendaCustom,
-  AgendaScreen,
-} from '../../core/dopebase/core/components/advanced/Calendar';
+import {AgendaCustom} from '../../core/dopebase/core/components/advanced/Calendar';
 
 export const CalendarResult = memo(props => {
   const {navigation} = props;
@@ -32,6 +29,7 @@ export const CalendarResult = memo(props => {
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
+  const {hideDialog, dialogData, dialogRef} = useOnboardingConfig();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -120,6 +118,30 @@ export const CalendarResult = memo(props => {
         <View fx1>
           <AgendaCustom />
         </View>
+        <Dialog
+          ref={dialogRef}
+          title={dialogData?.title || 'Dialog Title'}
+          message={dialogData?.message || 'This is a message in the dialog.'}
+          actions={[
+            {
+              title: 'Cancel',
+              onPress: hideDialog,
+              secondary: true,
+            },
+            {
+              title: 'OK',
+              onPress: hideDialog,
+            },
+          ]}
+          titleStyle={{
+            fontSize: width * 0.05,
+          }}
+          messageStyle={
+            {
+              // alignSelf: 'flex-start',
+            }
+          }
+        />
       </View>
     );
   }

@@ -11,18 +11,17 @@ import {
   ExpandableCalendar,
   AgendaList,
   CalendarProvider,
-  WeekCalendar,
 } from 'react-native-calendars';
 import {getMarkedDates} from './mocks/agendaItems';
-import AgendaItem from './mocks/AgendaItem';
+import AgendaFilterItem from './mocks/AgendaFilterItem';
 import {getTheme} from './mocks/theme';
 import {useTheme} from '../../../theming';
 import dynamicStyles from './styles';
 import {View} from '../../base/View';
 import {Text} from '../../base/Text';
-import {TouchableIcon} from '../TouchableIcon/TouchableIcon';
 import updateDeviceStorage from '../../../../../helpers/updateDeviceStorage';
 import {useNavigation} from '@react-navigation/core';
+import AgendaItem from './mocks/AgendaItem';
 
 const calendarSmIcon = require('../../../../../../assets/icons/calendarSm.png');
 const filtersIcon = require('../../../../../../assets/icons/filters-3.png');
@@ -55,8 +54,6 @@ export const AgendaCustom = memo(() => {
   const marked = useMemo(() => getMarkedDates(items), [items]);
   const navigation = useNavigation();
 
-  const [selectedDate, setSelectedDate] = useState([]);
-
   useEffect(() => {
     fetchData(setItems);
   }, []);
@@ -71,14 +68,13 @@ export const AgendaCustom = memo(() => {
 
   const renderItem = useCallback(
     ({item, section}) => (
-      // <AgendaItem
-      //   item={item}
-      //   date={section.title}
-      //   switchActive={true}
-      // />
-      <View>
-        <Text>{section.title}</Text>
-      </View>
+      <AgendaFilterItem
+        item={item}
+        date={section.title}
+        switchActive={true}
+        updateNotiState={updateNotiState}
+        updateDone={updateDone}
+      />
     ),
     [items],
   );
@@ -100,10 +96,6 @@ export const AgendaCustom = memo(() => {
     [today, styles],
   );
 
-  const handleSelectState = useCallback(item => {
-    setSelectedDate(item);
-  }, []);
-
   const renderListHeader = useCallback(
     () => (
       <View ph5 pv5 style={styles.listHeader}>
@@ -122,6 +114,52 @@ export const AgendaCustom = memo(() => {
     ),
     [styles, colorSet],
   );
+
+  const updateNotiState = useCallback((date, hour, newState) => {
+    const updateItemState = item =>
+      item.hour === hour ? {...item, notiState: newState} : item;
+    const disableNotiState = item => ({...item, notiState: false});
+
+    const updateSectionState = section => {
+      if (section.title === date) {
+        return {
+          ...section,
+          data: section.data.map(updateItemState),
+        };
+      } else if (section.title < date) {
+        return {
+          ...section,
+          data: section.data.map(disableNotiState),
+        };
+      }
+      return section;
+    };
+
+    setItems(prevItems => prevItems.map(updateSectionState));
+  }, []);
+
+  const updateDone = useCallback((date, hour, newState) => {
+    const updateItemState = item =>
+      item.hour === hour ? {...item, done: newState} : item;
+    const disableState = item => ({...item, done: false});
+
+    const updateSectionState = section => {
+      if (section.title === date) {
+        return {
+          ...section,
+          data: section.data.map(updateItemState),
+        };
+      } else if (section.title < date) {
+        return {
+          ...section,
+          data: section.data.map(disableState),
+        };
+      }
+      return section;
+    };
+
+    setItems(prevItems => prevItems.map(updateSectionState));
+  }, []);
 
   return (
     <CalendarProvider
@@ -165,7 +203,7 @@ export const AgendaCustom = memo(() => {
               </TouchableOpacity>
             );
           } else {
-            return <View style={styles.arrow}></View>;
+            return <View style={styles.arrow} />;
           }
         }}
         disableArrowLeft={true}

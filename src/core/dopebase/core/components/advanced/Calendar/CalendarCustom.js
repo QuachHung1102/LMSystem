@@ -179,7 +179,7 @@ export const CalendarCustom = memo(({weekView}) => {
                 </TouchableOpacity>
               );
             } else {
-              return <View style={styles.arrow}></View>;
+              return <View style={styles.arrow} />;
             }
           }}
           disableArrowLeft={true}

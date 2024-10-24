@@ -82,12 +82,16 @@ const AgendaItem = ({item, date, switchActive, updateNotiState}) => {
   }, [item.title]);
 
   const blinkActive = useMemo(() => {
-    if (isEmpty(item)) return false;
+    if (isEmpty(item)) {
+      return false;
+    }
     return getTimeDifference(date, item.hour, 60);
   }, [date, item.hour]);
 
   const switchDisabled = useMemo(() => {
-    if (isEmpty(item)) return false;
+    if (isEmpty(item)) {
+      return false;
+    }
     return !getTimeFuture(date, item.hour);
   }, [date, item.hour]);
 
@@ -131,7 +135,7 @@ const AgendaItem = ({item, date, switchActive, updateNotiState}) => {
         <Text>{item.class}</Text>
       </View>
       <View style={styles.itemButtonContainer}>
-        {switchActive && switchShow ? (
+        {switchActive && !switchDisabled ? (
           <Switch
             value={item.notiState}
             onToggleSwitch={setNoti}

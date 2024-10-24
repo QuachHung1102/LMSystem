@@ -55,8 +55,8 @@ export const getCurrentDateFormatted = new Promise((resolve, reject) => {
 export const getTimeDifference = (dateD, hour, timeMinute) => {
   const currentTime = new Date();
   const itemTime = new Date(dateD);
-  itemTime.setHours(parseInt(hour.split(':')[0]));
-  itemTime.setMinutes(parseInt(hour.split(':')[1]));
+  itemTime.setHours(parseInt(hour.split(':')[0], 10));
+  itemTime.setMinutes(parseInt(hour.split(':')[1], 10));
 
   const timeDifference = (itemTime - currentTime) / (1000 * timeMinute); // Chênh lệch thời gian tính bằng phút
   return timeDifference > 0 && timeDifference <= timeMinute; // Kiểm tra nếu thời gian chênh lệch nhỏ hơn hoặc bằng 60 phút
@@ -65,8 +65,8 @@ export const getTimeDifference = (dateD, hour, timeMinute) => {
 export const getTimeFuture = (dateD, hour) => {
   const currentTime = new Date();
   const itemTime = new Date(dateD);
-  itemTime.setHours(parseInt(hour.split(':')[0]));
-  itemTime.setMinutes(parseInt(hour.split(':')[1]));
+  itemTime.setHours(parseInt(hour.split(':')[0], 10));
+  itemTime.setMinutes(parseInt(hour.split(':')[1], 10));
 
   const timeDifference = itemTime - currentTime;
   return timeDifference > 0; // Kiểm tra nếu thời gian nếu nhỏ hơn 0 thì là thời gian trong quá khứ và ngược lại

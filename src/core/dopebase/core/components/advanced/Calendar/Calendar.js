@@ -78,13 +78,13 @@ export const CalendarComponent = memo(props => {
             />
           );
         } else {
-          return <View style={styles.arrow}></View>;
+          return <View style={styles.arrow} />;
         }
       }}
       disableArrowLeft={true}
       disableMonthChange={true}
       onPressArrowRight={() => {
-        navigation.navigate('CalendarResult');
+        navigation.navigate('CalendarFilters');
       }}
       theme={calendarTheme}
     />

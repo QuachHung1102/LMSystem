@@ -1,11 +1,11 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './navigators/RootNavigator';
-import { OnboardingConfigProvider } from './core/onboarding/hooks/useOnboardingConfig';
-import { useConfig } from './config';
+import {OnboardingConfigProvider} from './core/onboarding/hooks/useOnboardingConfig';
+import {useConfig} from './config';
 
-export default AppContent = () => {
+const AppContent = () => {
   const config = useConfig();
 
   return (
@@ -17,3 +17,5 @@ export default AppContent = () => {
     </OnboardingConfigProvider>
   );
 };
+
+export default AppContent;
