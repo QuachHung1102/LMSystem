@@ -101,15 +101,15 @@ export const ConfigProvider = ({children}) => {
         },
         {
           icon: require('../assets/icons/kiemTra1.png'),
-          text: localized('Bài kiểm tra'),
+          text: localized('Lịch kiểm tra'),
         },
         {
           icon: require('../assets/icons/baiTap1.png'),
-          text: localized('Theo dõi bài tập về nhà'),
+          text: localized('Bài tập'),
         },
         {
           icon: require('../assets/icons/student1.png'),
-          text: localized('Lớp GVCN'),
+          text: localized('Hồ sơ học sinh'),
         },
         {
           icon: require('../assets/icons/quetMat1.png'),
@@ -128,12 +128,8 @@ export const ConfigProvider = ({children}) => {
           text: localized('Liên lạc'),
         },
         {
-          icon: require('../assets/icons/giaoVien1.png'),
-          text: localized('Hồ sơ giáo viên'),
-        },
-        {
           icon: require('../assets/icons/taoThongBao1.png'),
-          text: localized('Tạo thông báo'),
+          text: localized('Thông báo'),
         },
       ],
       tabIcons: {

@@ -5,6 +5,8 @@ import React, {
   useLayoutEffect,
   useState,
 } from 'react';
+import {Dimensions} from 'react-native';
+import {Button} from 'react-native-paper';
 import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
 import {
   useTheme,
@@ -12,15 +14,12 @@ import {
   View,
   ActivityIndicator,
   TouchableIcon,
-  CalendarCustom,
   Dialog,
   Text,
 } from '../../core/dopebase';
-import {Button} from 'react-native-paper';
 import dynamicStyles from './styles';
 
 import menuIcon from '../../assets/icons/menu1x.png';
-import {Dimensions, ScrollView} from 'react-native';
 import {AgendaCustom} from '../../core/dopebase/core/components/advanced/Calendar';
 
 export const CalendarResult = memo(props => {
@@ -116,7 +115,7 @@ export const CalendarResult = memo(props => {
           </Text>
         </View>
         <View fx1>
-          <AgendaCustom />
+          <AgendaCustom {...props} />
         </View>
         <Dialog
           ref={dialogRef}

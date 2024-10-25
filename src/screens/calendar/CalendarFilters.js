@@ -20,7 +20,6 @@ import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConf
 import dynamicStyles from './styles';
 
 import menuIcon from '../../assets/icons/menu1x.png';
-import HeadingBlock from '../../components/HeadingBlock';
 import Checkbox from 'expo-checkbox';
 import {DropdownPicker} from '../../core/dopebase/forms/components';
 
@@ -186,11 +185,7 @@ export const CalendarFilters = memo(props => {
       return (
         <TouchableOpacity onPress={handlePress} style={styles.checkBox1}>
           <Checkbox
-            value={
-              headerTitle === 'Status'
-                ? status.includes(item.title)
-                : grade.includes(item.title)
-            }
+            value={isChecked}
             onValueChange={handlePress}
           />
           <Text numberOfLines={1} style={styles.checkboxParagraph}>
@@ -340,7 +335,6 @@ export const CalendarFilters = memo(props => {
                 onSelectItem={handleSelectStartDate}
                 allowMultipleSelection={false}
                 selectedItemsList={selectedStartDate}
-                // eslint-disable-next-line react-native/no-inline-styles
                 containerStyle={{flexBasis: '45%'}}
                 modalWidth={'40%'}
               />
@@ -350,7 +344,6 @@ export const CalendarFilters = memo(props => {
                 onSelectItem={handleSelectEndDate}
                 allowMultipleSelection={false}
                 selectedItemsList={selectedEndDate}
-                // eslint-disable-next-line react-native/no-inline-styles
                 containerStyle={{flexBasis: '45%'}}
                 modalWidth={'40%'}
               />

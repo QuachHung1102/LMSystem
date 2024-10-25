@@ -42,7 +42,10 @@ const AgendaFilterItem = ({
   const [noti, setNoti] = useState(item.notiState || null);
   const prevNotiRef = useRef(noti);
   const blinkAnim = useRef(new Animated.Value(1)).current;
-  const [isPast, setIsPast] = useState(false);
+  const isPast = useMemo(
+    () => date < new Date().toISOString().split('T')[0],
+    [date],
+  );
 
   useEffect(() => {
     if (isEmpty(item)) {
@@ -59,10 +62,6 @@ const AgendaFilterItem = ({
     }
     prevNotiRef.current = noti;
   }, [noti]);
-
-  useEffect(() => {
-    setIsPast(date < new Date().toISOString().split('T')[0]);
-  }, []);
 
   useEffect(() => {
     Animated.loop(
@@ -146,8 +145,8 @@ const AgendaFilterItem = ({
             disabled={switchDisabled}
           />
         ) : isPast ? (
-          <View>
-            <Text>{item.done ? 'Đã Xong' : 'Trễ'}</Text>
+          <View ph3 pv2 br1 style={{backgroundColor: colorSet.red}}>
+            <Text bold>{item.done}</Text>
           </View>
         ) : (
           <View>
@@ -181,7 +180,7 @@ const dynamicStyles = function (colorSet) {
       marginLeft: 4,
     },
     itemTitle: {
-      maxWidth: '70%',
+      maxWidth: '60%',
     },
     itemTitleText: {
       color: colorSet.primaryText,

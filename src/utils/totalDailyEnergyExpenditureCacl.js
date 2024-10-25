@@ -1,5 +1,3 @@
-const { useMemo } = require('react');
-
 function calculateTDEE(weight, height, age, gender, activityLevel) {
   let bmr;
 

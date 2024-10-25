@@ -21,7 +21,8 @@ import {View} from '../../base/View';
 import {Text} from '../../base/Text';
 import updateDeviceStorage from '../../../../../helpers/updateDeviceStorage';
 import {useNavigation} from '@react-navigation/core';
-import AgendaItem from './mocks/AgendaItem';
+import { agendaFilter } from '../../../../../../utils/agendaFilter';
+
 
 const calendarSmIcon = require('../../../../../../assets/icons/calendarSm.png');
 const filtersIcon = require('../../../../../../assets/icons/filters-3.png');

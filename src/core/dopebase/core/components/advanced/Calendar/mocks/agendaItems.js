@@ -34,6 +34,8 @@ export const agendaItems = [
         title: 'Tiết 1: Hệ Phương Trình Tuyến Tính',
         class: 'Lớp 10A',
         notiState: true,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '08:00',
@@ -41,6 +43,8 @@ export const agendaItems = [
         title: 'Tiết 2: Phương Trình Bậc 2',
         class: 'Lớp 10A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '09:00',
@@ -48,6 +52,8 @@ export const agendaItems = [
         title: 'Tiết 3: Giải Phương Trình Bất Đẳng Thức',
         class: 'Lớp 10A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '13:00',
@@ -55,6 +61,7 @@ export const agendaItems = [
         title: 'Cập nhật điểm bài KT15p - số 1 kỳ II',
         class: 'Công việc hành chính',
         notiState: true,
+        done: 'CGQ',
       },
       {
         hour: '14:00',
@@ -62,6 +69,7 @@ export const agendaItems = [
         title: 'Chấm bài kiểm tra giữa kỳ Toán lớp 12',
         class: 'Công việc hành chính',
         notiState: false,
+        done: 'CGQ',
       },
       {
         hour: '15:30',
@@ -69,6 +77,7 @@ export const agendaItems = [
         title: 'Rà soát đánh giá nội bộ học sinh về Dự án TT1',
         class: 'Công việc hành chính',
         notiState: false,
+        done: 'CGQ',
       },
     ],
   },
@@ -81,6 +90,8 @@ export const agendaItems = [
         title: 'Tiết 1: Hàm Số Tuyến Tính',
         class: 'Lớp 11A',
         notiState: true,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '08:00',
@@ -88,6 +99,8 @@ export const agendaItems = [
         title: 'Tiết 2: Hàm Số Bậc 2',
         class: 'Lớp 11A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '09:00',
@@ -95,6 +108,8 @@ export const agendaItems = [
         title: 'Tiết 3: Giải Phương Trình Bất Đẳng Thức',
         class: 'Lớp 11B',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '13:00',
@@ -102,6 +117,7 @@ export const agendaItems = [
         title: 'Cập nhật danh sách thi đội tuyển môn Sử 7',
         class: 'Công việc hành chính',
         notiState: true,
+        done: 'CGQ',
       },
       {
         hour: '14:30',
@@ -109,6 +125,7 @@ export const agendaItems = [
         title: 'Chuẩn bị nội dung cho cuộc thi học sinh giỏi cấp tỉnh',
         class: 'Công việc hành chính',
         notiState: false,
+        done: 'CGQ',
       },
     ],
   },
@@ -121,6 +138,8 @@ export const agendaItems = [
         title: 'Tiết 1: Phương Trình Bậc 3',
         class: 'Lớp 12A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '08:00',
@@ -128,6 +147,8 @@ export const agendaItems = [
         title: 'Tiết 2: Hàm Số Bậc Cao',
         class: 'Lớp 12A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '09:00',
@@ -135,6 +156,8 @@ export const agendaItems = [
         title: 'Tiết 3: Ứng Dụng Hàm Số',
         class: 'Lớp 12A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '13:00',
@@ -142,6 +165,7 @@ export const agendaItems = [
         title: 'Cập nhật thành tích giải Olympic quốc gia',
         class: 'Công việc hành chính',
         notiState: true,
+        done: 'CGQ',
       },
       {
         hour: '15:00',
@@ -149,6 +173,7 @@ export const agendaItems = [
         title: 'Rà soát chương trình học môn Văn kỳ II',
         class: 'Công việc hành chính',
         notiState: false,
+        done: 'CGQ',
       },
     ],
   },
@@ -161,6 +186,8 @@ export const agendaItems = [
         title: 'Tiết 1: Hệ Phương Trình Tuyến Tính',
         class: 'Lớp 11B',
         notiState: true,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '08:00',
@@ -168,6 +195,8 @@ export const agendaItems = [
         title: 'Tiết 2: Phương Trình Bậc 2',
         class: 'Lớp 11B',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '09:00',
@@ -175,6 +204,8 @@ export const agendaItems = [
         title: 'Tiết 3: Hình Học Tọa Độ',
         class: 'Lớp 12B',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '13:00',
@@ -182,6 +213,7 @@ export const agendaItems = [
         title: 'Xét duyệt tài liệu giảng dạy kỳ II',
         class: 'Công việc hành chính',
         notiState: true,
+        done: 'CGQ',
       },
       {
         hour: '21:00',
@@ -189,6 +221,7 @@ export const agendaItems = [
         title: 'Cập nhật danh sách thi môn Toán cấp trường',
         class: 'Công việc hành chính',
         notiState: false,
+        done: 'CGQ',
       },
     ],
   },
@@ -201,6 +234,8 @@ export const agendaItems = [
         title: 'Tiết 1: Hình Học Không Gian',
         class: 'Lớp 12A',
         notiState: true,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '08:00',
@@ -208,6 +243,8 @@ export const agendaItems = [
         title: 'Tiết 2: Hình Học Tọa Độ',
         class: 'Lớp 12A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '09:00',
@@ -215,6 +252,8 @@ export const agendaItems = [
         title: 'Tiết 3: Hàm Số Tuyến Tính',
         class: 'Lớp 10A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '13:00',
@@ -222,6 +261,7 @@ export const agendaItems = [
         title: 'Tổng hợp báo cáo dự án giáo dục STEM',
         class: 'Công việc hành chính',
         notiState: true,
+        done: 'CGQ',
       },
       {
         hour: '14:30',
@@ -229,6 +269,7 @@ export const agendaItems = [
         title: 'Chuẩn bị nội dung học cho học sinh yếu kém',
         class: 'Công việc hành chính',
         notiState: false,
+        done: 'CGQ',
       },
     ],
   },
@@ -241,6 +282,8 @@ export const agendaItems = [
         title: 'Tiết 1: Phương Trình Bậc Nhất',
         class: 'Lớp 10B',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '08:00',
@@ -248,6 +291,8 @@ export const agendaItems = [
         title: 'Tiết 2: Giải Phương Trình Bất Đẳng Thức',
         class: 'Lớp 10B',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '09:00',
@@ -255,6 +300,8 @@ export const agendaItems = [
         title: 'Tiết 3: Hàm Số Tuyến Tính',
         class: 'Lớp 11A',
         notiState: false,
+        done: 'CGQ',
+        subject: 'Toán',
       },
       {
         hour: '13:00',
@@ -262,6 +309,7 @@ export const agendaItems = [
         title: 'Xét duyệt kế hoạch giảng dạy môn Sử',
         class: 'Công việc hành chính',
         notiState: true,
+        done: 'CGQ',
       },
       {
         hour: '15:00',
@@ -269,6 +317,7 @@ export const agendaItems = [
         title: 'Rà soát kế hoạch thi cuối kỳ',
         class: 'Công việc hành chính',
         notiState: false,
+        done: 'CGQ',
       },
     ],
   },
@@ -277,7 +326,6 @@ export const agendaItems = [
     data: [{}], // Ngày nghỉ
   },
 ];
-
 
 export function getMarkedDates(items) {
   return items.reduce((marked, item) => {
