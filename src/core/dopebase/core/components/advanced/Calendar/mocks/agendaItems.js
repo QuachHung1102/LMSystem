@@ -37,7 +37,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '10',
+        grade: 'Grade 10',
       },
       {
         hour: '08:00',
@@ -48,7 +48,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '10',
+        grade: 'Grade 10',
       },
       {
         hour: '09:00',
@@ -59,7 +59,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '10',
+        grade: 'Grade 10',
       },
       {
         hour: '13:00',
@@ -103,7 +103,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '11',
+        grade: 'Grade 11',
       },
       {
         hour: '08:00',
@@ -114,7 +114,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '11',
+        grade: 'Grade 11',
       },
       {
         hour: '09:00',
@@ -125,7 +125,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '11',
+        grade: 'Grade 11',
       },
       {
         hour: '13:00',
@@ -161,7 +161,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '12',
+        grade: 'Grade 12',
       },
       {
         hour: '08:00',
@@ -172,7 +172,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '12',
+        grade: 'Grade 12',
       },
       {
         hour: '09:00',
@@ -183,7 +183,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '12',
+        grade: 'Grade 12',
       },
       {
         hour: '13:00',
@@ -219,7 +219,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '11',
+        grade: 'Grade 11',
       },
       {
         hour: '08:00',
@@ -230,7 +230,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '11',
+        grade: 'Grade 11',
       },
       {
         hour: '09:00',
@@ -241,7 +241,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '12',
+        grade: 'Grade 12',
       },
       {
         hour: '13:00',
@@ -251,7 +251,7 @@ export const agendaItems = [
         notiState: true,
         done: 'CGQ',
         type: 'Other',
-        grade: '12',
+        grade: 'Grade 12',
       },
       {
         hour: '21:00',
@@ -277,7 +277,7 @@ export const agendaItems = [
         done: 'CGQ',
         type: 'Teach',
         subject: 'Toán',
-        grade: '12',
+        grade: 'Grade 12',
       },
       {
         hour: '08:00',
@@ -287,7 +287,7 @@ export const agendaItems = [
         notiState: false,
         done: 'CGQ',
         type: 'Teach',
-        grade: '12',
+        grade: 'Grade 12',
         subject: 'Toán',
       },
       {
@@ -298,7 +298,7 @@ export const agendaItems = [
         notiState: false,
         done: 'CGQ',
         type: 'Teach',
-        grade: '10',
+        grade: 'Grade 10',
         subject: 'Toán',
       },
       {
@@ -333,7 +333,7 @@ export const agendaItems = [
         notiState: false,
         done: 'CGQ',
         type: 'Teach',
-        grade: '10',
+        grade: 'Grade 10',
         subject: 'Toán',
       },
       {
@@ -344,7 +344,7 @@ export const agendaItems = [
         notiState: false,
         done: 'CGQ',
         type: 'Teach',
-        grade: '10',
+        grade: 'Grade 10',
         subject: 'Toán',
       },
       {
@@ -355,7 +355,7 @@ export const agendaItems = [
         notiState: false,
         done: 'CGQ',
         type: 'Teach',
-        grade: '11',
+        grade: 'Grade 11',
         subject: 'Toán',
       },
       {

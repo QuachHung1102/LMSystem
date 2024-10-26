@@ -3,7 +3,7 @@ function agendaFilter(arrFilter, arrAgenda, key) {
     return arrAgenda;
   }
   const filteredAgenda = [];
-  let dataTemp;
+  let dataTemp = [];
   arrAgenda.forEach(agenda => {
     dataTemp = [];
     agenda.data.forEach(item => {
@@ -11,10 +11,11 @@ function agendaFilter(arrFilter, arrAgenda, key) {
         dataTemp.push(item);
       }
     });
-    filteredAgenda.push({ title: agenda.title, data: dataTemp });
+    if (dataTemp.length == 0) dataTemp.push({}); // Add empty item to separate data
+    filteredAgenda.push({title: agenda.title, data: dataTemp});
   });
 
   return filteredAgenda;
 }
 
-module.exports = { agendaFilter };
+module.exports = {agendaFilter};
