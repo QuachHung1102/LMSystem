@@ -1,7 +1,7 @@
 import updateDeviceStorage from '../../../helpers/updateDeviceStorage';
 import {agendaItems} from '../../../dopebase/core/components/advanced/Calendar/mocks/agendaItems';
 
-const agendaAPI = 'https://reactnative.dev/movies.json'; //phần này sẽ được sửa khi có data
+const agendaAPI = 'https://rest.echoapi.com/users/echo api'; //phần này sẽ được sửa khi có data
 
 export const fetchAgendaItems = async () => {
   try {
@@ -13,7 +13,6 @@ export const fetchAgendaItems = async () => {
         'If-None-Match': storedETag || '',
       },
     });
-
     if (response.status === 200) {
       const data = await response.json();
       // const etag = response.headers.get('ETag');

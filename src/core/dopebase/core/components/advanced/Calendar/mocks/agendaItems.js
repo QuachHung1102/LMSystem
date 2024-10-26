@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import {getWeekDates} from '../../../../../../helpers/getWeekDates';
+import { getWeekDates } from '../../../../../../helpers/getWeekDates';
 
 const today = new Date().toISOString().split('T')[0];
 const pastDate = getPastDate(8);
@@ -12,7 +12,7 @@ const dates = [today, ...futureDates];
 const weekDates = getWeekDates();
 
 function getFutureDates(numberOfDays) {
-  return Array.from({length: numberOfDays}, (_, index) => {
+  return Array.from({ length: numberOfDays }, (_, index) => {
     const date = new Date(Date.now() + 864e5 * (index + 1)); // 864e5 == 86400000 == 24*60*60*1000
     return date.toISOString().split('T')[0];
   });
@@ -35,7 +35,9 @@ export const agendaItems = [
         class: 'Lớp 10A',
         notiState: true,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '10',
       },
       {
         hour: '08:00',
@@ -44,7 +46,9 @@ export const agendaItems = [
         class: 'Lớp 10A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '10',
       },
       {
         hour: '09:00',
@@ -53,7 +57,9 @@ export const agendaItems = [
         class: 'Lớp 10A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '10',
       },
       {
         hour: '13:00',
@@ -62,6 +68,7 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: true,
         done: 'CGQ',
+        type: 'Other',
       },
       {
         hour: '14:00',
@@ -70,6 +77,7 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: false,
         done: 'CGQ',
+        type: 'Other',
       },
       {
         hour: '15:30',
@@ -78,7 +86,9 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: false,
         done: 'CGQ',
+        type: 'Meet',
       },
+
     ],
   },
   {
@@ -91,7 +101,9 @@ export const agendaItems = [
         class: 'Lớp 11A',
         notiState: true,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '11',
       },
       {
         hour: '08:00',
@@ -100,7 +112,9 @@ export const agendaItems = [
         class: 'Lớp 11A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '11',
       },
       {
         hour: '09:00',
@@ -109,7 +123,9 @@ export const agendaItems = [
         class: 'Lớp 11B',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '11',
       },
       {
         hour: '13:00',
@@ -118,7 +134,9 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: true,
         done: 'CGQ',
+        type: 'Other',
       },
+
       {
         hour: '14:30',
         duration: '90p',
@@ -126,7 +144,9 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: false,
         done: 'CGQ',
+        type: 'Other',
       },
+
     ],
   },
   {
@@ -139,7 +159,9 @@ export const agendaItems = [
         class: 'Lớp 12A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '12',
       },
       {
         hour: '08:00',
@@ -148,7 +170,9 @@ export const agendaItems = [
         class: 'Lớp 12A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '12',
       },
       {
         hour: '09:00',
@@ -157,7 +181,9 @@ export const agendaItems = [
         class: 'Lớp 12A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '12',
       },
       {
         hour: '13:00',
@@ -166,7 +192,9 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: true,
         done: 'CGQ',
+        type: 'Other',
       },
+
       {
         hour: '15:00',
         duration: '60p',
@@ -174,7 +202,9 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: false,
         done: 'CGQ',
+        type: 'Other',
       },
+
     ],
   },
   {
@@ -187,7 +217,9 @@ export const agendaItems = [
         class: 'Lớp 11B',
         notiState: true,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '11',
       },
       {
         hour: '08:00',
@@ -196,7 +228,9 @@ export const agendaItems = [
         class: 'Lớp 11B',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '11',
       },
       {
         hour: '09:00',
@@ -205,7 +239,9 @@ export const agendaItems = [
         class: 'Lớp 12B',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '12',
       },
       {
         hour: '13:00',
@@ -214,6 +250,8 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: true,
         done: 'CGQ',
+        type: 'Other',
+        grade: '12',
       },
       {
         hour: '21:00',
@@ -222,7 +260,9 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: false,
         done: 'CGQ',
+        type: 'Other',
       },
+
     ],
   },
   {
@@ -235,7 +275,9 @@ export const agendaItems = [
         class: 'Lớp 12A',
         notiState: true,
         done: 'CGQ',
+        type: 'Teach',
         subject: 'Toán',
+        grade: '12',
       },
       {
         hour: '08:00',
@@ -244,6 +286,8 @@ export const agendaItems = [
         class: 'Lớp 12A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
+        grade: '12',
         subject: 'Toán',
       },
       {
@@ -253,6 +297,8 @@ export const agendaItems = [
         class: 'Lớp 10A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
+        grade: '10',
         subject: 'Toán',
       },
       {
@@ -262,6 +308,7 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: true,
         done: 'CGQ',
+        type: 'Other',
       },
       {
         hour: '14:30',
@@ -270,7 +317,9 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: false,
         done: 'CGQ',
+        type: 'Other',
       },
+
     ],
   },
   {
@@ -283,6 +332,8 @@ export const agendaItems = [
         class: 'Lớp 10B',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
+        grade: '10',
         subject: 'Toán',
       },
       {
@@ -292,6 +343,8 @@ export const agendaItems = [
         class: 'Lớp 10B',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
+        grade: '10',
         subject: 'Toán',
       },
       {
@@ -301,6 +354,8 @@ export const agendaItems = [
         class: 'Lớp 11A',
         notiState: false,
         done: 'CGQ',
+        type: 'Teach',
+        grade: '11',
         subject: 'Toán',
       },
       {
@@ -310,6 +365,7 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: true,
         done: 'CGQ',
+        type: 'Meet',
       },
       {
         hour: '15:00',
@@ -318,7 +374,9 @@ export const agendaItems = [
         class: 'Công việc hành chính',
         notiState: false,
         done: 'CGQ',
+        type: 'Other',
       },
+
     ],
   },
   {
@@ -331,9 +389,9 @@ export function getMarkedDates(items) {
   return items.reduce((marked, item) => {
     // NOTE: only mark dates with data
     if (item.data && item.data.length > 0 && !isEmpty(item.data[0])) {
-      marked[item.title] = {marked: true};
+      marked[item.title] = { marked: true };
     } else {
-      marked[item.title] = {disabled: true};
+      marked[item.title] = { disabled: true };
     }
     return marked;
   }, {});

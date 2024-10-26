@@ -268,10 +268,10 @@ export const ConfigProvider = ({children}) => {
         },
       ],
       CalendarFiltersBtn: [
-        {title: 'Class'},
+        {title: 'Teach'},
         {title: 'Exam'},
         {title: 'Group project'},
-        {title: 'Meeting'},
+        {title: 'Meet'},
         {title: 'Home work'},
         {title: 'Event'},
         {title: 'Other'},

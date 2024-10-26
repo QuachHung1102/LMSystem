@@ -6,22 +6,23 @@ import React, {
   useState,
   useMemo,
 } from 'react';
-import {Image, TouchableOpacity} from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import {
   ExpandableCalendar,
   AgendaList,
   CalendarProvider,
 } from 'react-native-calendars';
-import {getMarkedDates} from './mocks/agendaItems';
+import { getMarkedDates } from './mocks/agendaItems';
 import AgendaFilterItem from './mocks/AgendaFilterItem';
-import {getTheme} from './mocks/theme';
-import {useTheme} from '../../../theming';
+import { getTheme } from './mocks/theme';
+import { useTheme } from '../../../theming';
 import dynamicStyles from './styles';
-import {View} from '../../base/View';
-import {Text} from '../../base/Text';
+import { View } from '../../base/View';
+import { Text } from '../../base/Text';
 import updateDeviceStorage from '../../../../../helpers/updateDeviceStorage';
-import {useNavigation} from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/core';
 import { agendaFilter } from '../../../../../../utils/agendaFilter';
+import { set } from 'lodash';
 
 
 const calendarSmIcon = require('../../../../../../assets/icons/calendarSm.png');
@@ -41,10 +42,19 @@ const fetchData = async setItems => {
   }
 };
 
-export const AgendaCustom = memo(() => {
+export const AgendaCustom = memo((props) => {
+  const {
+    filter,
+    status,
+    grade,
+    subject,
+    selectedStartDate,
+    selectedEndDate,
+  } = props.route.params;
   const [items, setItems] = useState([]);
+  const [filteredArray, setFilteredArray] = useState([]);
   const isInitialized = useRef(false);
-  const {theme, appearance} = useTheme();
+  const { theme, appearance } = useTheme();
   const styles = useMemo(
     () => dynamicStyles(theme, appearance),
     [theme, appearance],
@@ -60,6 +70,15 @@ export const AgendaCustom = memo(() => {
   }, []);
 
   useEffect(() => {
+    if (items) {
+      if (filter) {
+        tempArr = agendaFilter(filter, items, 'type');
+      }
+    }
+    setFilteredArray(tempArr);
+  }, [items, filter, status, grade, subject, selectedStartDate, selectedEndDate]);
+
+  useEffect(() => {
     if (isInitialized.current) {
       updateDeviceStorage.setStoreData('agendaItems', items);
     } else {
@@ -68,7 +87,7 @@ export const AgendaCustom = memo(() => {
   }, [items]);
 
   const renderItem = useCallback(
-    ({item, section}) => (
+    ({ item, section }) => (
       <AgendaFilterItem
         item={item}
         date={section.title}
@@ -100,7 +119,7 @@ export const AgendaCustom = memo(() => {
   const renderListHeader = useCallback(
     () => (
       <View ph5 pv5 style={styles.listHeader}>
-        <Text style={{fontSize: 18}}>Trạng thái</Text>
+        <Text style={{ fontSize: 18 }}>Trạng thái</Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('CalendarFilters');
@@ -118,8 +137,8 @@ export const AgendaCustom = memo(() => {
 
   const updateNotiState = useCallback((date, hour, newState) => {
     const updateItemState = item =>
-      item.hour === hour ? {...item, notiState: newState} : item;
-    const disableNotiState = item => ({...item, notiState: false});
+      item.hour === hour ? { ...item, notiState: newState } : item;
+    const disableNotiState = item => ({ ...item, notiState: false });
 
     const updateSectionState = section => {
       if (section.title === date) {
@@ -141,8 +160,8 @@ export const AgendaCustom = memo(() => {
 
   const updateDone = useCallback((date, hour, newState) => {
     const updateItemState = item =>
-      item.hour === hour ? {...item, done: newState} : item;
-    const disableState = item => ({...item, done: false});
+      item.hour === hour ? { ...item, done: newState } : item;
+    const disableState = item => ({ ...item, done: 'Late' });
 
     const updateSectionState = section => {
       if (section.title === date) {
@@ -150,7 +169,7 @@ export const AgendaCustom = memo(() => {
           ...section,
           data: section.data.map(updateItemState),
         };
-      } else if (section.title < date) {
+      } else if (section.title < date && section.data.done.includes('CGQ', 'Late', 'In Progress')) {
         return {
           ...section,
           data: section.data.map(disableState),
@@ -210,12 +229,12 @@ export const AgendaCustom = memo(() => {
         disableArrowLeft={true}
         disableArrowRight={true}
         disableMonthChange={false}
-        // animateScroll
-        // closeOnDayPress={false}
+      // animateScroll
+      // closeOnDayPress={false}
       />
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <AgendaList
-          sections={items}
+          sections={filteredArray}
           renderItem={renderItem}
           renderSectionHeader={renderSectionHeader}
           // scrollToNextEvent

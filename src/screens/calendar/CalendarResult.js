@@ -5,9 +5,9 @@ import React, {
   useLayoutEffect,
   useState,
 } from 'react';
-import {Dimensions} from 'react-native';
-import {Button} from 'react-native-paper';
-import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
+import { Dimensions } from 'react-native';
+import { Button } from 'react-native-paper';
+import { useOnboardingConfig } from '../../core/onboarding/hooks/useOnboardingConfig';
 import {
   useTheme,
   useTranslations,
@@ -20,15 +20,15 @@ import {
 import dynamicStyles from './styles';
 
 import menuIcon from '../../assets/icons/menu1x.png';
-import {AgendaCustom} from '../../core/dopebase/core/components/advanced/Calendar';
+import { AgendaCustom } from '../../core/dopebase/core/components/advanced/Calendar';
 
 export const CalendarResult = memo(props => {
-  const {navigation} = props;
-  const {localized} = useTranslations();
-  const {theme, appearance} = useTheme();
+  const { navigation } = props;
+  const { localized } = useTranslations();
+  const { theme, appearance } = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
-  const {hideDialog, dialogData, dialogRef} = useOnboardingConfig();
+  const { hideDialog, dialogData, dialogRef } = useOnboardingConfig();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,7 +36,7 @@ export const CalendarResult = memo(props => {
     () => (
       <View>
         <TouchableIcon
-          imageStyle={{tintColor: colorSet.secondaryText}}
+          imageStyle={{ tintColor: colorSet.secondaryText }}
           iconSource={theme.icons.backArrow}
           onPress={() => navigation.goBack()}
         />
@@ -49,7 +49,7 @@ export const CalendarResult = memo(props => {
     () => (
       <View>
         <TouchableIcon
-          imageStyle={{tintColor: colorSet.thirBackground}}
+          imageStyle={{ tintColor: colorSet.thirBackground }}
           iconSource={menuIcon}
           onPress={() => navigation.openDrawer()}
         />
@@ -81,15 +81,15 @@ export const CalendarResult = memo(props => {
     );
   } else {
     return (
-      <View fx1 style={{backgroundColor: colorSet.primaryBackground}}>
+      <View fx1 style={{ backgroundColor: colorSet.primaryBackground }}>
         <View
           ph5
           pv5
           style={[
             styles.flexRow,
-            {alignItems: 'center', justifyContent: 'space-between'},
+            { alignItems: 'center', justifyContent: 'space-between' },
           ]}>
-          <Text style={{fontWeight: '700', color: colorSet.thirBackground}}>
+          <Text style={{ fontWeight: '700', color: colorSet.thirBackground }}>
             11A
           </Text>
           <View
@@ -101,16 +101,16 @@ export const CalendarResult = memo(props => {
                 columnGap: width * 0.02,
               },
             ]}>
-            <Text style={{color: colorSet.secondaryText}}>Từ</Text>
+            <Text style={{ color: colorSet.secondaryText }}>Từ</Text>
             <Button mode="outlined" textColor={colorSet.secondaryText}>
               Tháng 7
             </Button>
-            <Text style={{color: colorSet.secondaryText}}>đến</Text>
+            <Text style={{ color: colorSet.secondaryText }}>đến</Text>
             <Button mode="outlined" textColor={colorSet.secondaryText}>
               Tháng 9
             </Button>
           </View>
-          <Text style={{color: colorSet.secondaryText, fontWeight: '800'}}>
+          <Text style={{ color: colorSet.secondaryText, fontWeight: '800' }}>
             /2024
           </Text>
         </View>
@@ -146,4 +146,4 @@ export const CalendarResult = memo(props => {
   }
 });
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');

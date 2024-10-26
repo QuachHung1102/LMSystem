@@ -3,17 +3,18 @@ function agendaFilter(arrFilter, arrAgenda, key) {
     return arrAgenda;
   }
   const filteredAgenda = [];
-  const dataTemp = [];
+  let dataTemp;
   arrAgenda.forEach(agenda => {
+    dataTemp = [];
     agenda.data.forEach(item => {
       if (arrFilter.includes(item[key])) {
         dataTemp.push(item);
       }
     });
-    filteredAgenda.push({title: agenda.title, data: dataTemp});
+    filteredAgenda.push({ title: agenda.title, data: dataTemp });
   });
 
   return filteredAgenda;
 }
 
-module.exports = {agendaFilter};
+module.exports = { agendaFilter };
