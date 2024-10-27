@@ -90,7 +90,7 @@ export const ConfigProvider = ({children}) => {
         },
       ],
       // Add for app
-      quanLyData: [
+      lichData: [
         {
           icon: require('../assets/icons/lich1.png'),
           text: localized('Lịch dạy'),
@@ -104,24 +104,22 @@ export const ConfigProvider = ({children}) => {
           text: localized('Lịch kiểm tra'),
         },
         {
-          icon: require('../assets/icons/baiTap1.png'),
-          text: localized('Bài tập'),
+          icon: require('../assets/icons/suKien1.png'),
+          text: localized('Sự kiện'),
+        },
+      ],
+      quanLyData: [
+        {
+          icon: require('../assets/icons/quetMat1.png'),
+          text: localized('Lớp học'),
         },
         {
           icon: require('../assets/icons/student1.png'),
           text: localized('Hồ sơ học sinh'),
         },
         {
-          icon: require('../assets/icons/quetMat1.png'),
-          text: localized('Lớp phụ trách giảng dạy'),
-        },
-        {
-          icon: require('../assets/icons/luuTru1.png'),
-          text: localized('Đơn từ'),
-        },
-        {
-          icon: require('../assets/icons/suKien1.png'),
-          text: localized('Sự kiện'),
+          icon: require('../assets/icons/baiTap1.png'),
+          text: localized('Bài tập'),
         },
         {
           icon: require('../assets/icons/tinNhan1.png'),

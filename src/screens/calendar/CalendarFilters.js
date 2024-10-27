@@ -321,7 +321,7 @@ export const CalendarFilters = memo(props => {
             data={slideFiltersCheckboxGrade}
           />
           <ListFilterCheckbox2
-            headerTitle={'Class'}
+            headerTitle={'Subject'}
             data={slideFiltersCheckboxSubject}
           />
           <View pt8 style={{paddingBottom: height * 0.175}}>

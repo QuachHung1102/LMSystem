@@ -120,7 +120,7 @@ export const agendaItems = [
         hour: '09:00',
         duration: '45p',
         title: 'Tiết 3: Giải Phương Trình Bất Đẳng Thức',
-        class: 'Lớp 11B',
+        class: 'Lớp 11A',
         notiState: false,
         done: 'CGQ',
         type: 'Teach',

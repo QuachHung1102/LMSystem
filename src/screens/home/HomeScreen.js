@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState, useMemo} from 'react';
-import {Dimensions, ScrollView, Alert} from 'react-native';
+import {Dimensions, ScrollView, Alert, Pressable} from 'react-native';
 import {
   View,
   Text,
@@ -173,120 +173,19 @@ export const HomeScreen = memo(props => {
               loading={false}
             />
           </View>
-          <View mh5 mv5 style={{flexDirection: 'row', gap: 16}}>
-            <View style={{flexDirection: 'column', gap: 16}}>
-              <View br4 ph3 pv3 style={styles.box1}>
-                <View style={styles.flexRow}>
-                  <Text h3>{localized('Today')}</Text>
-                  <View
-                    style={[
-                      styles.iconCover,
-                      {
-                        backgroundColor: colorSet.secondaryBackground,
-                        width: iconsSize * 1.7,
-                        height: iconsSize * 1.7,
-                      },
-                    ]}>
-                    <Text bold style={{fontSize: 10, textAlign: 'center'}}>
-                      {currentDate}
-                    </Text>
-                  </View>
-                </View>
-                <View mv2 style={styles.flexRow}>
-                  <Text>{localized('Hoàn thành')}</Text>
-                  <Text>3 / 5</Text>
-                </View>
-                <View style={[{backgroundColor: '#DCE1B0'}, styles.tienTrinh]}>
-                  <View
-                    style={[
-                      {
-                        backgroundColor: '#090A0A',
-                        width: '60%',
-                        height: 10,
-                        borderRadius: 10,
-                      },
-                    ]}></View>
-                </View>
-              </View>
-              <View br4 ph3 pv3 style={styles.box2}>
-                <View
-                  mb2
-                  style={[
-                    styles.iconCover,
-                    {
-                      backgroundColor: colorSet.primaryBackground,
-                      width: iconsSize * 1.2,
-                      height: iconsSize * 1.2,
-                      borderWidth: 2,
-                      borderColor: colorSet.thirBackground,
-                    },
-                  ]}>
-                  <UmbrellaSvg
-                    color={colorSet.thirBackground}
-                    width={iconsSize}
-                    height={iconsSize}
-                  />
-                </View>
-                <Text h3 style={{color: colorSet.thirBackground}}>
-                  {localized('Chưa giải quyết')}
-                </Text>
-                <Text style={{color: colorSet.grey9}}>
-                  <Text style={{color: colorSet.grey9}} bold>
-                    06
-                  </Text>{' '}
-                  việc
-                </Text>
-              </View>
-              <View br4 ph3 pv3 style={styles.box3}>
-                <Text h3>{localized('Đã hủy')}</Text>
-                <Text style={{color: colorSet.grey9}}>
-                  <Text style={{color: colorSet.grey9}} bold>
-                    30
-                  </Text>{' '}
-                  việc
-                </Text>
-              </View>
+          <View>
+            <View mh5 mv5 style={styles.flexRow}>
+              <Pressable>
+                <Text h3>Lịch dạy</Text>
+              </Pressable>
+              <Pressable>
+                <Text h3>Kiểm tra</Text>
+              </Pressable>
+              <Pressable>
+                <Text h3>Đang làm</Text>
+              </Pressable>
             </View>
-            <View style={{flexDirection: 'column', gap: 16}}>
-              <View br4 ph3 pv3 style={styles.box4}>
-                <View
-                  mb3
-                  style={[
-                    styles.iconCover,
-                    {
-                      backgroundColor: colorSet.fifthBackground,
-                      width: iconsSize * 1.6,
-                      height: iconsSize * 1.6,
-                      borderWidth: 2,
-                      borderColor: colorSet.primaryText,
-                    },
-                  ]}>
-                  <LapTopSvg
-                    color={colorSet.primaryText}
-                    width={iconsSize}
-                    height={iconsSize}
-                  />
-                </View>
-                <View>
-                  <Text h3>{localized('Đang làm')}</Text>
-                  <Text style={{color: colorSet.grey0}}>
-                    <Text bold style={{color: colorSet.grey0}}>
-                      10
-                    </Text>{' '}
-                    việc
-                  </Text>
-                </View>
-              </View>
-              <View br4 ph3 pv3 style={styles.box5}>
-                <Text h3>{localized('Đã xong')}</Text>
-                <Text style={{color: colorSet.grey9}}>
-                  <Text bold style={{color: colorSet.grey9}}>
-                    12
-                  </Text>{' '}
-                  việc
-                </Text>
-              </View>
-            </View>
+            <View></View>
           </View>
           <HeadingBlock localized={localized} text={'Sắp tới'} />
           <View mh5 pl2 style={styles.notiContainer}>
@@ -310,9 +209,8 @@ export const HomeScreen = memo(props => {
               </View>
             </View>
           </View>
-          <HeadingBlock localized={localized} text={'Quản lý'} />
           <View ph5 mb6>
-            <QuanLy />
+            <QuanLy localized={localized} />
           </View>
         </ScrollView>
       </View>

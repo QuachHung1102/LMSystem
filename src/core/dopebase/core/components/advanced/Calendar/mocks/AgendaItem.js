@@ -100,12 +100,13 @@ const AgendaItem = ({item, date, switchActive, updateNotiState}) => {
       title: item.title,
       message: `${item.class} - ${item.duration}`,
     });
+    console.log(`Điều hướng đến đánh giá`)
   };
 
   if (isEmpty(item)) {
     return (
       <View style={styles.emptyItem}>
-        <Text style={styles.emptyItemText}>No Events Planned Today</Text>
+        <Text style={styles.emptyItemText}>No Events Planned</Text>
       </View>
     );
   }

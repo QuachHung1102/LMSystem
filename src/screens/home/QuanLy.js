@@ -1,31 +1,48 @@
 import React from 'react';
-import { Image, FlatList, StyleSheet, Dimensions } from 'react-native';
-import { View, Text } from '../../core/dopebase';
-import { useOnboardingConfig } from '../../core/onboarding/hooks/useOnboardingConfig';
+import {Image, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text} from '../../core/dopebase';
+import {useOnboardingConfig} from '../../core/onboarding/hooks/useOnboardingConfig';
+import HeadingBlock from '../../components/HeadingBlock';
 
-const renderItem = ({ item }) => (
-  <View style={styles.itemContainer}>
+const renderItem = ({item}) => (
+  <TouchableOpacity style={styles.itemContainer}>
     <View pv4 ph4 style={styles.itemWrap}>
       <Image source={item.icon} style={styles.icon} />
     </View>
-    <Text mt1 numberOfLines={1} style={styles.text}>{item.text}</Text>
-  </View>
+    <Text mt1 numberOfLines={1} style={styles.text}>
+      {item.text}
+    </Text>
+  </TouchableOpacity>
 );
 
-const QuanLy = () => {
-  const { config } = useOnboardingConfig();
+const QuanLy = ({localized}) => {
+  const {config} = useOnboardingConfig();
   const quanLyData = config.onboardingConfig.quanLyData;
+  const lichData = config.onboardingConfig.lichData;
 
   return (
-    <FlatList
-      data={quanLyData}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-      numColumns={3}
-      contentContainerStyle={styles.listContainer}
-      columnWrapperStyle={styles.columnWrapper}
-      scrollEnabled={false}
-    />
+    <>
+      <HeadingBlock localized={localized} text={'Lịch'} />
+      <FlatList
+        data={quanLyData}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={3}
+        contentContainerStyle={styles.listContainer}
+        columnWrapperStyle={styles.columnWrapper}
+        scrollEnabled={false}
+      />
+      <HeadingBlock localized={localized} text={'Quản lý'} />
+      <FlatList
+        data={lichData}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={3}
+        contentContainerStyle={styles.listContainer}
+        columnWrapperStyle={styles.columnWrapper}
+        scrollEnabled={false}
+      />
+    </>
   );
 };
 
@@ -46,9 +63,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "#485A249C",
+    backgroundColor: '#485A249C',
     borderRadius: 20,
-    
   },
   icon: {
     width: 66,
@@ -57,7 +73,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    width: "75%",
+    width: '75%',
   },
 });
 
