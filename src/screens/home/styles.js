@@ -33,50 +33,12 @@ const dynamicStyles = (theme, appearance) => {
     headerLeftContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'space-between',
     },
     currentDate: {
       fontSize: 16,
       fontWeight: '700',
       lineHeight: 21,
-    },
-    box1: {
-      backgroundColor: colorSet.thirBackground,
-      width: width * 0.55,
-      height: width * 0.31,
-      borderWidth: 2,
-      borderColor: colorSet.thirBackground,
-    },
-    box2: {
-      backgroundColor: colorSet.primaryBackground,
-      width: width * 0.55,
-      height: width * 0.27,
-      borderWidth: 2,
-      borderColor: colorSet.thirBackground,
-    },
-    box3: {
-      backgroundColor: colorSet.forthBackground,
-      width: width * 0.55,
-      height: width * 0.2,
-      borderWidth: 2,
-      borderColor: colorSet.forthBackground,
-      justifyContent: 'space-around',
-    },
-    box4: {
-      backgroundColor: colorSet.fifthBackground,
-      width: width * 0.31,
-      height: width * 0.51,
-      borderWidth: 2,
-      borderColor: colorSet.fifthBackground,
-      justifyContent: 'space-between'
-    },
-    box5: {
-      backgroundColor: colorSet.thirBackground,
-      width: width * 0.31,
-      height: width * 0.31,
-      borderWidth: 2,
-      borderColor: colorSet.thirBackground,
-      justifyContent: 'center'
     },
     iconCover: {
       justifyContent: 'center',

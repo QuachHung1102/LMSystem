@@ -6,7 +6,7 @@ const CalendarStack = createStackNavigator();
 
 const CalendarStackNavigator = () => {
   return (
-    <CalendarStack.Navigator initialRouteName="CalendarFilters">
+    <CalendarStack.Navigator initialRouteName="CalendarScreen">
       <CalendarStack.Group
         screenOptions={{
           headerShown: true,

@@ -1,5 +1,6 @@
 import React, {memo, useEffect, useState, useMemo} from 'react';
-import {Dimensions, ScrollView, Alert, Pressable} from 'react-native';
+import {Avatar} from 'react-native-paper';
+import {Dimensions, ScrollView, Alert} from 'react-native';
 import {
   View,
   Text,
@@ -22,12 +23,28 @@ import {
   getCurrentDateFormatted,
 } from '../../core/helpers/timeFormat';
 import HeadingBlock from '../../components/HeadingBlock';
+import AgendaListComponent from './AgendaListComponent';
 import {UmbrellaSvg, LapTopSvg, StatusDotSvg} from '../../assets/images/svg';
 
 import menuIcon from '../../assets/icons/menu1x.png';
 import QuanLy from './QuanLy';
+import updateDeviceStorage from '../../core/helpers/updateDeviceStorage';
 
 const {width, height} = Dimensions.get('window');
+
+const fetchData = async setItems => {
+  try {
+    const data = await updateDeviceStorage.getStoreData('agendaItems');
+    if (Array.isArray(data)) {
+      setItems(data);
+    } else {
+      setItems([]);
+    }
+  } catch (error) {
+    console.error('Error fetching agenda items:', error);
+    setItems([]);
+  }
+};
 
 export const HomeScreen = memo(props => {
   const {navigation} = props;
@@ -37,11 +54,14 @@ export const HomeScreen = memo(props => {
   const {theme, appearance} = useTheme();
   const colorSet = theme.colors[appearance];
   const styles = dynamicStyles(theme, appearance);
-  const iconsSize = Dimensions.get('screen').width * 0.07;
   const statusDotSize = useMemo(() => width * 0.07, []);
 
+  const [items, setItems] = useState([]);
+  const [todayData, setTodayData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [profilePictureFile, setProfilePictureFile] = useState(null);
+  const [isActive, setIsActive] = useState();
+  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
+  // const [profilePictureFile, setProfilePictureFile] = useState(null);
   const [currentDate, setCurrentDate] = useState(null);
   const [text, setText] = useState('');
   const [truncateValue, setTruncateValue] = useState(7);
@@ -49,6 +69,20 @@ export const HomeScreen = memo(props => {
   const handlePress = () => {
     Alert.alert('Ố la la', 'This feature is not implemented yet');
   };
+
+  useEffect(() => {
+    fetchData(setItems);
+  }, []);
+
+  useEffect(() => {
+    if (items.length > 0) {
+      items.forEach(item => {
+        if (item.title === today) {
+          setTodayData(item);
+        }
+      });
+    }
+  }, [items]);
 
   useEffect(() => {
     const fetchCurrentDate = async () => {
@@ -93,6 +127,7 @@ export const HomeScreen = memo(props => {
       <View style={{flex: 1, backgroundColor: colorSet.primaryBackground}}>
         <View
           mt8
+          mb3
           ph5
           style={[
             styles.headerLeftContainer,
@@ -114,24 +149,10 @@ export const HomeScreen = memo(props => {
             onChangeText={setText}
             containerStyle={{height: Dimensions.get('window').height * 0.06}}
           />
-        </View>
-        <View style={styles.headerLeftContainer}>
-          <TouchableIcon
-            imageStyle={{
-              height: Dimensions.get('window').width * 0.15,
-              width: Dimensions.get('window').width * 0.15,
-              borderWidth: 2,
-              borderRadius: 1000,
-              borderColor: colorSet.secondaryBackground,
-            }}
-            iconSource={theme.icons.userDefault}
+          <Avatar.Image
+            source={theme.icons.userDefault}
+            size={Dimensions.get('window').width * 0.13}
           />
-          <View>
-            <Text h4 style={styles.currentDate}>
-              Tên giáo viên - CN: 11A2 (K39)
-            </Text>
-            <Text>2012 - nay | Phụ trách: môn văn</Text>
-          </View>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           <HeadingBlock
@@ -173,20 +194,7 @@ export const HomeScreen = memo(props => {
               loading={false}
             />
           </View>
-          <View>
-            <View mh5 mv5 style={styles.flexRow}>
-              <Pressable>
-                <Text h3>Lịch dạy</Text>
-              </Pressable>
-              <Pressable>
-                <Text h3>Kiểm tra</Text>
-              </Pressable>
-              <Pressable>
-                <Text h3>Đang làm</Text>
-              </Pressable>
-            </View>
-            <View></View>
-          </View>
+          <AgendaListComponent todayData={todayData} />
           <HeadingBlock localized={localized} text={'Sắp tới'} />
           <View mh5 pl2 style={styles.notiContainer}>
             <View ph3 pv3 br4 style={styles.notiContent}>

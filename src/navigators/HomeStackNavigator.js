@@ -85,7 +85,7 @@ const MainStackNavigator = () => {
           },
           tabBarLabel: () => null,
         })}
-        initialRouteName="Lich">
+        initialRouteName="Home">
         <MainStack.Group
           screenOptions={{
             headerShown: false,
