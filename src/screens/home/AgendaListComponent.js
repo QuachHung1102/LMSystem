@@ -3,6 +3,7 @@ import {Dimensions, FlatList, Pressable, StyleSheet} from 'react-native';
 import {View, Text, useTranslations, useTheme} from '../../core/dopebase';
 import dynamicStyles from './styles';
 import {getTimeFuture} from '../../core/helpers/timeFormat';
+import { isEmpty } from 'lodash';
 
 const AgendaListComponent = props => {
   const {todayData} = props;
@@ -12,7 +13,11 @@ const AgendaListComponent = props => {
   const colorSet = theme.colors[appearance];
 
   const _renderItem = ({item, index}) => {
-    console.log(item)
+    if (isEmpty(item)) {
+      return <View>
+        <Text>Không có dữ liệu</Text>
+      </View>
+    }
     const flag = getTimeFuture(new Date(), item.hour);
     return (
       <View ph5 pv3 br4 style={defaultStyle.itemBackground}>
@@ -21,7 +26,9 @@ const AgendaListComponent = props => {
             <Text h3>Kiểm tra</Text>
           </View>
           <View>
-            <Text pv1 ph2 br3 style={defaultStyle.lateText1}>{flag ? "Trong lớp" : "Đã qua"}</Text>
+            <Text pv1 ph2 br3 style={defaultStyle.lateText1}>
+              {flag ? 'Trong lớp' : 'Đã qua'}
+            </Text>
           </View>
         </View>
         <View mt1 style={defaultStyle.itemRow}>

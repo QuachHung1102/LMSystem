@@ -97,10 +97,10 @@ export const HomeScreen = memo(props => {
       }
     };
     fetchCurrentDate();
-    if (currentDate) {
+    if (currentDate && todayData) {
       setIsLoading(false);
     }
-  }, [currentDate]);
+  }, [currentDate, todayData]);
 
   useEffect(() => {
     if (!currentUser?.id) {
